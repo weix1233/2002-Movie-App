@@ -1,4 +1,4 @@
-package movie_info;
+package movie;
 
 public class Ticket{
 	public enum movieType { THREE_D, BLOCKBUSTER }
