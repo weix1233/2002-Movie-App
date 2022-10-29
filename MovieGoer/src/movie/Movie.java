@@ -5,12 +5,13 @@ public class Movie {
 	private String synopis;
 	private String director;
 	private String[] cast;
+	private int castPointer;
 
-	public Movie(String movieTitle, String synopis, String director, String[] cast) {
+	public Movie(String movieTitle, String synopis, String director, int numCast) {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
-		this.cast = cast;
+		String[] cast = new String[numCast];
 	}
 
 	public String getMovieTitle() {
@@ -40,9 +41,14 @@ public class Movie {
 	public String[] getCast() {
 		return cast;
 	}
-
-	public void setCast(String[] cast) {
-		this.cast = cast;
+	public void addCast(String cast) {
+		if(castPointer>this.cast.length-1) {
+			System.out.println("Already maximum number of cast");
+		}
+		else {
+			this.cast[castPointer] = cast;
+			castPointer++;
+		}
 	}
 
 }
