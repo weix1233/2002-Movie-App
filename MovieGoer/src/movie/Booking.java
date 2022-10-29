@@ -1,4 +1,4 @@
-package movie_info;
+package movie;
 
 import java.util.*;
 import java.time.*;
