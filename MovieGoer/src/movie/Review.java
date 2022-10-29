@@ -1,3 +1,4 @@
+package movie
 
 public class Review {
 	private String review;
