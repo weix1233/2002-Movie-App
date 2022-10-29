@@ -64,10 +64,4 @@ public class Ticket{
 	public void setSeat(Seat seat) {this.seat = seat;}
 	public void setTicketPrice(double ticketPrice) {this.ticketPrice = ticketPrice;}
 	
-}
-	
-	
-	
-    
-	
-    
+}    
