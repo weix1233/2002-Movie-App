@@ -1,6 +1,7 @@
 package movie;
 
 public class MovieListing {
+	public string testGIthubChange;
 	private enum screenType {
 		TWO_D, THREE_D
 	};
