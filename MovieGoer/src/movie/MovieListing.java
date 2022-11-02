@@ -2,30 +2,53 @@ package movie;
 
 public class MovieListing {
 
-	private enum screenType {
+	protected enum screenType {
 		TWO_D, THREE_D
 	};
 
-	private enum showingStatus {
+	protected enum showingStatus {
 		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
 	};
 
-	private enum ageRating {
+	protected enum ageRating {
 		PG, PG13, NC16, M18, R21
 	};
 
+	protected enum dayOfWeek {
+		MON, TUES, WED, THURS, FRI, SAT, SUN
+	};
+
+	private int movieListingID;
 	private Movie movie;
-	protected screenType type;
-	protected showingStatus status;
-	protected ageRating ageRate;
+	private screenType type;
+	private showingStatus status;
+	private ageRating ageRate;
+	private dayOfWeek day;
+	private int showtime;
+	private int cinemaHall;
 	private Review[] reviews;
 
-	public MovieListing(Movie movie, screenType type, showingStatus status, ageRating ageRate) {
+	public MovieListing(int movieListingID, Movie movie, screenType type, showingStatus status, ageRating ageRate,
+			dayOfWeek day, int showtime, int cinemaHall) {
+		this.movieListingID = movieListingID;
 		this.movie = movie;
 		this.type = type;
 		this.status = status;
 		this.ageRate = ageRate;
+		this.day = day;
+		this.showtime = showtime;
+		this.cinemaHall = cinemaHall;
 		Review[] reviews = new Review[1];
+	}
+
+	public int getMovieListingID() {
+		return movieListingID;
+	}
+
+	public void printListing() {
+		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
+				+ status.name() + " " + ageRate.name() + " " + day.name() + " " + Integer.toString(showtime) + " "
+				+ Integer.toString(cinemaHall));
 	}
 
 	public Movie getMovie() {
@@ -58,6 +81,38 @@ public class MovieListing {
 
 	public void setAgeRate(ageRating ageRate) {
 		this.ageRate = ageRate;
+	}
+
+	public dayOfWeek getDay() {
+		return day;
+	}
+
+	public void setDay(dayOfWeek day) {
+		this.day = day;
+	}
+
+	public int getShowtime() {
+		return showtime;
+	}
+
+	public void setShowtime(int showtime) {
+		this.showtime = showtime;
+	}
+
+	public int getCinemaHall() {
+		return cinemaHall;
+	}
+
+	public void setCinemaHall(int cinemaHall) {
+		this.cinemaHall = cinemaHall;
+	}
+
+	public Review[] getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Review[] reviews) {
+		this.reviews = reviews;
 	}
 
 	public double getOverallRating() {

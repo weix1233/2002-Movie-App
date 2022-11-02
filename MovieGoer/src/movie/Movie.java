@@ -1,5 +1,9 @@
 package movie;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 
 public class Movie {
@@ -9,15 +13,20 @@ public class Movie {
 	private String synopis;
 	@CsvBindByName
 	private String director;
-	@CsvBindByName
-	private String[] cast;
-	private int castPointer;
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
+	private List<String> cast;
+	// @CsvBindAndSplitByName(elementType = String.class, splitOn = ",")
+	// private String[] cast;
+	// private int castPointer;
 
-	public Movie(String movieTitle, String synopis, String director, int numCast) {
+	public Movie() {
+	};
+
+	public Movie(String movieTitle, String synopis, String director, List<String> cast) {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
-		// String[] cast = new String[numCast];
+		this.cast = cast;
 	}
 
 	public String getMovieTitle() {
@@ -44,17 +53,16 @@ public class Movie {
 		this.director = director;
 	}
 
-	public String[] getCast() {
+	public List<String> getCast() {
 		return cast;
 	}
 
-	public void addCast(String cast) {
-		if (castPointer > this.cast.length - 1) {
-			System.out.println("Already maximum number of cast");
-		} else {
-			this.cast[castPointer] = cast;
-			castPointer++;
-		}
-	}
+	/*
+	 * public String[] getCast() { return cast; }
+	 * 
+	 * public void addCast(String cast) { if (castPointer > this.cast.length - 1) {
+	 * System.out.println("Already maximum number of cast"); } else {
+	 * this.cast[castPointer] = cast; castPointer++; } }
+	 */
 
 }

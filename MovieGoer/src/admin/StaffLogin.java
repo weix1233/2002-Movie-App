@@ -17,6 +17,7 @@ public class StaffLogin {
 	@CsvBindByName
 	private String password;
 
+	// hashing algorithm with SHA256. Returns a String (hashed)
 	private static String hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -31,6 +32,7 @@ public class StaffLogin {
 		return hexString.toString();
 	}
 
+	// Login method to the Cinema system
 	public int validate() throws IllegalStateException, FileNotFoundException, NoSuchAlgorithmException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Login options\n1. Guest\n2. Member\n3. Admin\n");
@@ -40,7 +42,6 @@ public class StaffLogin {
 		case 1:
 			System.out.println("Welcome Guest!");
 			return choice;
-
 		case 2:
 			loginFile = "member.txt";
 			break;
@@ -51,6 +52,8 @@ public class StaffLogin {
 			System.out.println("Invalid input, defaulting to Guest!");
 			return 1;
 		}
+		// where the login credentials are stored. May need to modify based on where you
+		// store the files
 		String loginFilePath = "C:\\Users\\tanju\\Desktop\\movie\\" + loginFile;
 
 		int loginAttempts = 0;
@@ -68,7 +71,7 @@ public class StaffLogin {
 				System.out.println("Login failed, try again");
 				loginAttempts++;
 			}
-		} while (loginAttempts < 3);
+		} while (loginAttempts < 3); // if fail to login 3 times, the validate method will be callled by ControlPanel
 
 		return -1;
 
