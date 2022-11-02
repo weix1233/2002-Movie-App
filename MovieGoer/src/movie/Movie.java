@@ -1,9 +1,15 @@
 package movie;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class Movie {
+	@CsvBindByName
 	private String movieTitle;
+	@CsvBindByName
 	private String synopis;
+	@CsvBindByName
 	private String director;
+	@CsvBindByName
 	private String[] cast;
 	private int castPointer;
 
@@ -11,7 +17,7 @@ public class Movie {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
-		String[] cast = new String[numCast];
+		// String[] cast = new String[numCast];
 	}
 
 	public String getMovieTitle() {
@@ -41,11 +47,11 @@ public class Movie {
 	public String[] getCast() {
 		return cast;
 	}
+
 	public void addCast(String cast) {
-		if(castPointer>this.cast.length-1) {
+		if (castPointer > this.cast.length - 1) {
 			System.out.println("Already maximum number of cast");
-		}
-		else {
+		} else {
 			this.cast[castPointer] = cast;
 			castPointer++;
 		}
