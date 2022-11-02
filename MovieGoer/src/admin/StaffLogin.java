@@ -1,31 +1,19 @@
 package admin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import com.opencsv.bean.CsvBindByName;
 
-public class StaffLogin implements Login {
-	public Boolean validate(String username, String password) {
-		Scanner sc;
-		try {
-			// Location of the login credentials
-			sc = new Scanner(new File("C:\\Users\\tanju\\Desktop\\login.csv"));
-			// comma is the delimiter pattern, since we use csv
-			sc.useDelimiter(",");
-			String user = sc.next().trim();
-			String pass = sc.next().trim();
-			if (user.equals(username) && pass.equals(password)) {
-				System.out.println("Login successful");
-				return true;
-			}
-			System.out.println("Login failed");
-			return false;
+public class StaffLogin {
+	@CsvBindByName
+	private String username;
+	@CsvBindByName
+	private String password;
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	public String getUsername() {
+		return username;
+	}
 
-		return false;
+	public String getPassword() {
+		return password;
 	}
 
 }

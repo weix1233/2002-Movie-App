@@ -1,5 +1,7 @@
 package admin;
 
+import java.io.FileNotFoundException;
+
 public interface Login {
-	public Boolean validate(String username, String password);
+	public Boolean validate() throws IllegalStateException, FileNotFoundException;
 }

@@ -1,50 +1,34 @@
 package admin;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.List;
 import java.util.Scanner;
 
-import movie.MovieListing;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class ControlPanel {
-	private MovieListing[] listing;
+	// private MovieListing[] listing;
 
-	private void WelcomeBanner() {
+	private static void WelcomeBanner() {
 		System.out.println("Welcome to the movie admin console. You can edit movie information here");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IllegalStateException, FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
-		StaffLogin sl = new StaffLogin();
-		String username = "";
-		String password = "";
-		Boolean login = false;
-		do {
-			System.out.print("Enter username: ");
-			username = sc.next();
-			System.out.print("Enter password: ");
-			password = sc.next();
-			login = sl.validate(username, password);
-		} while (login == false);
+		System.out.print("Enter username: ");
+		String user = sc.next();
+		System.out.print("Enter password: ");
+		String pass = sc.next();
+		List<StaffLogin> beans;
 
-		int choice = 0;
-		while (true) {
-			System.out.println(
-					"Available options\n1. Modify movie listings \n2. Modify cinema showtimes\n3. Modify screening movies\n");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				System.out.println(
-						"Available options\n1. Create new movie listing\n2. Update current movie listing\n3. Remove a movie listing\n");
-				choice = sc.nextInt();
-				switch (choice) {
-
-				}
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			}
+		beans = new CsvToBeanBuilder(new FileReader("C:\\Users\\tanju\\Desktop\\my.txt")).withType(StaffLogin.class)
+				.build().parse();
+		if (user.equals(beans.get(0).getUsername()) && pass.equals(beans.get(0).getPassword())) {
+			System.out.println("Login success");
+		} else {
+			System.out.println("Login fail");
 		}
-
 	}
+
 }
