@@ -1,15 +1,16 @@
 package admin;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.opencsv.bean.CsvToBeanBuilder;
-
 import movie.Movie;
+import movie.MovieListing;
+import movie.MovieListingControl;
 
 public class ControlPanel {
+	private static List<MovieListing> mls;
 
 	private static void WelcomeBanner() {
 		System.out.println("Welcome to the movie admin console. You can edit movie information here");
@@ -36,18 +37,27 @@ public class ControlPanel {
 			break;
 		case 3:
 			// admin
-			System.out.println("Find a movie!");
-			String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.txt";
-			List<Movie> beans = new CsvToBeanBuilder(new FileReader(movieFilePath)).withType(Movie.class).build()
-					.parse();
-			String watch = "Life Of Pi";
-			Movie ref = null;
-			for (int i = 0; i < beans.size(); i++) {
-				if (watch.equals(beans.get(i).getMovieTitle())) {
-					ref = beans.get(i);
-				}
+			System.out.println("List movie!");
+			MovieListingControl mc = new MovieListingControl();
+			List<Movie> beans = mc.listMovieTitles();
+			System.out.println("Adding a movie listing");
+			mls = new ArrayList<MovieListing>();
+			mls.add(mc.createMovieListing(beans, mls.size()));
+			mls.add(mc.createMovieListing(beans, mls.size()));
+
+			System.out.println("Available movie listings");
+			System.out.println("Movie Title | Screen Type | Show Status | Age Rating | Day | Show Time | Cinema Hall");
+			for (int i = 0; i < mls.size(); i++) {
+				mls.get(i).printListing();
 			}
-			System.out.println(ref.getCast());
+
+			System.out.println("Update movie listings");
+			mc.updateMovieListing(mls, 0);
+			mc.updateMovieListing(mls, 1);
+
+			for (int i = 0; i < mls.size(); i++) {
+				mls.get(i).printListing();
+			}
 			break;
 		}
 	}
