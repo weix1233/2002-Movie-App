@@ -9,10 +9,6 @@ public class MovieListing {
 		TWO_D, THREE_D
 	};
 
-	protected enum showingStatus {
-		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
-	};
-
 	protected enum ageRating {
 		PG, PG13, NC16, M18, R21
 	};
@@ -24,19 +20,18 @@ public class MovieListing {
 	private int movieListingID;
 	private Movie movie;
 	private screenType type;
-	private showingStatus status;
 	private ageRating ageRate;
 	private dayOfWeek day;
 	private int showtime;
 	private int cinemaHall;
 	private Seat[][] seat = new Seat[9][13];
 
-	public MovieListing(int movieListingID, Movie movie, screenType type, showingStatus status, ageRating ageRate,
+	public MovieListing(int movieListingID, Movie movie, screenType type, ageRating ageRate,
 			dayOfWeek day, int showtime, int cinemaHall) {
 		this.movieListingID = movieListingID;
 		this.movie = movie;
 		this.type = type;
-		this.status = status;
+		
 		this.ageRate = ageRate;
 		this.day = day;
 		this.showtime = showtime;
@@ -49,7 +44,7 @@ public class MovieListing {
 
 	public void printListing() {
 		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
-				+ status.name() + " " + ageRate.name() + " " + day.name() + " " + Integer.toString(showtime) + " "
+				+ ageRate.name() + " " + day.name() + " " + Integer.toString(showtime) + " "
 				+ Integer.toString(cinemaHall));
 	}
 
@@ -67,14 +62,6 @@ public class MovieListing {
 
 	public void setType(screenType type) {
 		this.type = type;
-	}
-
-	public showingStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(showingStatus status) {
-		this.status = status;
 	}
 
 	public ageRating getAgeRate() {

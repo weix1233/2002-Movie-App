@@ -7,6 +7,9 @@ import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 
 public class Movie {
+	protected enum showingStatus {
+		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
+	};
 	@CsvBindByName
 	private String movieTitle;
 	@CsvBindByName
@@ -19,15 +22,18 @@ public class Movie {
 	// private String[] cast;
 	// private int castPointer;
 	private List<Review> reviews = new ArrayList<Review>();
-
+	private showingStatus status;
+	private int saleCounter;
 	public Movie() {
 	};
 
-	public Movie(String movieTitle, String synopis, String director, List<String> cast) {
+	public Movie(String movieTitle, String synopis, String director, List<String> cast, showingStatus status) {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
 		this.cast = cast;
+		this.status = status;
+		saleCounter = 0;
 	}
 
 	public String getMovieTitle() {
@@ -49,7 +55,15 @@ public class Movie {
 	public String getDirector() {
 		return director;
 	}
+	
+	public showingStatus getStatus() {
+		return status;
+	}
 
+	public void setStatus(showingStatus status) {
+		this.status = status;
+	}
+	
 	public void setDirector(String director) {
 		this.director = director;
 	}
@@ -82,6 +96,15 @@ public class Movie {
 	public void addReview(Review review) {
 		reviews.add(review);
 	}
+	
+	public int getSales() {
+		return this.saleCounter;
+	}
+	
+	public void addSales() {
+		this.saleCounter++;
+	}
+	
 	/*
 	 * public String[] getCast() { return cast; }
 	 * 
