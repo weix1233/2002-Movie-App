@@ -48,7 +48,7 @@ public class MovieListing {
 	public int getMovieListingID() {
 		return movieListingID;
 	}
-
+// hi
 	public void printListing() {
 		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
 				+ status.name() + " " + ageRate.name() + " " + day.name() + " " + Integer.toString(showtime) + " "
