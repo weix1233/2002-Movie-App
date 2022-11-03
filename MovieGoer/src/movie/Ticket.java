@@ -1,55 +1,54 @@
 package movie;
 
+import movie.MovieListing.*;
+//import cinema class
+
 public class Ticket{
-	public enum movieType { TWO_D, THREE_D }
-	public enum cinemaClass { STANDARD, PLATINUM }
-	public enum dayType { WEEKDAY, WEEKEND, PH }
-	public enum ticketType { ADULT, SENIOR, CHILD }
-	private Seat seat;
+	protected enum ticketType { ADULT, SENIOR, CHILD }
+	
 	private double ticketPrice;
-	
-	private movieType movieType;
-	private cinemaClass cinemaClass;
 	private ticketType ticketType;
-	private dayType dayType;
 	
-	public Ticket(movieType movieType, cinemaClass cinemaClass, dayType dayType, Seat seat) {
-    	this.movieType = movieType;
-    	this.cinemaClass = cinemaClass;
-    	this.dayType = dayType;
-    	this.seat = seat;
+	private screenType type;
+	private dayOfWeek day;
+	private int showtime;
+	
+	public Ticket(ticketType ticketType, double ticketPrice) {
+    	this.ticketType = ticketType;
+    	this.ticketPrice = ticketPrice;
     }
 	
 	//Get methods
-	public movieType getMovieType() {return movieType;}
-	public cinemaClass getCinemaClass() {return cinemaClass;}
 	public ticketType getTicketType() {return ticketType;}
-	public dayType getdayType() {return dayType;}
-	public Seat getSeat() {return seat;}
 	public double getTicketPrice() {
-		double basePrice = 0.0;
+		double basePrice = 5.0;
 		
 		//arbitrary price setting
-		if(movieType == movieType.TWO_D) {
+		if(type == type.TWO_D) {
 			basePrice += 2.0;
 		} else basePrice += 4.0;
-		
+				
 		if(cinemaClass == cinemaClass.STANDARD) {
 			basePrice += 2.0;
 		} else basePrice += 4.0;
+				
+		if(day == day.FRI) {
+			if(showtime < 1800) basePrice += 1.0;
+			else basePrice += 2.0;
+		} else if (day == day.SAT || day == day.SUN) {
+			basePrice += 2.0;
+		} else if (day == day.PH) {
+			basePrice += 4.0;
+		} else {
+			if(ticketType == ticketType.SENIOR) {
+				basePrice -= 4.0;
+			} else if (ticketType == ticketType.CHILD) {
+				basePrice -= 2.0;
+			} else basePrice += 0.0;
+		}
 		
-		if(dayType == dayType.WEEKDAY) {
-			basePrice += 3.0;
-		} else if (dayType == dayType.WEEKEND) {
-			basePrice += 6.0;
-		} else basePrice += 9.0;
-		
-		if(ticketType == ticketType.SENIOR) {
-			basePrice -= 2.0;
-		} else if (ticketType == ticketType.CHILD) {
-			basePrice += 1.0;
-		} else basePrice += 2.0;
-		
+		//add GST
+		basePrice = 1.07 * basePrice;
 		//round to 2dp
 		ticketPrice = Math.round(basePrice * 100.0) / 100.0;
 		
@@ -57,11 +56,39 @@ public class Ticket{
 	}
 	
 	//Set methods
-	public void setMovieType(movieType movieType) {this.movieType = movieType;}
-	public void setCinemaClass(cinemaClass cinemaClass) {this.cinemaClass = cinemaClass;}
 	public void setTicketType(ticketType ticketType) {this.ticketType = ticketType;}
-	public void setdayType(dayType dayType) {this.dayType = dayType;}
-	public void setSeat(Seat seat) {this.seat = seat;}
 	public void setTicketPrice(double ticketPrice) {this.ticketPrice = ticketPrice;}
+	
+	public void showStandardPrices() {
+		System.out.println("Current ticket prices for Standard cinema class: ");
+		System.out.println("=================================================");
+		System.out.println("Ticket type          2D Movies    3D Mvoies");
+		System.out.println("Senior Citizens*     $5.00		  $7.00");
+		System.out.println("Students**           $7.00		  $9.00");
+		System.out.println("Mon - Thu	         $9.00		  $11.00");
+		System.out.println("Fri (before 6pm)     $10.00		  $12.00");
+		System.out.println("Fri (from 6pm)       $11.00		  $13.00");
+		System.out.println("Sat & Sun 	         $11.00		  $13.00");
+		System.out.println("Public Holidays      $13.00		  $15.00");
+		System.out.println("=================================================");
+		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
+		System.out.println("**valid from Mon-Thu only");
+	}
+	
+	public void showPlatiumPrices() {
+		System.out.println("Current ticket prices for Platium cinema class: ");
+		System.out.println("=================================================");
+		System.out.println("Ticket type          2D Movies    3D Mvoies");
+		System.out.println("Senior Citizens*     $7.00		  $9.00");
+		System.out.println("Students**           $9.00		  $11.00");
+		System.out.println("Mon - Thu	         $11.00		  $13.00");
+		System.out.println("Fri (before 6pm)     $12.00		  $14.00");
+		System.out.println("Fri (from 6pm)       $13.00		  $15.00");
+		System.out.println("Sat & Sun 	         $13.00		  $15.00");
+		System.out.println("Public Holidays      $15.00		  $17.00");
+		System.out.println("=================================================");
+		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
+		System.out.println("**valid from Mon-Thu only");
+	}
 	
 }    
