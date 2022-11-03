@@ -1,5 +1,8 @@
 package movie;
 
+import java.util.Scanner;
+import movie.Seat;
+
 public class MovieListing {
 
 	protected enum screenType {
@@ -15,7 +18,7 @@ public class MovieListing {
 	};
 
 	protected enum dayOfWeek {
-		MON, TUES, WED, THURS, FRI, SAT, SUN
+		MON, TUES, WED, THURS, FRI, SAT, SUN, PH
 	};
 
 	private int movieListingID;
@@ -26,7 +29,7 @@ public class MovieListing {
 	private dayOfWeek day;
 	private int showtime;
 	private int cinemaHall;
-	private Review[] reviews;
+	private Seat[][] seat = new Seat[9][13];
 
 	public MovieListing(int movieListingID, Movie movie, screenType type, showingStatus status, ageRating ageRate,
 			dayOfWeek day, int showtime, int cinemaHall) {
@@ -38,7 +41,6 @@ public class MovieListing {
 		this.day = day;
 		this.showtime = showtime;
 		this.cinemaHall = cinemaHall;
-		Review[] reviews = new Review[1];
 	}
 
 	public int getMovieListingID() {
@@ -106,34 +108,29 @@ public class MovieListing {
 	public void setCinemaHall(int cinemaHall) {
 		this.cinemaHall = cinemaHall;
 	}
-
-	public Review[] getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(Review[] reviews) {
-		this.reviews = reviews;
-	}
-
-	public double getOverallRating() {
-		double total = 0;
-		for (int i = 0; i < reviews.length; i++) {
-			total = total + reviews[i].getRating();
+	
+	public void showSeats(){
+		char base = 'A';
+		Scanner sc = new Scanner(System.in);
+		System.out.println("===================Screen================");
+		for(int i=0; i<9; i++) {
+			char rowLetter = (char)((int)base + i);
+			System.out.printf("%c ", rowLetter);
+			for(int j=0; j<13; j++) {
+				if(j==6) { System.out.printf("   "); }
+				else { System.out.printf("%s", seat[i-1][j-1].seatSlot()); }
+			}
+			System.out.printf("\n");
 		}
-		return Math.round(total / reviews.length * 10) / 10;
+		System.out.println("=================Entrance================");	
 	}
-
-	public void displayReviews() {
-		for (int i = 0; i < reviews.length; i++) {
-			System.out.println(reviews[i].getReview());
-		}
+	
+	public void updateSeats(int row, int col, int custId) {
+		if (!seat[row-1][col-1].isOccupied()){
+            seat[row-1][col-1].assign(custId);
+            System.out.println("Seat assigned!");
+        }
+        else
+            System.out.println("Seat already assigned to a customer.");
 	}
-
-	public void addReview(Review review) {
-		Review[] temp = new Review[reviews.length + 1];
-		System.arraycopy(reviews, 0, temp, 0, reviews.length);
-		temp[temp.length - 1] = review;
-		reviews = temp;
-	}
-
 }
