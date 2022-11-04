@@ -16,6 +16,12 @@ public class StaffLogin {
 	private String username;
 	@CsvBindByName
 	private String password;
+	@CsvBindByName
+	private String name;
+	@CsvBindByName
+	private int mobileNo;
+	@CsvBindByName
+	private String email;
 
 	// hashing algorithm with SHA256. Returns a String (hashed)
 	private static String hashPassword(String password) throws NoSuchAlgorithmException {
