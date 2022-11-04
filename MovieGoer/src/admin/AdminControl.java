@@ -28,10 +28,15 @@ public class AdminControl {
 	}
 
 	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\tanju\\Desktop\\database\\cinema\\cinema.csv";
-		String hallFileName = "C:\\User\\tanju\\Desktop\\database\\cinema\\";
+		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+		String hallFileName = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\database\\cinema";
 		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
 				.parse();
+		for(int i = 0;i < cinemaBeans.size();i++)
+		System.out.printf("Name: %s, ID: %s\nAST: %s\nST: %s\n ", cinemaBeans.get(i).getName(),
+				cinemaBeans.get(i).getCinemaID(),
+				cinemaBeans.get(i).getAST(),
+				cinemaBeans.get(i).getST());
 		/*
 		 * System.out.
 		 * print("Choose Location\n(1) Jurong CV (2) Punggol CV (3) Sengkang CV: "); int
