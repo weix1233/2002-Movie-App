@@ -29,6 +29,10 @@ public class Booking {
 
 	public void displayBooking() {
 		Scanner sc = new Scanner(System.in);
+		if (movieListing.getMovie().getShowingStatus() == "END_OF_SHOWING") {
+			System.out.println("Movie is not available for showing.");
+			return;
+		}
 		System.out.println("=========================================");
 		System.out.println("Ticket prices: ");
 		if (cinema.getIP() == false)
