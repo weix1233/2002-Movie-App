@@ -15,7 +15,9 @@ public class Ticket {
 	private int row;
 	private int col;
 
-	public Ticket(ticketType ticType, int row, int col) {
+	public Ticket(Cinema cinema, MovieListing movieListing, ticketType ticType, int row, int col) {
+		this.cinema = cinema;
+		this.movieListing = movieListing;
 		this.ticType = ticType;
 		this.row = row;
 		this.col = col;
@@ -106,10 +108,5 @@ public class Ticket {
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-
-	public void ticketReceipt() {
-		movieListing.printListing();
-		System.out.println("Seat: " + (char) row + col);
-	}
-
+	
 }
