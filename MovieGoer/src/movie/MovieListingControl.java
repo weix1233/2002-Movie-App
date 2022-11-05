@@ -7,12 +7,11 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import movie.MovieListing.ageRating;
 import movie.MovieListing.dayOfWeek;
 import movie.MovieListing.screenType;
-import movie.MovieListing.showingStatus;
 
 public class MovieListingControl implements MovieListingInterface {
+	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);
 	String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.csv";
 
@@ -38,44 +37,6 @@ public class MovieListingControl implements MovieListingInterface {
 		default:
 			System.out.println("Error in choice, defaulting to 2D");
 			return screenType.TWO_D;
-		}
-	}
-
-	public showingStatus chooseShowingStatus() {
-		System.out.print("Choose showing status\n(1) COMING_SOON (2) PREVIEW (3) NOW_SHOWING (4) END_OF_SHOWING: ");
-		int c = sc.nextInt();
-		switch (c) {
-		case 1:
-			return showingStatus.COMING_SOON;
-		case 2:
-			return showingStatus.PREVIEW;
-		case 3:
-			return showingStatus.NOW_SHOWING;
-		case 4:
-			return showingStatus.END_OF_SHOWING;
-		default:
-			System.out.println("Error in choice, defaulting to COMING_SOON");
-			return showingStatus.COMING_SOON;
-		}
-	}
-
-	public ageRating chooseAgeRating() {
-		System.out.print("Choose age rating\n(1) PG (2) PG13 (3) NC16 (4) M18 (5) R21: ");
-		int c = sc.nextInt();
-		switch (c) {
-		case 1:
-			return ageRating.PG;
-		case 2:
-			return ageRating.PG13;
-		case 3:
-			return ageRating.NC16;
-		case 4:
-			return ageRating.M18;
-		case 5:
-			return ageRating.R21;
-		default:
-			System.out.println("Error input, temporarily assigned PG");
-			return ageRating.PG;
 		}
 	}
 
@@ -115,21 +76,17 @@ public class MovieListingControl implements MovieListingInterface {
 		}
 	}
 
-	public MovieListing createMovieListing(List<Movie> beans, int lengthOfList) {
+	public void createMovieListing(List<Movie> beans, int lengthOfList) {
 		System.out.print("\nEnter the number of movie to create: ");
 		int pos = sc.nextInt();
 		int c = 0;
 		Movie mv = beans.get(pos);
 		screenType st = chooseScreenType();
-		showingStatus ss = chooseShowingStatus();
-		ageRating age = chooseAgeRating();
 		int cinemaHall = chooseCinemaHall();
 		int showtime = chooseShowTime();
 		dayOfWeek day = chooseDay();
-		MovieListing ml = new MovieListing(lengthOfList, mv, st, ss, age, day, showtime, cinemaHall);
-		return ml;
+		
 	}
-	// PG, PG13, NC16, M18, R21
 
 	@Override
 	public MovieListing addMovieListing(MovieListing listing) {
@@ -152,23 +109,23 @@ public class MovieListingControl implements MovieListingInterface {
 		int choice = 0;
 		while (true) {
 			System.out.print(
-					"Enter setting to change\n(1) Screen Type (2) Showing Status (3) Age Rating (4) Cinema Hall (5) Show Time (6) Day of Listing (7) Exit: ");
+					"Enter setting to change\n(1) Screen Type (4) Cinema Hall (5) Show Time (6) Day of Listing (7) Exit: ");
 			choice = sc.nextInt();
 			switch (choice) {
 			case 1:
 				ml.setType(chooseScreenType());
 				break;
 			case 2:
-				ml.setStatus(chooseShowingStatus());
+				// ml.setStatus(chooseShowingStatus());
 				break;
 			case 3:
-				ml.setAgeRate(chooseAgeRating());
+				// ml.setAgeRate(chooseAgeRating());
 				break;
 			case 4:
-				ml.setCinemaHall(chooseCinemaHall());
+				//ml.setCinemaHall(chooseCinemaHall());
 				break;
 			case 5:
-				ml.setShowtime(chooseShowTime());
+				//ml.setShowtime(chooseShowTime());
 				break;
 			case 6:
 				ml.setDay(chooseDay());
