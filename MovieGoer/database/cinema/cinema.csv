@@ -1,0 +1,5 @@
+cinemaID,name,halls,isPlatinum
+0, placeholder,1|120;11|12,FALSE
+1,jurong,"0|999|999,1|0900;1200|1600,2|1000;1200|1100",FALSE
+2,orchard,1|1230;1200|1230;1200;1450,TRUE
+3,yishun,1|1300;2000|1300;2000;2300,TRUE
