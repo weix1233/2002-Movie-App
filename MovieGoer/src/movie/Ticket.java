@@ -1,50 +1,52 @@
 package movie;
 
 import movie.MovieListing.*;
-//import cinema class
 
 public class Ticket{
 	protected enum ticketType { ADULT, SENIOR, CHILD }
 	
 	private double ticketPrice;
-	private ticketType ticketType;
+	private ticketType ticType;
+	private MovieListing movieListing;
+	private Cinema cinema;
+	private int row;
+	private int col;
 	
-	private screenType type;
-	private dayOfWeek day;
-	private int showtime;
-	
-	public Ticket(ticketType ticketType, double ticketPrice) {
-    	//need movie name, cinema hall, age rating, row, seat, 
-		this.ticketType = ticketType;
-    	this.ticketPrice = ticketPrice;
+	public Ticket(ticketType ticType, int row, int col) { 
+		this.ticType = ticType;
+    	//this.ticketPrice = ticketPrice;
+    	//this.movieListing = movieListing;
+    	//this.cinema = cinema;
+    	this.row = row;
+    	this.col = col;
     }
 	
 	//Get methods
-	public ticketType getTicketType() {return ticketType;}
+	public ticketType getTicType() {return ticType;}
 	
 	public double getTicketPrice() {
 		double basePrice = 5.0;
 		
 		//arbitrary price setting
-		if(type == type.TWO_D) {
+		if(movieListing.getType() == screenType.TWO_D) {
 			basePrice += 2.0;
 		} else basePrice += 4.0;
 				
-		if(cinemaClass == cinemaClass.STANDARD) {
+		if(cinema.isPlatium == false) {
 			basePrice += 2.0;
 		} else basePrice += 4.0;
 				
-		if(day == day.FRI) {
-			if(showtime < 1800) basePrice += 1.0;
+		if(movieListing.getDay() == dayOfWeek.FRI) {
+			if(movieListing.getShowtime() < 1800) basePrice += 1.0;
 			else basePrice += 2.0;
-		} else if (day == day.SAT || day == day.SUN) {
+		} else if (movieListing.getDay() == dayOfWeek.SAT || movieListing.getDay() == dayOfWeek.SUN) {
 			basePrice += 2.0;
-		} else if (day == day.PH) {
+		} else if (movieListing.getDay() == dayOfWeek.PH) {
 			basePrice += 4.0;
 		} else {
-			if(ticketType == ticketType.SENIOR) {
+			if(ticType == ticketType.SENIOR) {
 				basePrice -= 4.0;
-			} else if (ticketType == ticketType.CHILD) {
+			} else if (ticType == ticketType.CHILD) {
 				basePrice -= 2.0;
 			} else basePrice += 0.0;
 		}
@@ -58,7 +60,7 @@ public class Ticket{
 	}
 	
 	//Set methods
-	public void setTicketType(ticketType ticketType) {this.ticketType = ticketType;}
+	public void setTicketTypes(ticketType ticType) {this.ticType = ticType;}
 	public void setTicketPrice(double ticketPrice) {this.ticketPrice = ticketPrice;}
 	
 	public void showStandardPrices() {
@@ -91,6 +93,11 @@ public class Ticket{
 		System.out.println("=================================================");
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
+	}
+	
+	public void ticketReceipt() {
+		movieListing.printListing();
+		System.out.println("Seat: " + (char)row + col);
 	}
 	
 }    

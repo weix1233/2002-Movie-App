@@ -1,7 +1,6 @@
 package movie;
 
 import java.util.Scanner;
-import movie.Seat;
 
 public class MovieListing {
 

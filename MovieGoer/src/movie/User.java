@@ -2,17 +2,17 @@ package movie;
 
 public class User {
 	private String name;
-	private String customerId;
-	private String mobileNo;
+	private int customerID;
+	private int mobileNo;
 	private String email;
 		
-	public User(String name, String email, String mobileNo){	    	
+	public User(String name, String email, int mobileNo){	    	
 		this.email= email;	    	
 		this.mobileNo= mobileNo;	  
 		this.name= name;
 	}
 		
-	public String getMobileNo() {
+	public int getMobileNo() {
 		return mobileNo;
 	}
 		
@@ -28,11 +28,11 @@ public class User {
 		this.name = name;
 	}
 		
-	public String getCustomerId() {
-		return customerId;
+	public int getCustomerID() {
+		return customerID;
 	}
 		
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
 	}
 }
