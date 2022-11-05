@@ -17,17 +17,18 @@ public class MovieListing {
 	private Movie movie;
 	private screenType type;
 	private dayOfWeek day;
-	private int showtime;
-	private int cinemaHall;
-	private Seat[][] seat = new Seat[9][13];
+	private String showtime;
+	private int hallID;
+	private Review[] reviews;
 
-	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, int showtime, int cinemaHall) {
+	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
 		this.movieListingID = movieListingID;
 		this.movie = movie;
 		this.type = type;
 		this.day = day;
 		this.showtime = showtime;
-		this.cinemaHall = cinemaHall;
+		this.hallID = hallID;
+		Review[] reviews = new Review[1];
 	}
 
 	public int getMovieListingID() {
@@ -37,7 +38,7 @@ public class MovieListing {
 	public void printListing() {
 		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
 				+ movie.getShowingStatus() + " " + movie.getAgeRating() + " " + day.name() + " "
-				+ Integer.toString(showtime) + " " + Integer.toString(cinemaHall));
+				+ showtime + " " + Integer.toString(hallID));
 	}
 
 	public Movie getMovie() {
@@ -64,20 +65,20 @@ public class MovieListing {
 		this.day = day;
 	}
 
-	public int getShowtime() {
+	public String getShowtime() {
 		return showtime;
 	}
 
-	public void setShowtime(int showtime) {
+	public void setShowtime(String showtime) {
 		this.showtime = showtime;
 	}
 
-	public int getCinemaHall() {
-		return cinemaHall;
+	public int getHallID() {
+		return hallID;
 	}
 
-	public void setCinemaHall(int cinemaHall) {
-		this.cinemaHall = cinemaHall;
+	public void setCinemaHall(int hallID) {
+		this.hallID = hallID;
 	}
 	
 	public void showSeats(){

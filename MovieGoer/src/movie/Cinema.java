@@ -8,11 +8,11 @@ import com.opencsv.bean.CsvBindByName;
 
 public class Cinema {
 	@CsvBindByName
-	protected String name;
+	private String name;
 	@CsvBindAndSplitByName(elementType = Hall.class, collectionType = ArrayList.class, splitOn = "," , converter = TextToHall.class)
 	private List<Hall> halls;
-
-	public Cinema(String name, List<Hall> halls) {
+	
+	public Cinema(List<Hall> halls, String name) {
 		this.name = name;
 		this.halls = halls;
 	}
@@ -24,13 +24,19 @@ public class Cinema {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getCinemaID() {
-		return halls.get(0).cinemaID;
+	public List<Integer> getHallID() {
+		List<Integer> hallID = new ArrayList<Integer>();
+		for(int i = 0;i < halls.size();i++) {
+			hallID.add(halls.get(i).getHallID());
+		}
+		return hallID;
 	}
-	public String getAST() {
-		return halls.get(0).getAvailableShowTimes();
+	
+	public List<String> getsAST(int hallID){
+		return halls.get(hallID).getAvailableShowTimes();
 	}
-	public String getST() {
-		return halls.get(0).getShowTimes();
+	
+	public List<String> getST(int hallID){
+		return halls.get(hallID).getShowTimes();
 	}
 }

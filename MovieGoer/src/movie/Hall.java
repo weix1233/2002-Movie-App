@@ -8,14 +8,15 @@ import com.opencsv.bean.CsvBindByName;
 
 public class Hall {
 	@CsvBindByName
-	protected String cinemaID;
+	protected int hallID;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> availableShowTimes;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> showTimes;
+	private List<MovieListing> ml = new ArrayList<MovieListing>();
 
-	public Hall(String cinemaID, List<String> availableShowTimes, List<String> showTimes) {
-		this.cinemaID = cinemaID;
+	public Hall(int hallID, List<String> availableShowTimes, List<String> showTimes) {
+		this.hallID = hallID;
 		this.availableShowTimes = availableShowTimes;
 		this.showTimes = showTimes;
 	}
@@ -23,23 +24,20 @@ public class Hall {
 	public Hall() {
 		// TODO Auto-generated constructor stub
 	}
-	public String getCinemaID() {
-		return this.cinemaID;
+	public int getHallID() {
+		return this.hallID;
 	}
-	public String getAvailableShowTimes(){
-		String print = new String();
-		for(int i = 0;i < this.showTimes.size(); i++)
-			print = print + this.showTimes.get(i);
-		return print;
+	
+	public List<String> getAvailableShowTimes(){
+		return availableShowTimes;
 	}
-	public String getShowTimes(){
-		String print = new String();
-		for(int i = 0;i < this.showTimes.size(); i++)
-			print = print + this.showTimes.get(i);
-		return print;
+	
+	public List<String> getShowTimes(){
+		return showTimes;
 	}
-	public void setCinemaID(String id) {
-		this.cinemaID = id;
+	
+	public void setHallID(int split) {
+		this.hallID = split;
 	}
 	public void setAvailableShowTimes(String ast) {
 		List<String> s = new ArrayList<String>();
