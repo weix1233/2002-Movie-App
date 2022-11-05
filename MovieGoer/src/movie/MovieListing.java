@@ -17,7 +17,6 @@ public class MovieListing {
 	private String showtime;
 	private int hallID;
 	private Review[] reviews;
-	private Seat[][] seat;
 
 	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
 		this.movieListingID = movieListingID;

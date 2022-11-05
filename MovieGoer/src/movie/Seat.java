@@ -7,7 +7,6 @@ public class Seat{
     private final int col;
     private boolean assigned;
     private String seatID;
-    private int customerID;
 
     public Seat(int row, int col) {
         this.row = row;
@@ -27,16 +26,11 @@ public class Seat{
         return seatID;
     }
 	
-	public int getCustomerID() {
-		return customerID;
-	}
-	
 	public boolean isOccupied() {
 		return assigned;
 	}
 	
-	public void assign(int cust_ID) {
-		customerID = cust_ID;
+	public void assign() {
 		assigned = true;
 	}
 	
