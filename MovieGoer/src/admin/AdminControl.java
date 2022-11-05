@@ -29,8 +29,9 @@ public class AdminControl {
 	}
 	
 	private void getCinemaInfo(List<Cinema> beans, int c) {
-		System.out.println("isPlatnimum: " + beans.get(c).getIP());
+		System.out.printf("Cinema ID: %s\n", beans.get(c).getCinemaID());
 		System.out.printf("Name: %s\n", beans.get(c).getName());
+		System.out.println("isPlatnimum: " + beans.get(c).getIP());
 		for(int j = 0;j < beans.get(c).getHallID().size(); j++) {
 			System.out.println("Hall " + beans.get(c).getHallID().get(j));
 			System.out.println("Available Show Times: " + beans.get(c).getsAST(j));
@@ -40,9 +41,12 @@ public class AdminControl {
 	}
 
 	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App-branch\\MovieGoer\\database\\cinema\\cinema.csv";
-		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
-				.parse();
+		String cinemaFileName = "C:\\Users\\hue\\Desktop\\database\\cinema\\cinema.csv";
+		String movieFileName = "C:\\Users\\hue\\Desktop\\database\\movie\\movie.csv";
+		Cinema cinema = new Cinema();
+		Movie movie = new Movie();
+		List<Cinema> cinemaBeans = cinema.getCinemaList(cinemaFileName);
+		List<Movie> movieBeans = movie.getMovieList(movieFileName);
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		getCinemaInfo(cinemaBeans, locationID);
@@ -51,12 +55,24 @@ public class AdminControl {
 		
 		System.out.print("Select cinema hall number (1 ~ 3): ");
 		int hallID = sc.nextInt();
-		
-		System.out.println("Select option\n(1) Add movie listing (2) Remove movie listing (3) Update movie listing (4) List current movie listing: ");
+		System.out.print("Select option\n(1) Add movie listing (2) Remove movie listing (3) Update movie listing (4) List current movie listing: ");
 		MovieListingControl mc = new MovieListingControl();
+		//List<MovieListing> hallMovieListing = cinemaBeans.get(locationID).getMovieList(hallID);
 		int option = sc.nextInt();
-		
-		
-		
+		switch(option) {
+		case 1:
+			movie.printCurrentMovieList(movieBeans);
+			System.out.println("\nChoose movie to add (Number): ");
+			int moviePos = sc.nextInt();
+			dayOfWeek day = mc.chooseDay();
+			List<String> availableTiming = cinemaBeans.get(locationID).getAST(hallID); 
+			System.out.println("\nChoose available showing time");
+			for(int i = 0; i < availableTiming.size();i++) {
+				System.out.println(Integer.toString(i+1) + ". " + availableTiming.get(i));
+			}
+			int pos = sc.nextInt() - 1;
+			break;
+		default:
+		}
 	}
 }
