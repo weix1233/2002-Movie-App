@@ -103,11 +103,11 @@ public class Movie {
 		this.saleCounter++;
 	}
 	
-	public showingStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(showingStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	/*
