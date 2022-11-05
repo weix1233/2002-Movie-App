@@ -12,10 +12,10 @@ public class SortTop {
 
 	public void sortByRating() {
 		double curMax = 0;
-		Movie curTop = new Movie(); // PLEASE FIX PROPERLY
+		Movie curTop = movies.get(0);
 		double cur;
 		for (int j = 0; j < 5; j++) {
-			for (int i = 0; i < movies.size(); i++) {
+			for (int i = 1; i < movies.size(); i++) {
 				cur = movies.get(i).getOverallRating();
 				if (cur > curMax) {
 					curMax = cur;
@@ -24,15 +24,16 @@ public class SortTop {
 			}
 			System.out.printf("%d. %s", j + 1, curTop.getMovieTitle());
 			movies.remove(curTop);
+			curTop = movies.get(0);
 		}
 	}
 
 	public void sortBySales() {
 		int curMax = 0;
-		Movie curTop = new Movie(); // FIX THIS PROPERLY LATER
+		Movie curTop = movies.get(0); // FIX THIS PROPERLY LATER
 		int cur;
 		for (int j = 0; j < 5; j++) {
-			for (int i = 0; i < movies.size(); i++) {
+			for (int i = 1; i < movies.size(); i++) {
 				cur = movies.get(i).getSales();
 				if (cur > curMax) {
 					curMax = cur;
@@ -41,6 +42,7 @@ public class SortTop {
 			}
 			System.out.printf("%d. %s", j + 1, curTop.getMovieTitle());
 			movies.remove(curTop);
+			curTop = movies.get(0);
 		}
 	}
 }

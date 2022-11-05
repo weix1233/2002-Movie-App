@@ -8,6 +8,7 @@ import movie.Cinema;
 import movie.Movie;
 import movie.MovieListing.dayOfWeek;
 import movie.MovieListingControl;
+import movie.SortTop;
 
 public class AdminControl {
 	Scanner sc = new Scanner(System.in);
@@ -37,6 +38,10 @@ public class AdminControl {
 			System.out.println("Show Times: " + beans.get(c).getST(j));
 		}
 
+	}
+
+	public void sortPopularMovie(List<Movie> movieBeans) {
+		SortTop st = new SortTop(movieBeans);
 	}
 
 	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
