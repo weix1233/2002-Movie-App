@@ -8,14 +8,6 @@ public class MovieListing {
 		TWO_D, THREE_D
 	};
 
-	protected enum showingStatus {
-		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
-	};
-
-	protected enum ageRating {
-		PG, PG13, NC16, M18, R21
-	};
-
 	protected enum dayOfWeek {
 		MON, TUES, WED, THURS, FRI, SAT, SUN, PH
 	};
@@ -23,23 +15,19 @@ public class MovieListing {
 	private int movieListingID;
 	private Movie movie;
 	private screenType type;
-	private showingStatus status;
-	private ageRating ageRate;
 	private dayOfWeek day;
-	private int showtime;
-	private int cinemaHall;
-	private Seat[][] seat = new Seat[9][13];
+	private String showtime;
+	private int hallID;
+	private Review[] reviews;
 
-	public MovieListing(int movieListingID, Movie movie, screenType type, showingStatus status, ageRating ageRate,
-			dayOfWeek day, int showtime, int cinemaHall) {
+	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
 		this.movieListingID = movieListingID;
 		this.movie = movie;
 		this.type = type;
-		this.status = status;
-		this.ageRate = ageRate;
 		this.day = day;
 		this.showtime = showtime;
-		this.cinemaHall = cinemaHall;
+		this.hallID = hallID;
+		Review[] reviews = new Review[1];
 	}
 
 	public int getMovieListingID() {
@@ -48,8 +36,8 @@ public class MovieListing {
 
 	public void printListing() {
 		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
-				+ status.name() + " " + ageRate.name() + " " + day.name() + " " + Integer.toString(showtime) + " "
-				+ Integer.toString(cinemaHall));
+				+ movie.getShowingStatus() + " " + movie.getAgeRating() + " " + day.name() + " "
+				+ showtime + " " + Integer.toString(hallID));
 	}
 
 	public Movie getMovie() {
@@ -68,22 +56,6 @@ public class MovieListing {
 		this.type = type;
 	}
 
-	public showingStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(showingStatus status) {
-		this.status = status;
-	}
-
-	public ageRating getAgeRate() {
-		return ageRate;
-	}
-
-	public void setAgeRate(ageRating ageRate) {
-		this.ageRate = ageRate;
-	}
-
 	public dayOfWeek getDay() {
 		return day;
 	}
@@ -92,20 +64,20 @@ public class MovieListing {
 		this.day = day;
 	}
 
-	public int getShowtime() {
+	public String getShowtime() {
 		return showtime;
 	}
 
-	public void setShowtime(int showtime) {
+	public void setShowtime(String showtime) {
 		this.showtime = showtime;
 	}
 
-	public int getCinemaHall() {
-		return cinemaHall;
+	public int getHallID() {
+		return hallID;
 	}
 
-	public void setCinemaHall(int cinemaHall) {
-		this.cinemaHall = cinemaHall;
+	public void setCinemaHall(int hallID) {
+		this.hallID = hallID;
 	}
 	
 	public void showSeats(){

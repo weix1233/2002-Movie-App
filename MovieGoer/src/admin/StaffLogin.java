@@ -16,6 +16,12 @@ public class StaffLogin {
 	private String username;
 	@CsvBindByName
 	private String password;
+	@CsvBindByName
+	private String name;
+	@CsvBindByName
+	private int mobileNo;
+	@CsvBindByName
+	private String email;
 
 	// hashing algorithm with SHA256. Returns a String (hashed)
 	private static String hashPassword(String password) throws NoSuchAlgorithmException {
@@ -54,7 +60,7 @@ public class StaffLogin {
 		}
 		// where the login credentials are stored. May need to modify based on where you
 		// store the files
-		String loginFilePath = "C:\\Users\\tanju\\Desktop\\movie\\" + loginFile;
+		String loginFilePath = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\login\\" + loginFile;
 
 		int loginAttempts = 0;
 		do {
@@ -62,8 +68,8 @@ public class StaffLogin {
 			String user = sc.next();
 			System.out.print("Enter password: ");
 			String pass = hashPassword(sc.next());
-			List<StaffLogin> beans = new CsvToBeanBuilder(new FileReader(loginFilePath)).withType(StaffLogin.class)
-					.build().parse();
+				List<StaffLogin> beans = new CsvToBeanBuilder(new FileReader(loginFilePath)).withType(StaffLogin.class)
+						.build().parse();
 			if (user.equals(beans.get(0).getUsername()) && pass.equals(beans.get(0).getPassword())) {
 				System.out.println("Login success");
 				return choice;
