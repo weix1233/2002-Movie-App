@@ -29,6 +29,7 @@ public class AdminControl {
 	}
 	
 	private void getCinemaInfo(List<Cinema> beans, int c) {
+		System.out.println("isPlatnimum: " + beans.get(c).getIP());
 		System.out.printf("Name: %s\n", beans.get(c).getName());
 		for(int j = 0;j < beans.get(c).getHallID().size(); j++) {
 			System.out.println("Hall " + beans.get(c).getHallID().get(j));
@@ -39,7 +40,7 @@ public class AdminControl {
 	}
 
 	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\hue\\Desktop\\database\\cinema\\cinema.csv";
+		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App-branch\\MovieGoer\\database\\cinema\\cinema.csv";
 		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
 				.parse();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");

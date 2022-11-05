@@ -11,10 +11,13 @@ public class Cinema {
 	private String name;
 	@CsvBindAndSplitByName(elementType = Hall.class, collectionType = ArrayList.class, splitOn = "," , converter = TextToHall.class)
 	private List<Hall> halls;
+	@CsvBindByName
+	private boolean isPlatinum;
 	
-	public Cinema(List<Hall> halls, String name) {
+	public Cinema(List<Hall> halls, String name,boolean plat) {
 		this.name = name;
 		this.halls = halls;
+		this.isPlatinum = plat;
 	}
 	public Cinema() {}
 	public String getName() {
@@ -32,11 +35,18 @@ public class Cinema {
 		return hallID;
 	}
 	
+	public void setIP(boolean plat) {
+		this.isPlatinum = plat;
+	}
+	
 	public List<String> getsAST(int hallID){
 		return halls.get(hallID).getAvailableShowTimes();
 	}
 	
 	public List<String> getST(int hallID){
 		return halls.get(hallID).getShowTimes();
+	}
+	public boolean getIP() {
+		return this.isPlatinum;
 	}
 }
