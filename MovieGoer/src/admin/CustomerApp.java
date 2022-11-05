@@ -37,8 +37,12 @@ public class CustomerApp {
 		//System.out.printf("%d",count);
 		if(currentCinema.getName().length() % 2 == 0) System.out.print("=");
 		System.out.printf("%s Cathay %s %s\n",buf,currentCinema.getName(),buf);
+		System.out.println("=========== 1. Display a list of movies ==========");
+		System.out.println("============= 2. View movie details ==============");
+		System.out.println("================= 3. Check seats =================");
+		System.out.println("============ 4. View Booking history =============");
+		System.out.println("============== 5. List Top 5 movies ==============");
 		System.out.println("==================================================");
-		
 	}
 	public static void showMovies(List<MovieListing> mListings) {
 		//displayUniqueMovie();
