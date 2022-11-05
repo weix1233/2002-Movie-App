@@ -2,11 +2,11 @@ package movie;
 
 public class MovieListing {
 
-	protected enum screenType {
+	public enum screenType {
 		TWO_D, THREE_D
 	};
 
-	protected enum dayOfWeek {
+	public enum dayOfWeek {
 		MON, TUES, WED, THURS, FRI, SAT, SUN
 	};
 
