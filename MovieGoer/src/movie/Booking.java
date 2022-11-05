@@ -101,7 +101,7 @@ public class Booking{
         LocalDateTime dateTime = LocalDateTime.now() ;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         String dateTimeStr = dateTime.format(formatter);
-        this.transactionID = Integer.toString(movieListing.getCinemaHall()) + dateTimeStr;
+        this.transactionID = Integer.toString(movieListing.getHallID()) + dateTimeStr;
     }
 	
 	public String getTransactionID() {

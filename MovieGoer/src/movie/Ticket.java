@@ -37,7 +37,7 @@ public class Ticket{
 		} else basePrice += 4.0;
 				
 		if(movieListing.getDay() == dayOfWeek.FRI) {
-			if(movieListing.getShowtime() < 1800) basePrice += 1.0;
+			if(Integer.parseInt(movieListing.getShowtime()) < 1800) basePrice += 1.0;
 			else basePrice += 2.0;
 		} else if (movieListing.getDay() == dayOfWeek.SAT || movieListing.getDay() == dayOfWeek.SUN) {
 			basePrice += 2.0;
