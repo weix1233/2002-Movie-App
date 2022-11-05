@@ -29,7 +29,7 @@ public class Booking {
 
 	public void displayBooking() {
 		Scanner sc = new Scanner(System.in);
-		if (movieListing.getMovie().getShowingStatus() == "END_OF_SHOWING") {
+		if (movieListing.getMovie().getShowingStatus().equals("END_OF_SHOWING")) {
 			System.out.println("Movie is not available for showing.");
 			return;
 		}
