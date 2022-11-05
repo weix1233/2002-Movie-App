@@ -90,6 +90,7 @@ public class Booking {
 			setTransactionID();
 			for (int i = 0; i < tickets.size(); i++) {
 				hall.updateSeats(rows.get(i), cols.get(i), customerID);
+				movieListing.getMovie().addSales();
 			}
 			System.out.println("Your booking is successful!");
 			System.out.println("Your transaction ID is : " + getTransactionID());

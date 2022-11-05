@@ -17,9 +17,6 @@ public class Ticket {
 
 	public Ticket(ticketType ticType, int row, int col) {
 		this.ticType = ticType;
-		// this.ticketPrice = ticketPrice;
-		// this.movieListing = movieListing;
-		// this.cinema = cinema;
 		this.row = row;
 		this.col = col;
 	}
