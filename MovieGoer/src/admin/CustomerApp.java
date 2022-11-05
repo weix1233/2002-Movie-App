@@ -7,7 +7,8 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import movie.*;
+import movie.Cinema;
+import movie.MovieListing;
 
 public class CustomerApp {
 	private Cinema currentCinema;
@@ -23,6 +24,7 @@ public class CustomerApp {
 		int locationID = sc.nextInt();
 		return cinemaBeans.get(locationID-1);
 	}
+
 	public void BookMovie(MovieListing ml) throws IllegalStateException, FileNotFoundException {
 		//showMovies(currentCinema.getML());
 		Booking b = new Booking(ml,currentCinema);
@@ -47,4 +49,8 @@ public class CustomerApp {
 	public static void showMovies(List<MovieListing> mListings) {
 		//displayUniqueMovie();
 	}
+
+	// public static void showMovies(List<MovieListing> mListings) {
+	// displayUniqueMovie();
+	// }
 }

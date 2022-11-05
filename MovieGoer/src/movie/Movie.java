@@ -1,15 +1,18 @@
 package movie;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Movie {
 	Scanner sc = new Scanner(System.in);
-	
+
 	@CsvBindByName
 	private String movieTitle;
 	@CsvBindByName
@@ -57,6 +60,7 @@ public class Movie {
 	public List<String> getCast() {
 		return cast;
 	}
+
 	public List<Review> getReviews() {
 		return reviews;
 	}
@@ -64,19 +68,20 @@ public class Movie {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
-	
-	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException{
+
+	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
 	}
 
 	public void printCurrentMovieList(List<Movie> beans) {
-		for(int i = 0; i < beans.size(); i++) {
-			if(beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
-				System.out.println(i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: " + beans.get(i).ageRating);
+		for (int i = 0; i < beans.size(); i++) {
+			if (beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+				System.out.println(
+						i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: " + beans.get(i).ageRating);
 			}
 		}
 	}
-	
+
 	public double getOverallRating() {
 		double total = 0;
 		for (int i = 0; i < reviews.size(); i++) {
@@ -94,21 +99,21 @@ public class Movie {
 	public void addReview(Review review) {
 		reviews.add(review);
 	}
-	
+
 	public int getSales() {
 		return this.saleCounter;
 	}
-	
+
 	public void addSales() {
 		this.saleCounter++;
 	}
-	
-	public String getStatus() {
-		return status;
+
+	public String getShowingStatus() {
+		return showingStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setShowingStatus(String status) {
+		this.showingStatus = status;
 	}
 	/*
 	 * public String[] getCast() { return cast; }
@@ -117,5 +122,9 @@ public class Movie {
 	 * System.out.println("Already maximum number of cast"); } else {
 	 * this.cast[castPointer] = cast; castPointer++; } }
 	 */
+
+	public String getAgeRating() {
+		return ageRating;
+	}
 
 }
