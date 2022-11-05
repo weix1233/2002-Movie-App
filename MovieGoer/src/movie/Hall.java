@@ -15,7 +15,7 @@ public class Hall {
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> showTimes;
 	private List<MovieListing> movieListing = new ArrayList<MovieListing>();
-	private Seat[][] seat;
+	private Seat[][] seat = new Seat[9][13];
 
 	public Hall(int hallID, List<String> availableShowTimes, List<String> showTimes) {
 		this.hallID = hallID;
@@ -105,28 +105,9 @@ public class Hall {
 		System.out.println("=================Entrance================");
 	}
 
-	public void showSeatsOLD() {
-		char base = 'A';
-		Scanner sc = new Scanner(System.in);
-		System.out.println("===================Screen================");
-		for (int i = 0; i < 9; i++) {
-			char rowLetter = (char) (base + i);
-			System.out.printf("%c ", rowLetter);
-			for (int j = 0; j < 13; j++) {
-				if (j == 6) {
-					System.out.printf("   ");
-				} else {
-					System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
-				}
-			}
-			System.out.printf("\n");
-		}
-		System.out.println("=================Entrance================");
-	}
-
-	public void updateSeats(int row, int col, int custId) {
+	public void updateSeats(int row, int col) {
 		if (!seat[row - 1][col - 1].isOccupied()) {
-			seat[row - 1][col - 1].assign(custId);
+			seat[row - 1][col - 1].assign();
 			System.out.println("Seat assigned!");
 		} else
 			System.out.println("Seat already assigned to a customer.");

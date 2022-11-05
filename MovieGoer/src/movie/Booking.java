@@ -90,22 +90,21 @@ public class Booking {
 			System.out.println("Please enter your email address: ");
 			String email = sc.next();
 			User newUser = new User(name, email, mobileNo);
-			int customerID = newUser.getCustomerID();
 			setTransactionID();
 			for (int i = 0; i < tickets.size(); i++) {
-				hall.updateSeats(rows.get(i), cols.get(i), customerID);
+				hall.updateSeats(rows.get(i), cols.get(i));
 				movieListing.getMovie().addSales();
 			}
 			System.out.println("Your booking is successful!");
 			System.out.println("Your transaction ID is : " + getTransactionID());
 			System.out.println("=========================================");
 		} else {
-			rows.clear();
-			cols.clear();
-			tickets.clear();
 			System.out.println("Your booking has been cancelled.");
 			System.out.println("=========================================");
 		}
+		rows.clear();
+		cols.clear();
+		tickets.clear();
 	}
 
 	public void setTransactionID() {
