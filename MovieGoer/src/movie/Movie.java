@@ -26,10 +26,12 @@ public class Movie {
 	private String director;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
 	private List<String> cast;
-	@CsvBindByName
-	private showingStatus showingStatus;
-	@CsvBindByName
-	private ageRating ageRating;
+
+	// @CsvBindAndSplitByName(elementType = String.class, splitOn = ",")
+	// private String[] cast;
+	// private int castPointer;
+	private List<Review> reviews = new ArrayList<Review>();
+
 
 	public Movie() {
 	};
@@ -59,51 +61,30 @@ public class Movie {
 	public List<String> getCast() {
 		return cast;
 	}
-
-	public showingStatus getShowingStatus() {
-		return showingStatus;
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
-	public ageRating getAgeRating() {
-		return ageRating;
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
-	public showingStatus setShowingStatus() {
-		System.out.print("Choose showing status\n(1) COMING_SOON (2) PREVIEW (3) NOW_SHOWING (4) END_OF_SHOWING: ");
-		int c = sc.nextInt();
-		switch (c) {
-		case 1:
-			return showingStatus.COMING_SOON;
-		case 2:
-			return showingStatus.PREVIEW;
-		case 3:
-			return showingStatus.NOW_SHOWING;
-		case 4:
-			return showingStatus.END_OF_SHOWING;
-		default:
-			System.out.println("Error in choice, defaulting to COMING_SOON");
-			return showingStatus.COMING_SOON;
+	public double getOverallRating() {
+		double total = 0;
+		for (int i = 0; i < reviews.size(); i++) {
+			total = total + reviews.get(i).getRating();
+		}
+		return Math.round(total / reviews.size() * 10) / 10;
+	}
+
+	public void displayReviews() {
+		for (int i = 0; i < reviews.size(); i++) {
+			System.out.println(reviews.get(i).getReview());
 		}
 	}
 
-	public ageRating setAgeRating() {
-		System.out.print("Choose age rating\n(1) PG (2) PG13 (3) NC16 (4) M18 (5) R21: ");
-		int c = sc.nextInt();
-		switch (c) {
-		case 1:
-			return ageRating.PG;
-		case 2:
-			return ageRating.PG13;
-		case 3:
-			return ageRating.NC16;
-		case 4:
-			return ageRating.M18;
-		case 5:
-			return ageRating.R21;
-		default:
-			System.out.println("Error input, temporarily assigned PG");
-			return ageRating.PG;
-		}
+	public void addReview(Review review) {
+		reviews.add(review);
 	}
 
 	/*
