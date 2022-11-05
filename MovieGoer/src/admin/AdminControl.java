@@ -29,8 +29,9 @@ public class AdminControl {
 	}
 	
 	private void getCinemaInfo(List<Cinema> beans, int c) {
-		System.out.println("isPlatnimum: " + beans.get(c).getIP());
+		System.out.printf("Cinema ID: %s\n", beans.get(c).getCinemaID());
 		System.out.printf("Name: %s\n", beans.get(c).getName());
+		System.out.println("isPlatnimum: " + beans.get(c).getIP());
 		for(int j = 0;j < beans.get(c).getHallID().size(); j++) {
 			System.out.println("Hall " + beans.get(c).getHallID().get(j));
 			System.out.println("Available Show Times: " + beans.get(c).getsAST(j));
