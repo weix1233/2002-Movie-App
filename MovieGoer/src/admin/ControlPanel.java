@@ -20,8 +20,6 @@ public class ControlPanel {
 		int userType = 0;
 		// Guest = 1, Members = 2, Admin = 3, Login Error = -1 user is forced to login
 		// again
-		CustomerApp c = new CustomerApp();
-		c.displayMenu();
 		do {
 			// userType = sl.validate();
 			userType = 3;
