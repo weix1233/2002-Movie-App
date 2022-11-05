@@ -6,13 +6,12 @@ public class Seat{
 	private final int row;
     private final int col;
     private boolean assigned;
-    private String seatId;
-    private int customerId;
+    private String seatID;
+    private int customerID;
 
-    public Seat(int row, int col, String seatId) {
+    public Seat(int row, int col) {
         this.row = row;
         this.col = col;
-        this.seatId = seatId;
         assigned = false;
     }
 
@@ -24,20 +23,20 @@ public class Seat{
         return row;
     }
     
-    public String getSeatId() {
-        return seatId;
+    public String getSeatID() {
+        return seatID;
     }
 	
-	public int getCustomerId() {
-		return customerId;
+	public int getCustomerID() {
+		return customerID;
 	}
 	
 	public boolean isOccupied() {
 		return assigned;
 	}
 	
-	public void assign(int cust_id) {
-		customerId = cust_id;
+	public void assign(int cust_ID) {
+		customerID = cust_ID;
 		assigned = true;
 	}
 	
@@ -45,10 +44,10 @@ public class Seat{
 		assigned = false;
 	}
 	
-	public void setSeatId(int row, int col) {
+	public void setSeatID(int row, int col) {
         char base = 'A';
         char letterRow = (char)((int)base + row);
-        this.seatId = letterRow + "" + col;
+        this.seatID = letterRow + "" + col;
     }
     
     public String seatSlot() {

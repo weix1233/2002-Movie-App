@@ -3,53 +3,109 @@ package movie;
 import java.util.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import movie.Ticket.*;
 
 public class Booking{
-	private String transactionId;
+	private String transactionID;
 	private double totalPrice = 0.0;;
-	private Ticket ticket;
+	private ArrayList<Ticket> tickets;
 	private MovieListing movieListing;
+	private Cinema cinema;
+	private ticketType ticType;
 	
-	public Booking(String transactionId, double totalPrice, Ticket ticket, MovieListing movieListing) {
-		this.transactionId = transactionId;
-		this.totalPrice = totalPrice;
-		this.ticket = ticket;
+	//placeholders
+	private Ticket ticket;
+	private ArrayList<Integer> rows;
+	private ArrayList<Integer> cols;
+	
+	public Booking(MovieListing movieListing, Cinema cinema) {
 		this.movieListing = movieListing;
+		this.cinema = cinema;
 	}
 	
 	public void displayBooking() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("=========================================");
-    	System.out.println("Confirmation of Booking:");
+		System.out.println("Ticket prices: ");
+		if(cinema.getIP() == false) ticket.showStandardPrices();
+		else ticket.showPlatiumPrices();
+		System.out.println("=========================================");
+		System.out.println("Please select your ticket type: ");
+		System.out.println("1. Adult, 2. Senior, 3. Child");
+		int selectedTicketType = sc.nextInt();
+		switch(selectedTicketType) {
+			case 1:
+				ticType = ticketType.ADULT;
+				break;
+			case 2:
+				ticType = ticketType.SENIOR;
+				break;
+			case 3:
+				ticType = ticketType.CHILD;
+				break;
+			default:
+				ticType = ticketType.ADULT;
+				break;
+		}
+		System.out.println("=========================================");
+    	System.out.println("Seats selection: ");
+    	movieListing.showSeats();
+    	System.out.println("Please select your seats by entering the row and column: ");
+    	System.out.println("E.g.: A4 = 14");
+    	String[] selectedSeats = sc.nextLine().split(" ");
+    	for(int i=0; i<selectedSeats.length; i++){
+    		int value = Integer.parseInt(selectedSeats[i]);
+    		int row = (value/10)%10;
+    		int col = (value/1)%10;
+    		rows.add(row);
+    		cols.add(col);
+    		Ticket newTicket = new Ticket(ticType, row, col);
+    		totalPrice += newTicket.getTicketPrice();
+    		tickets.add(newTicket);
+    	}
+		System.out.println("=========================================");
+    	System.out.println("Confirmation of Booking: ");
+    	System.out.println("Movie Details: ");
     	movieListing.printListing();
+    	System.out.println("Seats selected: " );
+    	System.out.println(Arrays.toString(selectedSeats));
     	System.out.printf("Total price is %.2f (inclusive of GST)\n", totalPrice);
     	System.out.println("Confirm to book? Press Y for yes or N for no.");
     	char choice = sc.next().charAt(0);
     	if(choice=='Y') {
     		System.out.println("Please enter your name: ");
-    		//store name
+    		String name = sc.next();
     		System.out.println("Please enter your mobile number: ");
-    		//store mobile number
+    		int mobileNo = sc.nextInt();
     		System.out.println("Please enter your email address: ");
-    		//store email
-    		setTransactionId();
-    		movieListing.updateSeats(choice, choice, choice);
+    		String email = sc.next();
+    		User newUser = new User(name, email, mobileNo);
+    		int customerID = newUser.getCustomerID();
+    		setTransactionID();
+    		for(int i=0; i<tickets.size(); i++) {
+    			movieListing.updateSeats(rows.get(i), cols.get(i), customerID);
+    		}
     		System.out.println("Your booking is successful!"); 
-    		System.out.println("Your transaction ID is : " + getTransactionId());
+    		System.out.println("Your transaction ID is : " + getTransactionID());
+    		System.out.println("=========================================");
     	} else {
-    		System.out.println("Your booking has been cancelled."); 
+    		rows.clear();
+    		cols.clear();
+    		tickets.clear();
+    		System.out.println("Your booking has been cancelled.");
+    		System.out.println("=========================================");
     	}
 	}
 	
-	public void setTransactionId() {
+	public void setTransactionID() {
         LocalDateTime dateTime = LocalDateTime.now() ;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         String dateTimeStr = dateTime.format(formatter);
-        this.transactionId = Integer.toString(movieListing.getCinemaHall()) + dateTimeStr;
+        this.transactionID = Integer.toString(movieListing.getCinemaHall()) + dateTimeStr;
     }
 	
-	public String getTransactionId() {
-		return transactionId;
+	public String getTransactionID() {
+		return transactionID;
 	}
 
 }
