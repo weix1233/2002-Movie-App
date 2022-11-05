@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class MovieListing {
 
-	protected enum screenType {
+	public enum screenType {
 		TWO_D, THREE_D
 	};
 
-	protected enum dayOfWeek {
+	public enum dayOfWeek {
 		MON, TUES, WED, THURS, FRI, SAT, SUN, PH
 	};
 
@@ -19,6 +19,7 @@ public class MovieListing {
 	private String showtime;
 	private int hallID;
 	private Review[] reviews;
+	private Seat[][] seat;
 
 	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
 		this.movieListingID = movieListingID;
@@ -36,8 +37,8 @@ public class MovieListing {
 
 	public void printListing() {
 		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
-				+ movie.getShowingStatus() + " " + movie.getAgeRating() + " " + day.name() + " "
-				+ showtime + " " + Integer.toString(hallID));
+				+ movie.getShowingStatus() + " " + movie.getAgeRating() + " " + day.name() + " " + showtime + " "
+				+ Integer.toString(hallID));
 	}
 
 	public Movie getMovie() {
@@ -79,61 +80,65 @@ public class MovieListing {
 	public void setCinemaHall(int hallID) {
 		this.hallID = hallID;
 	}
-	
-	public void showSeats(){
+
+	public void showSeats() {
 		char base = 'A';
 		Scanner sc = new Scanner(System.in);
 		System.out.println("===================Screen================");
-		for(int i=0; i<9; i++) {
-			char rowLetter = (char)((int)base + i);
+		for (int i = 0; i < 9; i++) {
+			char rowLetter = (char) (base + i);
 			System.out.printf("%c ", rowLetter);
-			for(int j=0; j<13; j++) {
-				if(j==6) { System.out.printf("   "); }
-				else { 
-					//first two rows for couple seats
-					if(i==0 || i==1) {
+			for (int j = 0; j < 13; j++) {
+				if (j == 6) {
+					System.out.printf("   ");
+				} else {
+					// first two rows for couple seats
+					if (i == 0 || i == 1) {
 						{
-							if((j<6 && j%2==0) || (j>6 && j%2!=0)) {
-								System.out.printf(ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "[ || ]" + ConsoleColors.RESET);
+							if ((j < 6 && j % 2 == 0) || (j > 6 && j % 2 != 0)) {
+								System.out.printf(
+										ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "[ || ]" + ConsoleColors.RESET);
 							}
 						}
 					}
-					//last two rows for elite seats
-					if(i==7 || i==8) {
-						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET, seat[i-1][j-1].seatSlot()); 
-					}
-					else {
-						System.out.printf("%s", seat[i-1][j-1].seatSlot()); 
+					// last two rows for elite seats
+					if (i == 7 || i == 8) {
+						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
+								seat[i - 1][j - 1].seatSlot());
+					} else {
+						System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
 					}
 				}
 			}
 			System.out.printf("\n");
 		}
-		System.out.println("=================Entrance================");	
+		System.out.println("=================Entrance================");
 	}
-	
-	public void showSeats(){
+
+	public void showSeatsOLD() {
 		char base = 'A';
 		Scanner sc = new Scanner(System.in);
 		System.out.println("===================Screen================");
-		for(int i=0; i<9; i++) {
-			char rowLetter = (char)((int)base + i);
+		for (int i = 0; i < 9; i++) {
+			char rowLetter = (char) (base + i);
 			System.out.printf("%c ", rowLetter);
-			for(int j=0; j<13; j++) {
-				if(j==6) { System.out.printf("   "); }
-				else { System.out.printf("%s", seat[i-1][j-1].seatSlot()); }
+			for (int j = 0; j < 13; j++) {
+				if (j == 6) {
+					System.out.printf("   ");
+				} else {
+					System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
+				}
 			}
 			System.out.printf("\n");
 		}
-		System.out.println("=================Entrance================");	
+		System.out.println("=================Entrance================");
 	}
-	
+
 	public void updateSeats(int row, int col, int custId) {
-		if (!seat[row-1][col-1].isOccupied()){
-            seat[row-1][col-1].assign(custId);
-            System.out.println("Seat assigned!");
-        }
-        else
-            System.out.println("Seat already assigned to a customer.");
+		if (!seat[row - 1][col - 1].isOccupied()) {
+			seat[row - 1][col - 1].assign(custId);
+			System.out.println("Seat assigned!");
+		} else
+			System.out.println("Seat already assigned to a customer.");
 	}
 }

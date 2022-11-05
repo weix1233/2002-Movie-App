@@ -1,6 +1,7 @@
 package movie;
 
 public class ConsoleColors {
+	//Download ANSI console through the eclipse marketplace under help
 	public static final String RESET = "\033[0m";  // Text Reset
 
     // Regular Colors
