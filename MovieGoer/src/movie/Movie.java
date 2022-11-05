@@ -31,7 +31,7 @@ public class Movie {
 	// private String[] cast;
 	// private int castPointer;
 	private List<Review> reviews = new ArrayList<Review>();
-
+	private int saleCounter;
 
 	public Movie() {
 	};
@@ -44,6 +44,7 @@ public class Movie {
 		this.cast = cast;
 		this.showingStatus = showingStatus;
 		this.ageRating = ageRating;
+		this.saleCounter = 0;
 	}
 
 	public String getMovieTitle() {
@@ -86,7 +87,22 @@ public class Movie {
 	public void addReview(Review review) {
 		reviews.add(review);
 	}
+	
+	public int getSales() {
+		return this.saleCounter;
+	}
+	
+	public void addSales() {
+		this.saleCounter++;
+	}
+	
+	public showingStatus getStatus() {
+		return status;
+	}
 
+	public void setStatus(showingStatus status) {
+		this.status = status;
+	}
 	/*
 	 * public String[] getCast() { return cast; }
 	 * 
