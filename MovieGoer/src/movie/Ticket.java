@@ -29,6 +29,10 @@ public class Ticket {
 	}
 
 	public double getTicketPrice() {
+		String[] dayTime = movieListing.getShowtime().split(" ");
+		String day = dayTime[0];
+		String time = dayTime[1];
+		
 		double basePrice = 5.0;
 
 		// arbitrary price setting
@@ -42,14 +46,14 @@ public class Ticket {
 		} else
 			basePrice += 4.0;
 
-		if (movieListing.getDay() == dayOfWeek.FRI) {
-			if (Integer.parseInt(movieListing.getShowtime()) < 1800)
+		if (day.equals("FRI")) {
+			if (Integer.parseInt(time) < 1800)
 				basePrice += 1.0;
 			else
 				basePrice += 2.0;
-		} else if (movieListing.getDay() == dayOfWeek.SAT || movieListing.getDay() == dayOfWeek.SUN) {
+		} else if (day.equals("SAT") || day.equals("SUN")) {
 			basePrice += 2.0;
-		} else if (movieListing.getDay() == dayOfWeek.PH) {
+		} else if (day.equals("PH")) {
 			basePrice += 4.0;
 		} else {
 			if (ticType == ticketType.SENIOR) {
