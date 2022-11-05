@@ -12,6 +12,7 @@ public class Booking {
 	private String transactionID;
 	private double totalPrice = 0.0;;
 	private ArrayList<Ticket> tickets;
+	private Hall hall;
 	private MovieListing movieListing;
 	private Cinema cinema;
 	private ticketType ticType;
@@ -21,8 +22,8 @@ public class Booking {
 	private ArrayList<Integer> rows;
 	private ArrayList<Integer> cols;
 
-	public Booking(MovieListing movieListing, Cinema cinema) {
-		this.movieListing = movieListing;
+	public Booking(Hall hall, Cinema cinema) {
+		this.hall = hall;
 		this.cinema = cinema;
 	}
 
@@ -54,7 +55,7 @@ public class Booking {
 		}
 		System.out.println("=========================================");
 		System.out.println("Seats selection: ");
-		movieListing.showSeats();
+		hall.showSeats();
 		System.out.println("Please select your seats by entering the row and column: ");
 		System.out.println("E.g.: A4 = 14");
 		String[] selectedSeats = sc.nextLine().split(" ");
@@ -88,7 +89,7 @@ public class Booking {
 			int customerID = newUser.getCustomerID();
 			setTransactionID();
 			for (int i = 0; i < tickets.size(); i++) {
-				movieListing.updateSeats(rows.get(i), cols.get(i), customerID);
+				hall.updateSeats(rows.get(i), cols.get(i), customerID);
 			}
 			System.out.println("Your booking is successful!");
 			System.out.println("Your transaction ID is : " + getTransactionID());
