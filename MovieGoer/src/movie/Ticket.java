@@ -14,12 +14,14 @@ public class Ticket{
 	private int showtime;
 	
 	public Ticket(ticketType ticketType, double ticketPrice) {
-    	this.ticketType = ticketType;
+    	//need movie name, cinema hall, age rating, row, seat, 
+		this.ticketType = ticketType;
     	this.ticketPrice = ticketPrice;
     }
 	
 	//Get methods
 	public ticketType getTicketType() {return ticketType;}
+	
 	public double getTicketPrice() {
 		double basePrice = 5.0;
 		
