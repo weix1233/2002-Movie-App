@@ -1,12 +1,17 @@
 package movie;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Cinema {
+
 	@CsvBindByName
 	private String name;
 	@CsvBindAndSplitByName(elementType = Hall.class, collectionType = ArrayList.class, splitOn = "," , converter = TextToHall.class)
@@ -24,6 +29,10 @@ public class Cinema {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<Cinema> getCinemaList(String path) throws IllegalStateException, FileNotFoundException{
+		return new CsvToBeanBuilder(new FileReader(path)).withType(Cinema.class).build().parse();
+	}
 	public List<Integer> getHallID() {
 		List<Integer> hallID = new ArrayList<Integer>();
 		for(int i = 0;i < halls.size();i++) {
@@ -32,11 +41,20 @@ public class Cinema {
 		return hallID;
 	}
 	
-	public List<String> getsAST(int hallID){
-		return halls.get(hallID).getAvailableShowTimes();
+	public List<String> getAST(int hallID){
+		String part1 = halls.get(hallID).getAvailableShowTimes().get(0);
+		List<String> items = Arrays.asList(part1.split(";"));
+		
+		return items;
 	}
 	
 	public List<String> getST(int hallID){
+		String part1 = halls.get(hallID).getShowTimes().get(0);
+		List<String> items = Arrays.asList(part1.split(";"));
 		return halls.get(hallID).getShowTimes();
+	}
+	
+	public List<MovieListing> getMovieList(int hallID){
+		return halls.get(hallID).getMovieListing();
 	}
 }

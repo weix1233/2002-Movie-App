@@ -13,7 +13,7 @@ public class Hall {
 	private List<String> availableShowTimes;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> showTimes;
-	private List<MovieListing> ml = new ArrayList<MovieListing>();
+	private List<MovieListing> movieListing = new ArrayList<MovieListing>();
 
 	public Hall(int hallID, List<String> availableShowTimes, List<String> showTimes) {
 		this.hallID = hallID;
@@ -39,6 +39,11 @@ public class Hall {
 	public void setHallID(int split) {
 		this.hallID = split;
 	}
+	
+	public List<MovieListing> getMovieListing(){
+		return movieListing;
+	}
+	
 	public void setAvailableShowTimes(String ast) {
 		List<String> s = new ArrayList<String>();
 		String[] split = ast.split(",");

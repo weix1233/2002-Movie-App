@@ -1,20 +1,25 @@
 package movie;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvCustomBindByName;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Movie {
 	Scanner sc = new Scanner(System.in);
+	String movieFileName = "C:\\Users\\hue\\Desktop\\database\\movie\\movie.csv";
 
-	protected enum showingStatus {
+	public enum showingStatus {
 		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
 	};
 
-	protected enum ageRating {
+	public enum ageRating {
 		PG, PG13, NC16, M18, R21
 	};
 
@@ -26,16 +31,16 @@ public class Movie {
 	private String director;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
 	private List<String> cast;
-	@CsvBindByName
-	private showingStatus showingStatus;
-	@CsvBindByName
-	private ageRating ageRating;
+	@CsvBindByName(column = "showingStatus")
+	private String showingStatus;
+	@CsvBindByName(column = "ageRating")
+	private String ageRating;
 
 	public Movie() {
 	};
 
-	public Movie(String movieTitle, String synopis, String director, List<String> cast, showingStatus showingStatus,
-			ageRating ageRating) {
+	public Movie(String movieTitle, String synopis, String director, List<String> cast, String showingStatus,
+			String ageRating) {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
@@ -60,14 +65,26 @@ public class Movie {
 		return cast;
 	}
 
-	public showingStatus getShowingStatus() {
+	public String getShowingStatus() {
 		return showingStatus;
 	}
 
-	public ageRating getAgeRating() {
+	public String getAgeRating() {
 		return ageRating;
 	}
-
+	
+	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException{
+		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
+	}
+	
+	public void printCurrentMovieList(List<Movie> beans) {
+		for(int i = 0; i < beans.size(); i++) {
+			if(beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+				System.out.println(i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: " + beans.get(i).ageRating);
+			}
+		}
+	}
+/*
 	public showingStatus setShowingStatus() {
 		System.out.print("Choose showing status\n(1) COMING_SOON (2) PREVIEW (3) NOW_SHOWING (4) END_OF_SHOWING: ");
 		int c = sc.nextInt();
@@ -85,7 +102,8 @@ public class Movie {
 			return showingStatus.COMING_SOON;
 		}
 	}
-
+	*/
+	/*
 	public ageRating setAgeRating() {
 		System.out.print("Choose age rating\n(1) PG (2) PG13 (3) NC16 (4) M18 (5) R21: ");
 		int c = sc.nextInt();
@@ -105,6 +123,8 @@ public class Movie {
 			return ageRating.PG;
 		}
 	}
+*/
+	
 
 	/*
 	 * public String[] getCast() { return cast; }
@@ -115,3 +135,4 @@ public class Movie {
 	 */
 
 }
+

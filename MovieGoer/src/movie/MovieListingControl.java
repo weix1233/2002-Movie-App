@@ -13,19 +13,6 @@ import movie.MovieListing.screenType;
 public class MovieListingControl implements MovieListingInterface {
 	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);
-	String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.csv";
-
-	@Override
-	public List<Movie> listMovieTitles() throws IllegalStateException, FileNotFoundException {
-		// TODO Auto-generated method stub
-		List<Movie> beans = new CsvToBeanBuilder(new FileReader(movieFilePath)).withType(Movie.class).build().parse();
-		System.out.println("Movies collection in database");
-		for (int i = 1; i <= beans.size(); i++) {
-			System.out.println(Integer.toString(i) + ". " + beans.get(i - 1).getMovieTitle());
-		}
-		return beans;
-	}
-
 	public screenType chooseScreenType() {
 		System.out.print("Choose screenType\n(1) Two-D screen (2) Three-D screen: ");
 		int c = sc.nextInt();
@@ -91,6 +78,7 @@ public class MovieListingControl implements MovieListingInterface {
 	@Override
 	public MovieListing addMovieListing(MovieListing listing) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
