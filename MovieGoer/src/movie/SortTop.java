@@ -11,9 +11,9 @@ public class SortTop {
 	}
 	
 	public void sortByRating() {
-		int curMax = 0;
+		double curMax = 0;
 		Movie curTop;
-		int cur;
+		double cur;
 		for(int j=0; j<5; j++) {
 			for(int i=0;i<movies.size();i++) {
 				cur = movies.get(i).getOverallRating();
