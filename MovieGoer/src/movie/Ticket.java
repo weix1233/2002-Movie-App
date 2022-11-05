@@ -1,68 +1,83 @@
 package movie;
 
-import movie.MovieListing.*;
+import movie.MovieListing.dayOfWeek;
+import movie.MovieListing.screenType;
 
-public class Ticket{
-	protected enum ticketType { ADULT, SENIOR, CHILD }
-	
+public class Ticket {
+	protected enum ticketType {
+		ADULT, SENIOR, CHILD
+	}
+
 	private double ticketPrice;
 	private ticketType ticType;
 	private MovieListing movieListing;
 	private Cinema cinema;
 	private int row;
 	private int col;
-	
-	public Ticket(ticketType ticType, int row, int col) { 
+
+	public Ticket(ticketType ticType, int row, int col) {
 		this.ticType = ticType;
-    	//this.ticketPrice = ticketPrice;
-    	//this.movieListing = movieListing;
-    	//this.cinema = cinema;
-    	this.row = row;
-    	this.col = col;
-    }
-	
-	//Get methods
-	public ticketType getTicType() {return ticType;}
-	
+		// this.ticketPrice = ticketPrice;
+		// this.movieListing = movieListing;
+		// this.cinema = cinema;
+		this.row = row;
+		this.col = col;
+	}
+
+	// Get methods
+	public ticketType getTicType() {
+		return ticType;
+	}
+
 	public double getTicketPrice() {
 		double basePrice = 5.0;
-		
-		//arbitrary price setting
-		if(movieListing.getType() == screenType.TWO_D) {
+
+		// arbitrary price setting
+		if (movieListing.getType() == screenType.TWO_D) {
 			basePrice += 2.0;
-		} else basePrice += 4.0;
-				
-		if(cinema.getIP() == false) {
+		} else
+			basePrice += 4.0;
+
+		if (cinema.getIP() == false) {
 			basePrice += 2.0;
-		} else basePrice += 4.0;
-				
-		if(movieListing.getDay() == dayOfWeek.FRI) {
-			if(movieListing.getShowtime() < 1800) basePrice += 1.0;
-			else basePrice += 2.0;
+		} else
+			basePrice += 4.0;
+
+		if (movieListing.getDay() == dayOfWeek.FRI) {
+			if (Integer.parseInt(movieListing.getShowtime()) < 1800)
+				basePrice += 1.0;
+			else
+				basePrice += 2.0;
 		} else if (movieListing.getDay() == dayOfWeek.SAT || movieListing.getDay() == dayOfWeek.SUN) {
 			basePrice += 2.0;
 		} else if (movieListing.getDay() == dayOfWeek.PH) {
 			basePrice += 4.0;
 		} else {
-			if(ticType == ticketType.SENIOR) {
+			if (ticType == ticketType.SENIOR) {
 				basePrice -= 4.0;
 			} else if (ticType == ticketType.CHILD) {
 				basePrice -= 2.0;
-			} else basePrice += 0.0;
+			} else
+				basePrice += 0.0;
 		}
-		
-		//add GST
+
+		// add GST
 		basePrice = 1.07 * basePrice;
-		//round to 2dp
+		// round to 2dp
 		ticketPrice = Math.round(basePrice * 100.0) / 100.0;
-		
+
 		return ticketPrice;
 	}
-	
-	//Set methods
-	public void setTicketTypes(ticketType ticType) {this.ticType = ticType;}
-	public void setTicketPrice(double ticketPrice) {this.ticketPrice = ticketPrice;}
-	
+
+	// Set methods
+	public void setTicketTypes(ticketType ticType) {
+		this.ticType = ticType;
+	}
+
+	public void setTicketPrice(double ticketPrice) {
+		this.ticketPrice = ticketPrice;
+	}
+
 	public void showStandardPrices() {
 		System.out.println("Current ticket prices for Standard cinema class: ");
 		System.out.println("=================================================");
@@ -78,7 +93,7 @@ public class Ticket{
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-	
+
 	public void showPlatiumPrices() {
 		System.out.println("Current ticket prices for Platium cinema class: ");
 		System.out.println("=================================================");
@@ -94,10 +109,10 @@ public class Ticket{
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-	
+
 	public void ticketReceipt() {
 		movieListing.printListing();
-		System.out.println("Seat: " + (char)row + col);
+		System.out.println("Seat: " + (char) row + col);
 	}
-	
-}    
+
+}

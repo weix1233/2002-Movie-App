@@ -7,11 +7,13 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import movie.*;
+import movie.Cinema;
+import movie.MovieListing;
 
 public class CustomerApp {
 	private Cinema currentCinema;
-	public void chooseCinema() throws IllegalStateException, FileNotFoundException{
+
+	public void chooseCinema() throws IllegalStateException, FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App-branch\\MovieGoer\\database\\cinema\\cinema.csv";
 		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
@@ -20,13 +22,15 @@ public class CustomerApp {
 		int locationID = sc.nextInt();
 		currentCinema = cinemaBeans.get(locationID);
 	}
+
 	public void BookMovie(MovieListing ml) throws IllegalStateException, FileNotFoundException {
-		showMovies(currentCinema.getML());
-		Booking b = new Booking(ml,currentCinema.getCinemaID());
-		b = b.displayBooking();
-		
+		// showMovies(currentCinema.getML());
+		// Booking b = new Booking(ml, currentCinema.getCinemaID());
+		// b = b.displayBooking();
+
 	}
-	public static void showMovies(List<MovieListing> mListings) {
-		displayUniqueMovie();
-	}
+
+	// public static void showMovies(List<MovieListing> mListings) {
+	// displayUniqueMovie();
+	// }
 }
