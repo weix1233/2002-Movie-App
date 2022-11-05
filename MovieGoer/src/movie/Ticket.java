@@ -32,7 +32,7 @@ public class Ticket{
 			basePrice += 2.0;
 		} else basePrice += 4.0;
 				
-		if(cinema.isPlatium == false) {
+		if(cinema.getIP() == false) {
 			basePrice += 2.0;
 		} else basePrice += 4.0;
 				

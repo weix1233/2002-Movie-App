@@ -13,9 +13,8 @@ public class Booking{
 	private Cinema cinema;
 	private ticketType ticType;
 	
-	//placeholder
+	//placeholders
 	private Ticket ticket;
-	
 	private ArrayList<Integer> rows;
 	private ArrayList<Integer> cols;
 	
@@ -28,7 +27,7 @@ public class Booking{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("=========================================");
 		System.out.println("Ticket prices: ");
-		if(cinema.isPlatium == false) ticket.showStandardPrices();
+		if(cinema.getIP() == false) ticket.showStandardPrices();
 		else ticket.showPlatiumPrices();
 		System.out.println("=========================================");
 		System.out.println("Please select your ticket type: ");
