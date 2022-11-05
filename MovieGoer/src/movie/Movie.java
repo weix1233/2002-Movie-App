@@ -9,15 +9,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class Movie {
 	Scanner sc = new Scanner(System.in);
-
-	protected enum showingStatus {
-		COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING
-	};
-
-	protected enum ageRating {
-		PG, PG13, NC16, M18, R21
-	};
-
+	
 	@CsvBindByName
 	private String movieTitle;
 	@CsvBindByName
@@ -26,7 +18,10 @@ public class Movie {
 	private String director;
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
 	private List<String> cast;
-
+	@CsvBindByName(column = "showingStatus")
+	private String showingStatus;
+	@CsvBindByName(column = "ageRating")
+	private String ageRating;
 	// @CsvBindAndSplitByName(elementType = String.class, splitOn = ",")
 	// private String[] cast;
 	// private int castPointer;
@@ -36,8 +31,8 @@ public class Movie {
 	public Movie() {
 	};
 
-	public Movie(String movieTitle, String synopis, String director, List<String> cast, showingStatus showingStatus,
-			ageRating ageRating) {
+	public Movie(String movieTitle, String synopis, String director, List<String> cast, String showingStatus,
+			String ageRating) {
 		this.movieTitle = movieTitle;
 		this.synopis = synopis;
 		this.director = director;
@@ -69,7 +64,19 @@ public class Movie {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
+	
+	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException{
+		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
+	}
 
+	public void printCurrentMovieList(List<Movie> beans) {
+		for(int i = 0; i < beans.size(); i++) {
+			if(beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+				System.out.println(i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: " + beans.get(i).ageRating);
+			}
+		}
+	}
+	
 	public double getOverallRating() {
 		double total = 0;
 		for (int i = 0; i < reviews.size(); i++) {
