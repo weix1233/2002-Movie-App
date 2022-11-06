@@ -27,7 +27,7 @@ public class CustomerApp {
 
 	public void BookMovie(MovieListing ml) throws IllegalStateException, FileNotFoundException {
 		//showMovies(currentCinema.getML());
-		Booking b = new Booking(ml,currentCinema);
+		//Booking b = new Booking(ml,currentCinema);
 		//b = b.displayBooking();
 		
 	}
