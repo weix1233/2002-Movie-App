@@ -49,16 +49,40 @@ public class Movie {
 		return movieTitle;
 	}
 
+	public void setMovieTitle(String movieTitle) {
+		this.movieTitle = movieTitle;
+	}
+
 	public String getSynopis() {
 		return synopis;
+	}
+
+	public void setSynopis(String synopis) {
+		this.synopis = synopis;
 	}
 
 	public String getDirector() {
 		return director;
 	}
 
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public void setAgeRating(String ageRating) {
+		this.ageRating = ageRating;
+	}
+
 	public List<String> getCast() {
 		return cast;
+	}
+
+	public void addCastMember(String castName) {
+		cast.add(castName);
+	}
+
+	public void removeCastMember(int castPosition) {
+		cast.remove(castPosition);
 	}
 
 	public List<Review> getReviews() {
@@ -71,6 +95,16 @@ public class Movie {
 
 	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
+	}
+
+	public void printMovies(List<Movie> beans) {
+		for (int i = 0; i < beans.size(); i++) {
+			System.out.printf(
+					"%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | ShowingStatus: %s | Age Rating: %s \n",
+					Integer.toString(i), beans.get(i).getMovieTitle(), beans.get(i).getSynopis(),
+					beans.get(i).getDirector(), beans.get(i).getCast(), beans.get(i).getShowingStatus(),
+					beans.get(i).getAgeRating());
+		}
 	}
 
 	public void printCurrentMovieList(List<Movie> beans) {
