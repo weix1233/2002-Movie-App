@@ -2,11 +2,18 @@ package movie;
 
 import java.util.*;
 
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+
 public class User {
+	@CsvBindByName
 	private String name;
+	@CsvBindByName
 	private int mobileNo;
+	@CsvBindByName
 	private String email;
 	//bookingHistory is a string of movieTitle and transactionID
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private ArrayList<String> bookingHistory;
 		
 	public User(String name, String email, int mobileNo){	    	
@@ -15,7 +22,7 @@ public class User {
 		this.name= name;
 		this.bookingHistory = new ArrayList<String>();
 	}
-		
+	public User() {}
 	public int getMobileNo() {
 		return mobileNo;
 	}
