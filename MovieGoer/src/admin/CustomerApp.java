@@ -9,19 +9,14 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import movie.Booking;
 import movie.Cinema;
 import movie.Hall;
-import movie.Movie;
 import movie.MovieListing;
 import movie.User;
 
 public class CustomerApp {
-	
 	private Cinema currentCinema;
-	private int hallID;
-	
 	public CustomerApp() throws IllegalStateException, FileNotFoundException {
 		this.currentCinema = chooseCinema();
-	}
-	
+		}
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
@@ -29,11 +24,8 @@ public class CustomerApp {
 				.parse();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
-		if(locationID != 1 || locationID != 2 || locationID != 3) locationID = 1;
-		this.hallID = locationID;
 		return cinemaBeans.get(locationID);
 	}
-	
 	public void displayMenu() {
 		int count = (50 - currentCinema.getName().length() - 9)/2;
 		String buf = "";
@@ -48,41 +40,11 @@ public class CustomerApp {
 		System.out.println("====== 5. View Top 5 Movies                 ======");
 		System.out.println("==================================================");
 	}
-	
-	public MovieListing displayMovieList() {
-		List<MovieListing> ml = this.currentCinema.getMovieList(hallID);
-		for(int i = 0; i < ml.size(); i++) {
-			System.out.printf("%d: ",i);
-			ml.get(i).printListing();
-		}
-		Scanner sc = new Scanner(System.in);
-		int choice = sc.nextInt();
-		if(choice > ml.size()) return null;
-		return ml.get(choice);
-	}
-	
-	public void bookMovie(MovieListing ml){
-		while(ml == null) {
-			ml = this.displayMovieList();
-		}
+	public void bookMovie(int hallID,MovieListing ml){
 		Hall h = currentCinema.getHall(hallID);
 		Booking b = new Booking(h,currentCinema,ml);
 		b.displayBooking();
 	}
-	
-	public void movieDetails(MovieListing ml) {
-		while(ml == null) {
-			ml = this.displayMovieList();
-		}
-		Movie mov = ml.getMovie();
-		System.out.printf("Title: %s\nDirector: %s\nCast: %s\nRating: %.2f\nSypnosis: %s\n",
-				mov.getMovieTitle(),
-				mov.getDirector(),
-				mov.getCast(),
-				mov.getOverallRating(),
-				mov.getSynopis());
-	}
-	
 	public void bookingHistory() throws IllegalStateException, FileNotFoundException {
 		boolean check = false;
 		String name = null;
@@ -125,6 +87,5 @@ public class CustomerApp {
 			}
 			System.out.printf("Check failed...\nAttempts left: %d\n",3 - ++attempt);
 		} while(attempt < 3);
-		System.out.println("Returning to menu...");
 	}
 }
