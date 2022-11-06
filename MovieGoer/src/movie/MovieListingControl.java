@@ -76,21 +76,9 @@ public class MovieListingControl implements MovieListingInterface {
 		}
 	}
 
-	public void createMovieListing(List<Movie> beans, int lengthOfList) {
-		System.out.print("\nEnter the number of movie to create: ");
-		int pos = sc.nextInt();
-		int c = 0;
-		Movie mv = beans.get(pos);
-		screenType st = chooseScreenType();
-		int cinemaHall = chooseCinemaHall();
-		int showtime = chooseShowTime();
-		dayOfWeek day = chooseDay();
-		
-	}
-
 	@Override
 	public MovieListing addMovieListing(MovieListing listing) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
@@ -122,10 +110,10 @@ public class MovieListingControl implements MovieListingInterface {
 				// ml.setAgeRate(chooseAgeRating());
 				break;
 			case 4:
-				//ml.setCinemaHall(chooseCinemaHall());
+				// ml.setCinemaHall(chooseCinemaHall());
 				break;
 			case 5:
-				//ml.setShowtime(chooseShowTime());
+				// ml.setShowtime(chooseShowTime());
 				break;
 			case 6:
 				ml.setDay(chooseDay());
