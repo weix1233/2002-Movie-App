@@ -1,9 +1,16 @@
 package movie;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 public class User {
 	@CsvBindByName
@@ -73,5 +80,10 @@ public class User {
             }
         }
     }
-	
+    public void writeBH(List<User> u) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    	Writer writer = new FileWriter("C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv");
+    	StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+    	beanToCsv.write(u);
+    	writer.close();
+    }
 }
