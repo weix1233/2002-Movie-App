@@ -79,18 +79,6 @@ public class Hall {
 		movieListing.remove(movieListPosition);
 	}
 
-	public void updateMovieListing(int movieListPosition, screenType type, dayOfWeek day, int showTimePos) {
-		String tempShowTime = availableShowTimes.remove(showTimePos);
-		System.out.println("The new show time of movie: " + tempShowTime);
-		showTimes.add(tempShowTime);
-		String removeShowTime = movieListing.get(movieListPosition).getShowtime();
-		System.out.println("Removing show time and add back to available: " + removeShowTime);
-		movieListing.get(movieListPosition).setShowtime(tempShowTime);
-		showTimes.remove(removeShowTime);
-		availableShowTimes.add(removeShowTime);
-		Collections.sort(availableShowTimes);
-	}
-
 	public void showSeats() {
 		char base = 'A';
 		Scanner sc = new Scanner(System.in);

@@ -58,7 +58,7 @@ public class MovieControl {
 		int editChoice;
 		do {
 			System.out.print(
-					"Selection option\n(1) Edit Title (2) Edit Synopis (3) Edit Director (4) Edit Cast (5) Edit show status (6) Edit Age rating (7) Exit: ");
+					"Select option\n(1) Edit Title (2) Edit Synopis (3) Edit Director (4) Edit Cast (5) Edit show status (6) Edit Age rating (7) Exit: ");
 			editChoice = sc.nextInt();
 			switch (editChoice) {
 			case 1:

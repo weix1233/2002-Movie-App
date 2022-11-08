@@ -27,7 +27,8 @@ public class MovieListing {
 	}
 
 	public void printListing() {
-		System.out.println(movie.getMovieTitle() + " " + type.name() + " " + showtime + " " + movie.getAgeRating());
+		System.out.println("Title: " + movie.getMovieTitle() + " | Screen type: " + type.name() + " | Show time: "
+				+ showtime + " | Age Rating: " + movie.getAgeRating() + " | Hall: " + this.hallID);
 	}
 
 	public Movie getMovie() {
