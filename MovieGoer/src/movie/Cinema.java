@@ -68,7 +68,4 @@ public class Cinema {
 	public boolean getIP() {
 		return this.isPlatinum;
 	}
-	public Hall getHall(int hallID) {
-		return this.halls.get(hallID);
-	}
 }

@@ -50,7 +50,8 @@ public class CustomerApp {
 	}
 	
 	public MovieListing displayMovieList() {
-		List<MovieListing> ml = this.currentCinema.getMovieList(hallID);
+		Hall h = this.currentCinema.getHall(hallID);
+		List<MovieListing> ml = h.getMovieListing();
 		for(int i = 0; i < ml.size(); i++) {
 			System.out.printf("%d: ",i);
 			ml.get(i).printListing();
