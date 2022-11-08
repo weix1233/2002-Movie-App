@@ -1,14 +1,11 @@
 package movie;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Movie {
 	Scanner sc = new Scanner(System.in);
@@ -91,29 +88,6 @@ public class Movie {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
-	}
-
-	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
-	}
-
-	public void printMovies(List<Movie> beans) {
-		for (int i = 0; i < beans.size(); i++) {
-			System.out.printf(
-					"%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | ShowingStatus: %s | Age Rating: %s \n",
-					Integer.toString(i), beans.get(i).getMovieTitle(), beans.get(i).getSynopis(),
-					beans.get(i).getDirector(), beans.get(i).getCast(), beans.get(i).getShowingStatus(),
-					beans.get(i).getAgeRating());
-		}
-	}
-
-	public void printCurrentMovieList(List<Movie> beans) {
-		for (int i = 0; i < beans.size(); i++) {
-			if (beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
-				System.out.println(
-						i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: " + beans.get(i).ageRating);
-			}
-		}
 	}
 
 	public double getOverallRating() {

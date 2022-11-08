@@ -1,13 +1,13 @@
 package admin;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import movie.Cinema;
 import movie.Hall;
 import movie.Movie;
+import movie.MovieControl;
 import movie.MovieListing;
 import movie.MovieListing.dayOfWeek;
 import movie.MovieListing.screenType;
@@ -18,7 +18,6 @@ public class AdminControl {
 	Scanner sc = new Scanner(System.in);
 
 	public void MainMenu() throws IllegalStateException, FileNotFoundException {
-		System.out.print("\n(1) Access Cineplex database (2) Edit movie database: \n");
 		int c = 1;// sc.nextInt();
 		switch (c) {
 		case 1:
@@ -48,8 +47,8 @@ public class AdminControl {
 		SortTop st = new SortTop(movieBeans);
 	}
 
-	public void menuAddMovieListing(List<Movie> beans, Movie movie, MovieListingControl mc, Hall hall) {
-		movie.printCurrentMovieList(beans);
+	public void menuAddMovieListing(List<Movie> beans, MovieControl movieControl, MovieListingControl mc, Hall hall) {
+		movieControl.printCurrentMovieList(beans);
 		System.out.println("\nChoose movie to add (Number): ");
 		int moviePos = sc.nextInt();
 		Movie selectedMovie = beans.get(moviePos);
@@ -67,7 +66,7 @@ public class AdminControl {
 		hall.addMovieListing(selectedMovie, screen, day, showTimePos);
 	}
 
-	public void MovieDatabaseMenu(List<Movie> movieBeans, Movie movie) {
+	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl) {
 		int option;
 		do {
 			System.out.print(
@@ -76,152 +75,36 @@ public class AdminControl {
 			sc.nextLine();
 			switch (option) {
 			case 1:
-				movie.printMovies(movieBeans);
+				movieControl.printMovies(movieBeans);
 				break;
 			case 2:
-				System.out.print("Enter movie title: ");
-				String movieTitle = sc.nextLine();
-				System.out.print("Enter synopis title: ");
-				String synopis = sc.nextLine();
-				System.out.print("Enter director: ");
-				String director = sc.nextLine();
-				List<String> cast = new ArrayList<String>();
-				while (true) {
-					System.out.print("Enter cast name or type 'q' to quit: ");
-					String userInput = sc.nextLine();
-					if (userInput.equals("q")) {
-						break;
-					}
-					cast.add(userInput);
-				}
-				System.out.print(
-						"Choose showingStatus\n(1) Coming Soon (2) Preview (3) Now Showing (4) End Of Showing: ");
-				int showingStatusChoice = sc.nextInt();
-				String showingStatus;
-				if (showingStatusChoice == 1) {
-					showingStatus = "COMING_SOON";
-				} else if (showingStatusChoice == 2) {
-					showingStatus = "PREVIEW";
-				} else if (showingStatusChoice == 3) {
-					showingStatus = "NOW_SHOWING";
-				} else {
-					showingStatus = "END_OF_SHOWING";
-				}
-				System.out.print("Choose age rating\n(1) PG (2) PG13 (3) NC16 (4) M18 (5) R21: ");
-				int ageRatingChoice = sc.nextInt();
-				String ageRating;
-				if (ageRatingChoice == 1) {
-					ageRating = "PG";
-				} else if (ageRatingChoice == 2) {
-					ageRating = "PG13";
-				} else if (ageRatingChoice == 3) {
-					ageRating = "NC16";
-				} else if (ageRatingChoice == 4) {
-					ageRating = "M18";
-				} else {
-					ageRating = "R21";
-				}
-				Movie tempMovie = new Movie(movieTitle, synopis, director, cast, showingStatus, ageRating);
-				movieBeans.add(tempMovie);
+				movieControl.addMovieToDatabase(movieBeans);
 				break;
 			case 3:
-				movie.printMovies(movieBeans);
-				System.out.print("Enter movie entry to delete: ");
-				int moviePos = sc.nextInt();
-				movieBeans.remove(moviePos);
+				movieControl.printMovies(movieBeans);
+				movieControl.delMovieFromDatabase(movieBeans);
 				break;
-			case 4:
-				movie.printMovies(movieBeans);
-				System.out.print("Enter movie entry to update: ");
-				int moviePosition = sc.nextInt();
-				Movie editMovie = movieBeans.get(moviePosition);
-				System.out.print(
-						"Selection option\n(1) Edit Title (2) Edit Synopis (3) Edit Director (4) Edit Cast (5) Edit show status (6) Edit Age rating (7) Exit: ");
-				int editChoice = sc.nextInt();
-				sc.nextLine();
-				switch (editChoice) {
-				case 1:
-					System.out.println("Enter new movie title");
-					String newMovieTitle = sc.nextLine();
-					editMovie.setMovieTitle(newMovieTitle);
-					break;
-				case 2:
-					System.out.println("Enter new synopis");
-					String newSynopis = sc.nextLine();
-					editMovie.setSynopis(newSynopis);
-					break;
-				case 3:
-					System.out.println("Enter new director");
-					String newDirector = sc.nextLine();
-					editMovie.setDirector(newDirector);
-					break;
-				case 4:
-					System.out.println("Select option\n(1) Add new cast member (2) Remove cast member");
-					int castChoice = sc.nextInt();
-					sc.nextLine();
-					if (castChoice == 1) {
-						System.out.print("Enter case name to add: ");
-						String newCastName = sc.nextLine();
-						editMovie.addCastMember(newCastName);
-					} else {
-						System.out.println("Current list of cast members");
-						for (int i = 0; i < editMovie.getCast().size(); i++) {
-							System.out.println(Integer.toString(i) + ". " + editMovie.getCast().get(i));
-						}
-						System.out.print("Enter cast number to remove: ");
-						int removeCast = sc.nextInt();
-						editMovie.removeCastMember(removeCast);
-					}
-
-					break;
-				case 5:
-					System.out.print(
-							"Choose showingStatus\n(1) Coming Soon (2) Preview (3) Now Showing (4) End Of Showing: ");
-					int newShowStatus = sc.nextInt();
-					if (newShowStatus == 1) {
-						editMovie.setShowingStatus("COMING_SOON");
-					} else if (newShowStatus == 2) {
-						editMovie.setShowingStatus("PREVIEW");
-					} else if (newShowStatus == 3) {
-						editMovie.setShowingStatus("NOW_SHOWING");
-					} else {
-						editMovie.setShowingStatus("END_OF_SHOWING");
-					}
-					break;
-				case 6:
-					System.out.print("Choose age rating\n(1) PG (2) PG13 (3) NC16 (4) M18 (5) R21: ");
-					int newAgeRating = sc.nextInt();
-					if (newAgeRating == 1) {
-						editMovie.setAgeRating("PG");
-					} else if (newAgeRating == 2) {
-						editMovie.setAgeRating("PG13");
-					} else if (newAgeRating == 3) {
-						editMovie.setAgeRating("NC16");
-					} else if (newAgeRating == 4) {
-						editMovie.setAgeRating("M18");
-					} else {
-						editMovie.setAgeRating("R21");
-					}
-					break;
-				default:
-					break;
-				}
+			case 4: // update movie
+				movieControl.updateMovieInDatabase(movieBeans);
+				break;
 			default:
 				break;
 			}
-		} while (option > 0 && option < 4);
+		} while (option > 0 && option < 5);
+
 	}
 
 	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\hue\\Desktop\\database\\cinema\\cinema.csv";
-		String movieFileName = "C:\\Users\\hue\\Desktop\\database\\movie\\movie.csv";
+		String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\cinema\\cinema.csv";
+		String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\movie\\movie.csv";
 		Cinema cinema = new Cinema();
 		Movie movie = new Movie();
+		MovieControl movieControl = new MovieControl();
 		List<Cinema> cinemaBeans = cinema.getCinemaList(cinemaFileName);
-		List<Movie> movieBeans = movie.getMovieList(movieFileName);
-		System.out.print("Selection option\n(1) Access movie database (2) Access cineplex database: ");
+		List<Movie> movieBeans = movieControl.getMovieList(movieFileName);
+		System.out.print("Select option\n(1) Access movie database (2) Access cineplex database: ");
 		if (sc.nextInt() == 1) {
-			MovieDatabaseMenu(movieBeans, movie);
+			MovieDatabaseMenu(movieBeans, movieControl);
 			return;
 		}
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
@@ -240,7 +123,7 @@ public class AdminControl {
 			option = sc.nextInt();
 			switch (option) {
 			case 1:
-				menuAddMovieListing(movieBeans, movie, mc, hall);
+				menuAddMovieListing(movieBeans, movieControl, mc, hall);
 				break;
 			case 2:
 				if (hallML.size() == 0) {
