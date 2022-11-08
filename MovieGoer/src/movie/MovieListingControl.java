@@ -88,44 +88,4 @@ public class MovieListingControl implements MovieListingInterface {
 
 	}
 
-	@Override
-	public void updateMovieListing(List<MovieListing> beans, int movieListingID) {
-		// TODO Auto-generated method stub
-		MovieListing ml = beans.get(movieListingID);
-		System.out.println("Current settings");
-		ml.printListing();
-		int choice = 0;
-		while (true) {
-			System.out.print(
-					"Enter setting to change\n(1) Screen Type (4) Cinema Hall (5) Show Time (6) Day of Listing (7) Exit: ");
-			choice = sc.nextInt();
-			switch (choice) {
-			case 1:
-				ml.setType(chooseScreenType());
-				break;
-			case 2:
-				// ml.setStatus(chooseShowingStatus());
-				break;
-			case 3:
-				// ml.setAgeRate(chooseAgeRating());
-				break;
-			case 4:
-				// ml.setCinemaHall(chooseCinemaHall());
-				break;
-			case 5:
-				// ml.setShowtime(chooseShowTime());
-				break;
-			case 6:
-				ml.setDay(chooseDay());
-				break;
-			case 7:
-				return;
-			default:
-				return;
-			}
-			System.out.println("Updated settings");
-			ml.printListing();
-		}
-	}
-
 }

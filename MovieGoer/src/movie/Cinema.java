@@ -1,13 +1,10 @@
 package movie;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Cinema {
 	@CsvBindByName
@@ -35,10 +32,6 @@ public class Cinema {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Cinema> getCinemaList(String path) throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(path)).withType(Cinema.class).build().parse();
 	}
 
 	public List<Integer> getHallID() {
