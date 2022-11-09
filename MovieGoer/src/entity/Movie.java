@@ -12,35 +12,35 @@ import com.opencsv.bean.CsvBindByName;
  *
  */
 public class Movie {
-	@CsvBindByName
 	/**
 	 * Title of the movie
 	 */
-	private String movieTitle;
 	@CsvBindByName
+	private String movieTitle;
 	/**
 	 * Short synopsis describing the movie
 	 */
-	private String synopis;
 	@CsvBindByName
+	private String synopis;
 	/**
 	 * First and last name of the director
 	 */
+	@CsvBindByName
 	private String director;
-	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
 	/**
 	 * List of cast members, with each member stored as a String of first and last name
 	 */
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
 	private List<String> cast;
-	@CsvBindByName(column = "showingStatus")
 	/**
 	 * Showing status of the movie
 	 */
+	@CsvBindByName(column = "showingStatus")
 	private String showingStatus;
-	@CsvBindByName(column = "ageRating")
 	/**
 	 * Age rating of the movie
 	 */
+	@CsvBindByName(column = "ageRating")
 	private String ageRating;
 	/**
 	 * List of all the reviews for the movie
