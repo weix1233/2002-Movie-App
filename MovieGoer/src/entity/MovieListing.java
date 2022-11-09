@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 public class MovieListing {
 

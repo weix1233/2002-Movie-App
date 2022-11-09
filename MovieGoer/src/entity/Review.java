@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 public class Review {
 	private String review;

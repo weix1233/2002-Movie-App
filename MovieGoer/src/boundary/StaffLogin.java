@@ -1,4 +1,4 @@
-package admin;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

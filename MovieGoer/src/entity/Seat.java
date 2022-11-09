@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 // Seat info - row number, column number and availability.
 

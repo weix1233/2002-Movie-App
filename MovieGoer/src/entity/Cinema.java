@@ -1,10 +1,12 @@
-package movie;
+package entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+
+import control.TextToHall;
 
 public class Cinema {
 	@CsvBindByName

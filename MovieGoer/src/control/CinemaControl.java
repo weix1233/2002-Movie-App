@@ -1,10 +1,12 @@
-package movie;
+package control;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+
+import entity.Cinema;
 
 public class CinemaControl {
 	public List<Cinema> getCinemaList(String path) throws IllegalStateException, FileNotFoundException {

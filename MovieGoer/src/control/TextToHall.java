@@ -1,6 +1,8 @@
-package movie;
+package control;
 
 import com.opencsv.bean.AbstractCsvConverter;
+
+import entity.Hall;
 
 public class TextToHall extends AbstractCsvConverter {
 	@Override

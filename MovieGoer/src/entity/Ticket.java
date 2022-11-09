@@ -1,10 +1,9 @@
-package movie;
+package entity;
 
-import movie.MovieListing.dayOfWeek;
-import movie.MovieListing.screenType;
+import entity.MovieListing.screenType;
 
 public class Ticket {
-	protected enum ticketType {
+	public enum ticketType {
 		ADULT, SENIOR, CHILD
 	}
 
@@ -32,7 +31,7 @@ public class Ticket {
 		String[] dayTime = movieListing.getShowtime().split(" ");
 		String day = dayTime[0];
 		String time = dayTime[1];
-		
+
 		double basePrice = 5.0;
 
 		// arbitrary price setting
@@ -112,5 +111,5 @@ public class Ticket {
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-	
+
 }

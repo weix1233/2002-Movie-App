@@ -1,4 +1,4 @@
-package movie;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+
+import entity.Movie;
 
 public class MovieControl {
 	Scanner sc = new Scanner(System.in);

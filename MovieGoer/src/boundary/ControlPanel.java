@@ -1,10 +1,10 @@
-package admin;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import movie.MovieListing;
+import entity.MovieListing;
 
 public class ControlPanel {
 	private static List<MovieListing> mls;

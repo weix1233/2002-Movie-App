@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 public class ConsoleColors {
 	//Download ANSI console through the eclipse marketplace under help

@@ -1,7 +1,9 @@
-package movie;
+package control;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entity.Movie;
 
 public class SortTop {
 	private List<Movie> movies = new ArrayList<Movie>();

@@ -1,4 +1,4 @@
-package movie;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,15 +7,15 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import movie.MovieListing.dayOfWeek;
-import movie.MovieListing.screenType;
+import entity.Movie;
+import entity.MovieListing.dayOfWeek;
+import entity.MovieListing.screenType;
 
-public class MovieListingControl implements MovieListingInterface {
+public class MovieListingControl {
 	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);
 	String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.csv";
 
-	@Override
 	public List<Movie> listMovieTitles() throws IllegalStateException, FileNotFoundException {
 		// TODO Auto-generated method stub
 		List<Movie> beans = new CsvToBeanBuilder(new FileReader(movieFilePath)).withType(Movie.class).build().parse();
@@ -75,17 +75,4 @@ public class MovieListingControl implements MovieListingInterface {
 			return dayOfWeek.MON;
 		}
 	}
-
-	@Override
-	public MovieListing addMovieListing(MovieListing listing) {
-
-		return null;
-	}
-
-	@Override
-	public void removeMovieListing(MovieListing listing) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

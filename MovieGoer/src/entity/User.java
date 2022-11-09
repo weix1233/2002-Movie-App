@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 import java.io.FileWriter;
 import java.io.IOException;

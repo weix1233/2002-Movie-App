@@ -1,4 +1,4 @@
-package admin;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,13 +6,12 @@ import java.util.*;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import movie.Booking;
-import movie.Cinema;
-import movie.Hall;
-import movie.Movie;
-import movie.MovieListing;
-import movie.SortTop;
-import movie.User;
+import control.SortTop;
+import entity.Cinema;
+import entity.Hall;
+import entity.Movie;
+import entity.MovieListing;
+import entity.User;
 
 public class CustomerApp {
 	

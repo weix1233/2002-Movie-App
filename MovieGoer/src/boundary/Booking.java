@@ -1,4 +1,4 @@
-package movie;
+package boundary;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import movie.Ticket.ticketType;
+import entity.Cinema;
+import entity.Hall;
+import entity.MovieListing;
+import entity.Ticket;
+import entity.User;
+import entity.Ticket.ticketType;
 
 public class Booking {
 	private String transactionID;

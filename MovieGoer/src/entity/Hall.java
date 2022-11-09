@@ -1,4 +1,4 @@
-package movie;
+package entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,9 +7,6 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
-
-import movie.MovieListing.dayOfWeek;
-import movie.MovieListing.screenType;
 
 public class Hall {
 	@CsvBindByName
@@ -62,14 +59,6 @@ public class Hall {
 				s.add(split[i]);
 		}
 		this.showTimes = s;
-	}
-
-	public void addMovieListing(Movie movie, screenType type, dayOfWeek day, int showTimePos) {
-		String tempShowTime = availableShowTimes.remove(showTimePos);
-		System.out.println("Adding " + tempShowTime + "  to show time");
-		showTimes.add(tempShowTime);
-		MovieListing ml = new MovieListing(movie, type, day, tempShowTime, this.hallID);
-		movieListing.add(ml);
 	}
 
 	public void delMovieListing(int movieListPosition) {

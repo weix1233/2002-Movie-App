@@ -1,25 +1,22 @@
-package admin;
+package boundary;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
-import movie.Cinema;
-import movie.CinemaControl;
-import movie.Hall;
-import movie.HallControl;
-import movie.Movie;
-import movie.MovieControl;
-import movie.MovieListing;
-import movie.MovieListingControl;
-import movie.SortTop;
+import control.CinemaControl;
+import control.SortTop;
+import entity.Cinema;
+import entity.Hall;
+import entity.Movie;
+import entity.MovieListing;
 
 public class AdminControl {
 	Scanner sc = new Scanner(System.in);
 
 	public void MainMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\cinema\\cinema.csv";
-		String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\movie\\movie.csv";
+		String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\cinema.csv";
+		String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\movie\\movie.csv";
 		MovieControl movieControl = new MovieControl();
 		CinemaControl cinemaControl = new CinemaControl();
 		List<Cinema> cinemaBeans = cinemaControl.getCinemaList(cinemaFileName);

@@ -1,11 +1,14 @@
-package movie;
+package boundary;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import movie.MovieListing.dayOfWeek;
-import movie.MovieListing.screenType;
+import entity.Hall;
+import entity.Movie;
+import entity.MovieListing;
+import entity.MovieListing.dayOfWeek;
+import entity.MovieListing.screenType;
 
 public class HallControl {
 	Scanner sc = new Scanner(System.in);
@@ -24,15 +27,21 @@ public class HallControl {
 		screenType screen = mc.chooseScreenType();
 		dayOfWeek day = mc.chooseDay();
 		String strDay = day.name();
-		List<String> availableTiming = hall.getAvailableShowTimes();
+		List<String> availableShowTimes = hall.getAvailableShowTimes();
+		List<String> showTimes = hall.getShowTimes();
 		System.out.println("\nChoose available showing time");
-		for (int i = 0; i < availableTiming.size(); i++) {
-			if (availableTiming.get(i).split(" ")[0].equals(strDay)) {
-				System.out.println(Integer.toString(i) + ". " + availableTiming.get(i));
+		for (int i = 0; i < availableShowTimes.size(); i++) {
+			if (availableShowTimes.get(i).split(" ")[0].equals(strDay)) {
+				System.out.println(Integer.toString(i) + ". " + availableShowTimes.get(i));
 			}
 		}
 		int showTimePos = sc.nextInt();
-		hall.addMovieListing(selectedMovie, screen, day, showTimePos);
+		// hall.addMovieListing(selectedMovie, screen, day, showTimePos);
+		String tempShowTime = availableShowTimes.remove(showTimePos);
+		System.out.println("Adding " + tempShowTime + "  to show time");
+		showTimes.add(tempShowTime);
+		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime, hall.getHallID());
+		hall.getMovieListing().add(ml);
 	}
 
 	public void hallDelMovieListing(Hall hall, List<MovieListing> hallML) {
