@@ -5,6 +5,12 @@ public class Review {
 	private int rating;
 	private String reviewerName;
 	
+	public Review(String review, int rating, String reviewerName){
+		this.review = review;
+		this.rating = rating;
+		this.reviewerName = reviewerName;
+	}
+	
 	public String getReview() {
 		return this.review;
 	}
