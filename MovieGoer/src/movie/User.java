@@ -1,12 +1,26 @@
 package movie;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
 public class User {
+	@CsvBindByName
 	private String name;
+	@CsvBindByName
 	private int mobileNo;
+	@CsvBindByName
 	private String email;
 	//bookingHistory is a string of movieTitle and transactionID
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private ArrayList<String> bookingHistory;
 		
 	public User(String name, String email, int mobileNo){	    	
@@ -15,7 +29,7 @@ public class User {
 		this.name= name;
 		this.bookingHistory = new ArrayList<String>();
 	}
-		
+	public User() {}
 	public int getMobileNo() {
 		return mobileNo;
 	}
@@ -66,5 +80,10 @@ public class User {
             }
         }
     }
-	
+    public void writeBH(List<User> u) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    	Writer writer = new FileWriter("C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv");
+    	StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+    	beanToCsv.write(u);
+    	writer.close();
+    }
 }

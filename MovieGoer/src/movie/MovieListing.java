@@ -10,7 +10,6 @@ public class MovieListing {
 		MON, TUES, WED, THURS, FRI, SAT, SUN, PH
 	};
 
-	private int movieListingID;
 	private Movie movie;
 	private screenType type;
 	private dayOfWeek day;
@@ -18,8 +17,7 @@ public class MovieListing {
 	private int hallID;
 	private Review[] reviews;
 
-	public MovieListing(int movieListingID, Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
-		this.movieListingID = movieListingID;
+	public MovieListing(Movie movie, screenType type, dayOfWeek day, String showtime, int hallID) {
 		this.movie = movie;
 		this.type = type;
 		this.day = day;
@@ -28,14 +26,9 @@ public class MovieListing {
 		Review[] reviews = new Review[1];
 	}
 
-	public int getMovieListingID() {
-		return movieListingID;
-	}
-
 	public void printListing() {
-		System.out.println(Integer.toString(movieListingID) + " " + movie.getMovieTitle() + " " + type.name() + " "
-				+ movie.getShowingStatus() + " " + movie.getAgeRating() + " " + day.name() + " " + showtime + " "
-				+ Integer.toString(hallID));
+		System.out.println("Title: " + movie.getMovieTitle() + " | Screen type: " + type.name() + " | Show time: "
+				+ showtime + " | Age Rating: " + movie.getAgeRating() + " | Hall: " + this.hallID);
 	}
 
 	public Movie getMovie() {

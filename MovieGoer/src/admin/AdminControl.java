@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import movie.Cinema;
+import movie.CinemaControl;
+import movie.Hall;
+import movie.HallControl;
 import movie.Movie;
-import movie.MovieListing.dayOfWeek;
+import movie.MovieControl;
+import movie.MovieListing;
 import movie.MovieListingControl;
 import movie.SortTop;
 
@@ -14,29 +18,27 @@ public class AdminControl {
 	Scanner sc = new Scanner(System.in);
 
 	public void MainMenu() throws IllegalStateException, FileNotFoundException {
-		System.out.print("\n(1) Access Cineplex database (2) Edit movie database: \n");
-		int c = 1;// sc.nextInt();
-		switch (c) {
-		case 1:
-			MovieMenu();
-			break;
-		case 2:
-			break;
-		default:
-			break;
-		}
-
-	}
-
-	private void getCinemaInfo(List<Cinema> beans, int c) {
-		System.out.printf("Cinema ID: %s\n", beans.get(c).getCinemaID());
-		System.out.printf("Name: %s\n", beans.get(c).getName());
-		System.out.println("isPlatnimum: " + beans.get(c).getIP());
-		for (int j = 0; j < beans.get(c).getHallID().size(); j++) {
-			System.out.println("Hall " + beans.get(c).getHallID().get(j));
-			System.out.println("Available Show Times: " + beans.get(c).getAST(j));
-			System.out.println("Show Times: " + beans.get(c).getST(j));
-		}
+		String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\cinema\\cinema.csv";
+		String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App23\\MovieGoer\\database\\movie\\movie.csv";
+		MovieControl movieControl = new MovieControl();
+		CinemaControl cinemaControl = new CinemaControl();
+		List<Cinema> cinemaBeans = cinemaControl.getCinemaList(cinemaFileName);
+		List<Movie> movieBeans = movieControl.getMovieList(movieFileName);
+		int c;
+		do {
+			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database: ");
+			c = sc.nextInt();
+			switch (c) {
+			case 1:
+				MovieDatabaseMenu(movieBeans, movieControl);
+				break;
+			case 2:
+				MovieMenu(cinemaControl, movieControl, cinemaBeans, movieBeans);
+				break;
+			default:
+				break;
+			}
+		} while (c > 0 && c < 3);
 
 	}
 
@@ -44,42 +46,68 @@ public class AdminControl {
 		SortTop st = new SortTop(movieBeans);
 	}
 
-	public void MovieMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\hue\\Desktop\\database\\cinema\\cinema.csv";
-		String movieFileName = "C:\\Users\\hue\\Desktop\\database\\movie\\movie.csv";
-		Cinema cinema = new Cinema();
-		Movie movie = new Movie();
-		List<Cinema> cinemaBeans = cinema.getCinemaList(cinemaFileName);
-		List<Movie> movieBeans = movie.getMovieList(movieFileName);
+	public void MovieMenu(CinemaControl cinemaControl, MovieControl movieControl, List<Cinema> cinemaBeans,
+			List<Movie> movieBeans) throws IllegalStateException, FileNotFoundException {
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
-		getCinemaInfo(cinemaBeans, locationID);
-		System.out.print(
-				"Selection option\n(1) Show all current movie listings (2) Modify a cinema hall movie listing: ");
-		int choice = sc.nextInt();
-
+		cinemaControl.getCinemaInfo(cinemaBeans, locationID);
 		System.out.print("Select cinema hall number (1 ~ 3): ");
 		int hallID = sc.nextInt();
-		System.out.print(
-				"Select option\n(1) Add movie listing (2) Remove movie listing (3) Update movie listing (4) List current movie listing: ");
+		Hall hall = cinemaBeans.get(locationID).getHall(hallID);
+		List<MovieListing> hallML = hall.getMovieListing();
 		MovieListingControl mc = new MovieListingControl();
-		// List<MovieListing> hallMovieListing =
-		// cinemaBeans.get(locationID).getMovieList(hallID);
-		int option = sc.nextInt();
-		switch (option) {
-		case 1:
-			movie.printCurrentMovieList(movieBeans);
-			System.out.println("\nChoose movie to add (Number): ");
-			int moviePos = sc.nextInt();
-			dayOfWeek day = mc.chooseDay();
-			List<String> availableTiming = cinemaBeans.get(locationID).getAST(hallID);
-			System.out.println("\nChoose available showing time");
-			for (int i = 0; i < availableTiming.size(); i++) {
-				System.out.println(Integer.toString(i + 1) + ". " + availableTiming.get(i));
+		HallControl hallControl = new HallControl();
+
+		int option;
+		do {
+			System.out.print(
+					"Select option\n(1) Add movie showtime (2) Remove movie showtime (3) Update movie showtime (4) List current movie showtimes (5) Exit: ");
+			option = sc.nextInt();
+			switch (option) {
+			case 1:
+				movieControl.printCurrentMovieList(movieBeans);
+				hallControl.hallAddMovieListing(movieBeans, hall);
+				break;
+			case 2:
+				hallControl.hallDelMovieListing(hall, hallML);
+				break;
+			case 3:
+				hallControl.hallUpdateMovieListing(hall, hallML, mc);
+				break;
+			case 4:
+				hallControl.hallListAllMovieListing(hallML, hall);
+			default:
 			}
-			int pos = sc.nextInt() - 1;
-			break;
-		default:
-		}
+		} while (option < 5 && option > 0);
+		System.out.println("exited");
+	}
+
+	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl)
+			throws IllegalStateException, FileNotFoundException {
+		int option;
+		do {
+			System.out.print(
+					"Selection option\n(1) List all movies (2) Add movie (3) Delete movie (4) Update Movie (5) Exit: ");
+			option = sc.nextInt();
+			sc.nextLine();
+			switch (option) {
+			case 1:
+				movieControl.printMovies(movieBeans);
+				break;
+			case 2:
+				movieControl.addMovieToDatabase(movieBeans);
+				break;
+			case 3:
+				movieControl.printMovies(movieBeans);
+				movieControl.delMovieFromDatabase(movieBeans);
+				break;
+			case 4: // update movie
+				movieControl.printMovies(movieBeans);
+				movieControl.updateMovieInDatabase(movieBeans);
+				break;
+			default:
+				break;
+			}
+		} while (option > 0 && option < 5);
 	}
 }

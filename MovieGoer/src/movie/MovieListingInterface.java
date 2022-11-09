@@ -11,5 +11,4 @@ public interface MovieListingInterface {
 
 	public void removeMovieListing(MovieListing listing);
 
-	public void updateMovieListing(List<MovieListing> beans, int movieListingID);
 }

@@ -30,7 +30,7 @@ public class SortTop {
 
 	public void sortBySales() {
 		int curMax = 0;
-		Movie curTop = movies.get(0); // FIX THIS PROPERLY LATER
+		Movie curTop = movies.get(0);
 		int cur;
 		for (int j = 0; j < 5; j++) {
 			for (int i = 1; i < movies.size(); i++) {
