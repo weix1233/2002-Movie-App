@@ -1,3 +1,5 @@
 /admin/
 /movie/
-/CinemaControl.class
+/entity/
+/boundary/
+/control/
