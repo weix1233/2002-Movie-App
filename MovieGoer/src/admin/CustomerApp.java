@@ -11,6 +11,7 @@ import movie.Cinema;
 import movie.Hall;
 import movie.Movie;
 import movie.MovieListing;
+import movie.SortTop;
 import movie.User;
 
 public class CustomerApp {
@@ -46,6 +47,7 @@ public class CustomerApp {
 		System.out.println("====== 3. Check Seats                       ======");
 		System.out.println("====== 4. View Booking history              ======");
 		System.out.println("====== 5. View Top 5 Movies                 ======");
+		System.out.println("====== 6. Exit                              ======");
 		System.out.println("==================================================");
 	}
 	
@@ -127,5 +129,31 @@ public class CustomerApp {
 			System.out.printf("Check failed...\nAttempts left: %d\n",3 - ++attempt);
 		} while(attempt < 3);
 		System.out.println("Returning to menu...");
+	}
+	
+	public void sortPopularMovie(List<Movie> movieBeans,int sys) {
+		SortTop st = new SortTop(movieBeans);
+		if (sys == 0){
+			int choice = 0;
+			System.out.println("Please choose to sort by -- (1) Ratings (2) Ticket Sales");
+			switch(choice) {
+			case 1:
+				st.sortByRating();
+				break;
+			case 2:
+				st.sortBySales();
+				break;
+			default:
+				st.sortByRating();
+				break;
+			}
+		}
+		else if (sys == 1) {
+			st.sortByRating();
+		}
+		else {
+			st.sortBySales();
+		}
+		
 	}
 }
