@@ -79,18 +79,6 @@ public class Hall {
 		movieListing.remove(movieListPosition);
 	}
 
-	public void updateMovieListing(int movieListPosition, screenType type, dayOfWeek day, int showTimePos) {
-		String tempShowTime = availableShowTimes.remove(showTimePos);
-		System.out.println("The new show time of movie: " + tempShowTime);
-		showTimes.add(tempShowTime);
-		String removeShowTime = movieListing.get(movieListPosition).getShowtime();
-		System.out.println("Removing show time and add back to available: " + removeShowTime);
-		movieListing.get(movieListPosition).setShowtime(tempShowTime);
-		showTimes.remove(removeShowTime);
-		availableShowTimes.add(removeShowTime);
-		Collections.sort(availableShowTimes);
-	}
-
 	public void showSeats() {
 		char base = 'A';
 		Scanner sc = new Scanner(System.in);
@@ -104,12 +92,8 @@ public class Hall {
 				} else {
 					// first two rows for couple seats
 					if (i == 0 || i == 1) {
-						{
-							if ((j < 6 && j % 2 == 0) || (j > 6 && j % 2 != 0)) {
-								System.out.printf(
-										ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "[ || ]" + ConsoleColors.RESET);
-							}
-						}
+						System.out.printf(ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "%s" + ConsoleColors.RESET,
+								seat[i - 1][j - 1].seatSlot());
 					}
 					// last two rows for elite seats
 					if (i == 7 || i == 8) {
