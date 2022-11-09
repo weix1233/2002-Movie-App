@@ -3,7 +3,6 @@ package movie;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
@@ -50,6 +49,10 @@ public class Cinema {
 		return hallID;
 	}
 
+	public Hall getHall(int hallID) {
+		return halls.get(hallID);
+	}
+
 	public void setIP(boolean plat) {
 		this.isPlatinum = plat;
 	}
@@ -58,31 +61,11 @@ public class Cinema {
 		this.cinemaID = cid;
 	}
 
-	public List<String> getAST(int hallID) {
-		String part1 = halls.get(hallID).getAvailableShowTimes().get(0);
-		List<String> items = Arrays.asList(part1.split(";"));
-
-		return items;
-	}
-
-	public List<String> getST(int hallID) {
-		String part1 = halls.get(hallID).getShowTimes().get(0);
-		List<String> items = Arrays.asList(part1.split(";"));
-		return halls.get(hallID).getShowTimes();
-	}
-
-	public List<MovieListing> getMovieList(int hallID) {
-		return halls.get(hallID).getMovieListing();
-	}
-
 	public String getCinemaID() {
 		return this.cinemaID;
 	}
 
 	public boolean getIP() {
 		return this.isPlatinum;
-	}
-	public Hall getHall(int hallID) {
-		return this.halls.get(hallID);
 	}
 }

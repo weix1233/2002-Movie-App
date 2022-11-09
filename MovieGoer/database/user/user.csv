@@ -1,4 +1,4 @@
-name,mobileNo,email,bookingHistory
-John,999,doesnotexist@email.com,placeholderYYYYMMDDXXX
-cino,90104000,cino@cino.com,cino20221106001;thelifeofCino20221106001
-nico,12391219,niconiconii@niconii.com,LoveLive!02211046001
+"BOOKINGHISTORY","EMAIL","MOBILENO","NAME"
+"placeholderYYYYMMDDXXX KEKW","doesnotexist@email.com","999","John"
+"cino20221106001 thelifeofCino20221106001","cino@cino.com","90104000","cino"
+"LoveLive!02211046001","niconiconii@niconii.com","12391219","nico"

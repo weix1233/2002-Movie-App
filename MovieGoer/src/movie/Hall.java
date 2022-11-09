@@ -1,11 +1,15 @@
 package movie;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+
+import movie.MovieListing.dayOfWeek;
+import movie.MovieListing.screenType;
 
 public class Hall {
 	@CsvBindByName
@@ -16,12 +20,6 @@ public class Hall {
 	private List<String> showTimes;
 	private List<MovieListing> movieListing = new ArrayList<MovieListing>();
 	private Seat[][] seat = new Seat[9][13];
-
-	public Hall(int hallID, List<String> availableShowTimes, List<String> showTimes) {
-		this.hallID = hallID;
-		this.availableShowTimes = availableShowTimes;
-		this.showTimes = showTimes;
-	}
 
 	public Hall() {
 		// TODO Auto-generated constructor stub
@@ -49,26 +47,48 @@ public class Hall {
 
 	public void setAvailableShowTimes(String ast) {
 		List<String> s = new ArrayList<String>();
-		String[] split = ast.split(",");
+		String[] split = ast.split(";");
 		for (int i = 0; i < split.length; i++)
 			s.add(split[i]);
+		Collections.sort(s);
 		this.availableShowTimes = s;
 	}
 
 	public void setShowTimes(String st) {
 		List<String> s = new ArrayList<String>();
-		String[] split = st.split(",");
-		for (int i = 0; i < split.length; i++)
-			s.add(split[i]);
+		String[] split = st.split(";");
+		if (!split[0].equals("")) {
+			for (int i = 0; i < split.length; i++)
+				s.add(split[i]);
+		}
 		this.showTimes = s;
 	}
 
-	public void addShow(int timeSlot) {
-
+	public void addMovieListing(Movie movie, screenType type, dayOfWeek day, int showTimePos) {
+		String tempShowTime = availableShowTimes.remove(showTimePos);
+		System.out.println("Adding " + tempShowTime + "  to show time");
+		showTimes.add(tempShowTime);
+		MovieListing ml = new MovieListing(movie, type, day, tempShowTime, this.hallID);
+		movieListing.add(ml);
 	}
 
-	public void delShow(int timeSlot) {
+	public void delMovieListing(int movieListPosition) {
+		String tempShowTime = showTimes.remove(movieListPosition);
+		availableShowTimes.add(tempShowTime);
+		Collections.sort(availableShowTimes);
+		movieListing.remove(movieListPosition);
+	}
 
+	public void updateMovieListing(int movieListPosition, screenType type, dayOfWeek day, int showTimePos) {
+		String tempShowTime = availableShowTimes.remove(showTimePos);
+		System.out.println("The new show time of movie: " + tempShowTime);
+		showTimes.add(tempShowTime);
+		String removeShowTime = movieListing.get(movieListPosition).getShowtime();
+		System.out.println("Removing show time and add back to available: " + removeShowTime);
+		movieListing.get(movieListPosition).setShowtime(tempShowTime);
+		showTimes.remove(removeShowTime);
+		availableShowTimes.add(removeShowTime);
+		Collections.sort(availableShowTimes);
 	}
 
 	public void showSeats() {
