@@ -1,19 +1,52 @@
 package entity;
 
 import entity.MovieListing.screenType;
-
+/**
+ * Represents a ticket to be issued to the customer
+ * @author SS4 Group 4
+ *
+ */
 public class Ticket {
+	/**
+	 * Type of ticket (Adult, Senior or Child)
+	 * @author SS4 Group 4
+	 *
+	 */
 	public enum ticketType {
 		ADULT, SENIOR, CHILD
 	}
-
-	private double ticketPrice;
+	/**
+	 * Price of the ticket
+	 */
+	private double ticketPrice=0;
+	/**
+	 * Type of the ticket
+	 */
 	private ticketType ticType;
+	/**
+	 * Movie listing that the ticket is for
+	 */
 	private MovieListing movieListing;
+	/**
+	 * Cinema where the movie will be screening
+	 */
 	private Cinema cinema;
+	/**
+	 * Row of the seat
+	 */
 	private int row;
+	/**
+	 * Column of the seat
+	 */
 	private int col;
-
+	/**
+	 * Creates a new Ticket with the following parameters
+	 * @param cinema Cinema where the movie is screening
+	 * @param movieListing Movie Listing that the ticket is for
+	 * @param ticType Type of ticket
+	 * @param row Row of seat
+	 * @param col Column of seat
+	 */
 	public Ticket(Cinema cinema, MovieListing movieListing, ticketType ticType, int row, int col) {
 		this.cinema = cinema;
 		this.movieListing = movieListing;
@@ -22,12 +55,17 @@ public class Ticket {
 		this.col = col;
 	}
 
-	// Get methods
+	/**
+	 * Gets the type of ticket
+	 * @return The ticket type
+	 */
 	public ticketType getTicType() {
 		return ticType;
 	}
-
-	public double getTicketPrice() {
+	/**
+	 * Calculate the price of the ticket
+	 */
+	public void calculateTicketPrice() {
 		String[] dayTime = movieListing.getShowtime().split(" ");
 		String day = dayTime[0];
 		String time = dayTime[1];
@@ -67,19 +105,35 @@ public class Ticket {
 		basePrice = 1.07 * basePrice;
 		// round to 2dp
 		ticketPrice = Math.round(basePrice * 100.0) / 100.0;
-
+	}
+	/**
+	 * Gets the price of the ticket
+	 * @return The ticket price
+	 */
+	public double getTicketPrice() {
+		if(ticketPrice==0) {
+			calculateTicketPrice();
+		}
 		return ticketPrice;
 	}
 
-	// Set methods
+	/**
+	 * Changes the type of the ticket
+	 * @param ticType The new ticket type
+	 */
 	public void setTicketTypes(ticketType ticType) {
 		this.ticType = ticType;
 	}
-
+	/**
+	 * Changes the price of the ticket
+	 * @param ticketPrice The new ticket price
+	 */
 	public void setTicketPrice(double ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
-
+	/**
+	 * Display the prices for a Standard cinema class
+	 */
 	public void showStandardPrices() {
 		System.out.println("Current ticket prices for Standard cinema class: ");
 		System.out.println("=================================================");
@@ -95,7 +149,9 @@ public class Ticket {
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-
+	/**
+	 * Display the prices for a Platinum cinema class
+	 */
 	public void showPlatiumPrices() {
 		System.out.println("Current ticket prices for Platium cinema class: ");
 		System.out.println("=================================================");

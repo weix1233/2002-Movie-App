@@ -1,5 +1,12 @@
 package entity;
 
+/**
+ * All the colors used for the seat colors
+ * In order for it to work:
+ * Download ANSI console through the eclipse marketplace under help
+ * @author SS4 Group 4
+ *
+ */
 public class ConsoleColors {
 	//Download ANSI console through the eclipse marketplace under help
 	public static final String RESET = "\033[0m";  // Text Reset
