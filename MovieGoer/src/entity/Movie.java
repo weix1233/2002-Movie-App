@@ -147,10 +147,10 @@ public class Movie {
 	}
 	/**
 	 * Removes a cast member from the list of cast members
-	 * @param castName Name of cast member to be removed
+	 * @param castIndex Index of cast member to be removed
 	 */
-	public void removeCastMember(String castName) {
-		cast.remove(castName);
+	public void removeCastMember() {int castPosition)
+		cast.remove(castPosition);
 	}
 	/**
 	 * Gets the list of reviews for the movie
