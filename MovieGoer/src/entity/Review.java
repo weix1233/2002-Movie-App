@@ -1,5 +1,7 @@
 package entity;
 
+import com.opencsv.bean.CsvBindByName;
+
 /**
  * Represents a single review by a customer
  * @author SS4 Group 4
@@ -9,14 +11,17 @@ public class Review {
 	/**
 	 * Qualitative review of the movie
 	 */
+	@CsvBindByName
 	private String review;
 	/**
 	 * Rating of the movie as an integer from 1 to 10
 	 */
+	@CsvBindByName
 	private int rating;
 	/** 
 	 * First and last name of the reviewer
 	 */
+	@CsvBindByName
 	private String reviewerName;
 	/**
 	 * Creates a new empty Review
