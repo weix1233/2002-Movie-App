@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
+
+import control.TextToHall;
+import control.TextToReview;
 /**
  * Represents a movie with all the relevant information
  * @author SS4 Group 4
@@ -45,10 +48,12 @@ public class Movie {
 	/**
 	 * List of all the reviews for the movie
 	 */
+	@CsvBindAndSplitByName(elementType = Review.class, collectionType = ArrayList.class, splitOn = ",", converter = TextToReview.class)
 	private List<Review> reviews;
 	/**
 	 * A counter of how many tickets have been sold for the movie
 	 */
+	@CsvBindByName(column = "saleCounter")
 	private int saleCounter;
 	/**
 	 * Creates a new empty Movie
