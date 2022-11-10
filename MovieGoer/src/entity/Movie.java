@@ -149,7 +149,7 @@ public class Movie {
 	 * Removes a cast member from the list of cast members
 	 * @param castIndex Index of cast member to be removed
 	 */
-	public void removeCastMember() {int castPosition)
+	public void removeCastMember(int castPosition) {
 		cast.remove(castPosition);
 	}
 	/**
