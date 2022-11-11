@@ -2,7 +2,8 @@ package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -16,7 +17,7 @@ import entity.User;
 public class CustomerApp {
 	
 	private Cinema currentCinema;
-	private int hallID;
+	private int locID;
 	
 	public CustomerApp() throws IllegalStateException, FileNotFoundException {
 		this.currentCinema = chooseCinema();
@@ -30,7 +31,7 @@ public class CustomerApp {
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		if(locationID != 1 || locationID != 2 || locationID != 3) locationID = 1;
-		this.hallID = locationID;
+		this.locID = locationID;
 		return cinemaBeans.get(locationID);
 	}
 	
@@ -51,7 +52,7 @@ public class CustomerApp {
 	}
 	
 	public MovieListing displayMovieList() {
-		Hall h = this.currentCinema.getHall(hallID);
+		Hall h = this.currentCinema.getHall(locID);
 		List<MovieListing> ml = h.getMovieListing();
 		for(int i = 0; i < ml.size(); i++) {
 			System.out.printf("%d: ",i);
@@ -67,7 +68,7 @@ public class CustomerApp {
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
-		Hall h = currentCinema.getHall(hallID);
+		Hall h = currentCinema.getHall(locID);
 		Booking b = new Booking(h,currentCinema,ml);
 		b.displayBooking();
 	}
@@ -103,15 +104,7 @@ public class CustomerApp {
 			System.out.println("Mobile No: ");
 			mobileNo = sc.nextInt();
 			System.out.println("Checking ...");
-			// System.out.printf("Your credentials\nName: %s\nEmail: %s\nMobile No:%d\n", name,email,mobileNo);
 			for(int i = 0;i < userBeans.size();i++) {
-				/* Sanity Check
-				 * System.out.printf("Current data (%d)\nName: %s\nEmail: %s\nMobile No:%d\n", 
-				 * i,
-				 * userBeans.get(i).getName(),
-				 * userBeans.get(i).getEmail(),
-				 * userBeans.get(i).getMobileNo());
-				 */
 				if(userBeans.get(i).getName().equals(name)) {
 					if(userBeans.get(i).getEmail().equals(email)) {
 						if(userBeans.get(i).getMobileNo() == mobileNo) {
