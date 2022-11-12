@@ -127,35 +127,33 @@ public class Hall {
 	 * Display all the seats and their availability
 	 */
 	public void showSeats() {
-		char base = 'A';
-		Scanner sc = new Scanner(System.in);
-		System.out.println("===================Screen================");
-		for (int i = 0; i < 9; i++) {
-			char rowLetter = (char) (base + i);
-			System.out.printf("%c ", rowLetter);
-			for (int j = 0; j < 13; j++) {
-				if (j == 6) {
-					System.out.printf("   ");
-				} else {
-					// first two rows for couple seats
-					if (i == 0 || i == 1) {
-						System.out.printf(ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "%s" + ConsoleColors.RESET,
-								seat[i - 1][j - 1].seatSlot());
-					}
-					// last two rows for elite seats
-					if (i == 7 || i == 8) {
-						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
-								seat[i - 1][j - 1].seatSlot());
-					} else {
-						System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
-					}
-				}
-			}
-			System.out.printf("\n");
-		}
-		System.out.println("=================Entrance================");
+	    char base = '@';
+	    System.out.println("===================Screen================");
+	    for (int i = 1; i < 10; i++) {
+	      char rowLetter = (char) (base + i);
+	      System.out.printf("%c ", rowLetter);
+	      for (int j = 1; j < 14; j++) {
+	        if (j == 7) {
+	          System.out.printf("   ");
+	        } else {
+	          // first two rows for couple seats
+	          if (i == 0 || i == 1) {
+	            System.out.printf(ConsoleColors.PURPLE_BACKGROUND_BRIGHT + "%s" + ConsoleColors.RESET,
+	                seat[i - 1][j - 1].seatSlot());
+	          }
+	          // last two rows for elite seats
+	          if (i == 8 || i == 9) {
+	            System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
+	                seat[i - 1][j - 1].seatSlot());
+	          } else {
+	            System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
+	          }
+	        }
+	      }
+	      System.out.printf("\n");
+	    }
+	    System.out.println("=================Entrance================");
 	}
-
 	/**
 	 * Assign a seat to a customer or print error message if seat has previously
 	 * been assigned
