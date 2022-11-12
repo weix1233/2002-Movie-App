@@ -31,13 +31,15 @@ public class Cinema {
 	@CsvBindByName
 	private String cinemaID;
 	/**
+	 * List of all the movie listings in the cinema
+	 */
+	private List<MovieListing> fullML;
+	/**
 	 * Creates a new Cinema with the following parameters
 	 * @param halls List of the cinema halls
 	 * @param name Name of the cinema
 	 * @param cid ID of the cinema
 	 */
-	private List<MovieListing> fullML;
-	
 	public Cinema(List<Hall> halls, String name, String cid) {
 		this.name = name;
 		this.halls = halls;
@@ -96,11 +98,21 @@ public class Cinema {
 	public String getCinemaID() {
 		return this.cinemaID;
 	}
+	/**
+	 * Sets the list of movie listings
+	 * @param locID ID of the cinema
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public void setMovieListing(int locID) throws IllegalStateException, FileNotFoundException {
 		MovieListingControl mc = new MovieListingControl();
 		this.fullML = mc.initialiseML(locID);
 		
 	}
+	/**
+	 * Gets the list of all movie listings 
+	 * @return List of all movie listings
+	 */
 	public List<MovieListing> getMovieListing(){
 		return this.fullML;
 	}
