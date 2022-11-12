@@ -22,7 +22,7 @@ public class MovieListing {
 		MON, TUES, WED, THURS, FRI, SAT, SUN, PH
 	};
 	/**
-	 * Title of the movie that is showing in the listing
+	 * Movie object associated with the MovieListing
 	 */
 	private Movie movie;
 	/**
@@ -134,5 +134,5 @@ public class MovieListing {
 	public void setCinemaHall(int hallID) {
 		this.hallID = hallID;
 	}
-
+	
 }

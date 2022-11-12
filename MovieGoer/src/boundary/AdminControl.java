@@ -9,7 +9,6 @@ import control.SortTop;
 import entity.Cinema;
 import entity.Hall;
 import entity.Movie;
-import entity.MovieListing;
 
 public class AdminControl {
 	Scanner sc = new Scanner(System.in);
@@ -51,9 +50,6 @@ public class AdminControl {
 		System.out.print("Select cinema hall number (1 ~ 3): ");
 		int hallID = sc.nextInt();
 		Hall hall = cinemaBeans.get(locationID).getHall(hallID);
-		List<MovieListing> hallML = hall.getMovieListing();
-		MovieListingControl mc = new MovieListingControl();
-		HallControl hallControl = new HallControl();
 
 		int option;
 		do {
@@ -63,16 +59,16 @@ public class AdminControl {
 			switch (option) {
 			case 1:
 				movieControl.printCurrentMovieList(movieBeans);
-				hallControl.hallAddMovieListing(movieBeans, hall);
+				hall.hallAddMovieListing(movieBeans);
 				break;
 			case 2:
-				hallControl.hallDelMovieListing(hall, hallML);
+				hall.hallDelMovieListing();
 				break;
 			case 3:
-				hallControl.hallUpdateMovieListing(hall, hallML, mc);
+				hall.hallUpdateMovieListing();
 				break;
 			case 4:
-				hallControl.hallListAllMovieListing(hallML, hall);
+				hall.hallListAllMovieListing();
 			default:
 			}
 		} while (option < 5 && option > 0);

@@ -7,39 +7,53 @@ import entity.MLDataObject;
 import entity.MovieListing;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
-
+/**
+ * Utility functions for the MovieListingDataObject (MLDO)
+ * @author SS4 Group 4
+ *
+ */
 public class MLDOControl {
+	/**
+	 * Empty constructor to create the object
+	 */
 	public MLDOControl() {}
+	/**
+	 * Converts the MLDO into a list of movie listings
+	 * @param data The list of MLDO
+	 * @return converted MovieListings
+	 */
 	public List<MovieListing> convertToML(List<MLDataObject> data){
 		List<MovieListing> ml = new ArrayList<MovieListing>();
-		MovieListing temp = new MovieListing();
 		for(int i = 0;i < data.size();i++) {
-			temp.setShowtime(data.get(i).getShowTime());
+			MovieListing temp = new MovieListing();
+			ml.add(temp);
+			ml.get(i).setShowtime(data.get(i).getShowTime());
 			if(data.get(i).getScreenType().equals("THREE_D")) {
-				temp.setType(screenType.THREE_D);
+				ml.get(i).setType(screenType.THREE_D);
 			}
-			else temp.setType(screenType.TWO_D);
+			else ml.get(i).setType(screenType.TWO_D);
 			switch(data.get(i).getDayOfWeek()){
 			case "MON":
-				temp.setDay(dayOfWeek.MON);
+				ml.get(i).setDay(dayOfWeek.MON);
 			case "TUES":
-				temp.setDay(dayOfWeek.TUES);
+				ml.get(i).setDay(dayOfWeek.TUES);
 			case "WED":
-				temp.setDay(dayOfWeek.WED);
+				ml.get(i).setDay(dayOfWeek.WED);
 			case "THURS":
-				temp.setDay(dayOfWeek.THURS);
+				ml.get(i).setDay(dayOfWeek.THURS);
 			case "FRI":
-				temp.setDay(dayOfWeek.FRI);
+				ml.get(i).setDay(dayOfWeek.FRI);
 			case "SAT":
-				temp.setDay(dayOfWeek.SAT);
+				ml.get(i).setDay(dayOfWeek.SAT);
 			case "SUN":
-				temp.setDay(dayOfWeek.SUN);
+				ml.get(i).setDay(dayOfWeek.SUN);
+			case "PH":
+				ml.get(i).setDay(dayOfWeek.PH);
 			default:
-				temp.setDay(dayOfWeek.MON);
+				ml.get(i).setDay(dayOfWeek.MON);
 			}
-			temp.setCinemaHall(data.get(i).getHallID());
-			temp.setMovie(data.get(i).getMovie());
-			ml.add(temp);
+			ml.get(i).setCinemaHall(data.get(i).getHallID());
+			ml.get(i).setMovie(data.get(i).getMovie());
 		}
 		return ml;
 	}
