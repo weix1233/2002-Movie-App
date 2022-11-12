@@ -15,25 +15,22 @@ import com.opencsv.bean.CsvBindByName;
  *
  */
 public class Hall {
+	Scanner sc = new Scanner(System.in);
 	/**
 	 * The ID of the cinema Hall
 	 */
 	@CsvBindByName
 	protected int hallID;
 	/**
+	 * Whether cinema hall is platinum
+	 */
+	@CsvBindByName
+	private boolean isPlatinum;
+	/**
 	 * List of available show times
 	 */
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> availableShowTimes;
-	/**
-	 * List of all show times
-	 */
-	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
-	private List<String> showTimes;
-	/**
-	 * List of MovieListing objects
-	 */
-	private List<MovieListing> movieListing = new ArrayList<MovieListing>();
 	/**
 	 * 2D array of seats in a cinema hall, initialised to 9x13
 	 */
@@ -43,7 +40,6 @@ public class Hall {
 	 * Creates an empty Hall
 	 */
 	public Hall() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -60,9 +56,6 @@ public class Hall {
 	 * 
 	 * @return The list of MovieListing
 	 */
-	public List<MovieListing> getMovieListing() {
-		return movieListing;
-	}
 
 	/**
 	 * Gets a list of available showtimes
@@ -71,15 +64,6 @@ public class Hall {
 	 */
 	public List<String> getAvailableShowTimes() {
 		return availableShowTimes;
-	}
-
-	/**
-	 * Gets a list of all showtimes
-	 * 
-	 * @return List of all showtimes
-	 */
-	public List<String> getShowTimes() {
-		return showTimes;
 	}
 
 	/**
@@ -107,32 +91,16 @@ public class Hall {
 	}
 
 	/**
-	 * Changes the list of all showtimes to a newly created list
-	 * 
-	 * @param st String containing all the showtimes, separated by a semicolon
-	 */
-	public void setShowTimes(String st) {
-		List<String> s = new ArrayList<String>();
-		String[] split = st.split(";");
-		if (!split[0].equals("")) {
-			for (int i = 0; i < split.length; i++)
-				s.add(split[i]);
-		}
-		this.showTimes = s;
-	}
-
-	/**
 	 * Display all the seats and their availability
 	 */
 	public void showSeats() {
-		char base = 'A';
-		Scanner sc = new Scanner(System.in);
+		char base = '@';
 		System.out.println("===================Screen================");
-		for (int i = 0; i < 9; i++) {
+		for (int i = 1; i < 10; i++) {
 			char rowLetter = (char) (base + i);
 			System.out.printf("%c ", rowLetter);
-			for (int j = 0; j < 13; j++) {
-				if (j == 6) {
+			for (int j = 1; j < 14; j++) {
+				if (j == 7) {
 					System.out.printf("   ");
 				} else {
 					// first two rows for couple seats
@@ -141,7 +109,7 @@ public class Hall {
 								seat[i - 1][j - 1].seatSlot());
 					}
 					// last two rows for elite seats
-					if (i == 7 || i == 8) {
+					if (i == 8 || i == 9) {
 						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
 								seat[i - 1][j - 1].seatSlot());
 					} else {
@@ -167,5 +135,23 @@ public class Hall {
 			System.out.println("Seat assigned!");
 		} else
 			System.out.println("Seat already assigned to a customer.");
+	}
+
+	/**
+	 * Changes platinum status of the cinema hall
+	 * 
+	 * @param plat New platinum status of the cinema hall
+	 */
+	public void setIP(boolean plat) {
+		this.isPlatinum = plat;
+	}
+
+	/**
+	 * Gets the platinum status of the cinema
+	 * 
+	 * @return Platinum status
+	 */
+	public boolean getIP() {
+		return this.isPlatinum;
 	}
 }

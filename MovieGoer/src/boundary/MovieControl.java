@@ -1,21 +1,27 @@
 package boundary;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import entity.Movie;
+import entity.Review;
 
 public class MovieControl {
 	Scanner sc = new Scanner(System.in);
-
-	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
-	}
 
 	public void printMovies(List<Movie> movieBeans) {
 		for (int i = 0; i < movieBeans.size(); i++) {
@@ -30,8 +36,9 @@ public class MovieControl {
 	public void printCurrentMovieList(List<Movie> movieBeans) {
 		for (int i = 0; i < movieBeans.size(); i++) {
 			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
-				System.out.println(i + ". Title: " + movieBeans.get(i).getMovieTitle() + " | Age Rating: "
-						+ movieBeans.get(i).getAgeRating());
+				System.out.printf("%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | Age Rating: %s\n",
+						Integer.toString(i), movieBeans.get(i).getMovieTitle(), movieBeans.get(i).getSynopis(),
+						movieBeans.get(i).getDirector(), movieBeans.get(i).getCast(), movieBeans.get(i).getAgeRating());
 			}
 		}
 	}
@@ -175,5 +182,43 @@ public class MovieControl {
 		System.out.print("Enter cast number to remove: ");
 		return sc.nextInt();
 	}
-
+	public void updateReview(Movie mov,String path,List<Movie> movieBeans) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
+		System.out.println("Leave a review for this movie? Y/N");
+		String choice = sc.next();
+		switch(choice) {
+		case "Y":
+			sc.nextLine();
+			System.out.println("Enter your name:");
+			String name = sc.nextLine();
+			System.out.println("Type your review:");
+			String essay = sc.nextLine();
+			System.out.println("Give your rating (1 ~ 5):");
+			int rate = sc.nextInt();
+			if (rate > 5) rate = 5;
+			if (rate < 1) rate = 1;
+			Review r = new Review(essay,rate,name);
+			List<Review> rList = mov.getReviews();
+			rList.add(r);
+			mov.setReviews(rList);
+			this.reviewWriter(path,movieBeans);
+			break;
+		default:
+			break;
+		}
+	}
+	/**
+	 * Updates the review in the csv
+	 * @param path file path
+	 * @param movieBeans the movie list
+	 * @throws IllegalStateException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
+	public void reviewWriter(String path,List<Movie> movieBeans) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+		Writer writer = new FileWriter(path);
+    	StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+    	beanToCsv.write(movieBeans);
+    	writer.close();
+	}
 }

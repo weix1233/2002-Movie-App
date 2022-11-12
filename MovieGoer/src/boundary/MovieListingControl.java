@@ -1,16 +1,7 @@
 package boundary;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.CsvToBeanBuilder;
-
-import control.MLDOControl;
-import entity.MLDataObject;
-import entity.Movie;
-import entity.MovieListing;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
 
@@ -18,16 +9,6 @@ public class MovieListingControl {
 	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);
 	String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.csv";
-
-	public List<Movie> listMovieTitles() throws IllegalStateException, FileNotFoundException {
-		// TODO Auto-generated method stub
-		List<Movie> beans = new CsvToBeanBuilder(new FileReader(movieFilePath)).withType(Movie.class).build().parse();
-		System.out.println("Movies collection in database");
-		for (int i = 1; i <= beans.size(); i++) {
-			System.out.println(Integer.toString(i) + ". " + beans.get(i - 1).getMovieTitle());
-		}
-		return beans;
-	}
 
 	public screenType chooseScreenType() {
 		System.out.print("Choose screenType\n(1) Two-D screen (2) Three-D screen: ");
@@ -76,22 +57,5 @@ public class MovieListingControl {
 			System.out.println("Error in choice, defaulting to Monday");
 			return dayOfWeek.MON;
 		}
-	}
-	public List<MovieListing> initialiseML(int choice) throws IllegalStateException, FileNotFoundException{
-		String filePath = null;
-		switch(choice) {
-		case 1:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
-		case 2:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
-		case 3:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
-		default:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
-		}
-		List<MLDataObject> mldoBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(MLDataObject.class).build().parse();
-		MLDOControl mlControl = new MLDOControl();
-		List<MovieListing> mlBeans = mlControl.convertToML(mldoBeans);
-		return mlBeans;
 	}
 }
