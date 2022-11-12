@@ -1,5 +1,4 @@
 type,day,movieTitle,synopis,director,cast,showingStatus,ageRating,reviews,saleCounter,showTime,hallID
-TWO_D,SAT,placeholder,placeholder,placeholder,placeholder,END_OF_SHOWING,PG13,A|1|A,1,1230,2
 THREE_D,MON,Shazam!,A newly fostered young boy in search of his mother instead finds unexpected super powers and soon gains a powerful enemy.,"
 David F. Sandberg","Zachary Levi,Mark Strong,Asher Angel",NOW_SHOWING,PG13,"Meh|6|Apple,Bad movie|3|John Doe,Shazam|6|Tony Tan,Wasted my money|2|Cino",10,1500,3
 TWO_D,TUES,Avengers: Endgame,"After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",Anthony Russo,"Robert Downey Jr.,Chris Evans,Mark Ruffalo,Chris Hemsworth,

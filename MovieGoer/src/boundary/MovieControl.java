@@ -1,21 +1,13 @@
 package boundary;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.opencsv.bean.CsvToBeanBuilder;
 
 import entity.Movie;
 
 public class MovieControl {
 	Scanner sc = new Scanner(System.in);
-
-	public List<Movie> getMovieList(String path) throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
-	}
 
 	public void printMovies(List<Movie> movieBeans) {
 		for (int i = 0; i < movieBeans.size(); i++) {
@@ -30,8 +22,9 @@ public class MovieControl {
 	public void printCurrentMovieList(List<Movie> movieBeans) {
 		for (int i = 0; i < movieBeans.size(); i++) {
 			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
-				System.out.println(i + ". Title: " + movieBeans.get(i).getMovieTitle() + " | Age Rating: "
-						+ movieBeans.get(i).getAgeRating());
+				System.out.printf("%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | Age Rating: %s\n",
+						Integer.toString(i), movieBeans.get(i).getMovieTitle(), movieBeans.get(i).getSynopis(),
+						movieBeans.get(i).getDirector(), movieBeans.get(i).getCast(), movieBeans.get(i).getAgeRating());
 			}
 		}
 	}

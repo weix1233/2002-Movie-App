@@ -4,22 +4,19 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
 
-import control.CinemaControl;
+import control.CinemaPrinter;
+import control.ReadCSVFiles;
 import control.SortTop;
 import entity.Cinema;
-import entity.Hall;
 import entity.Movie;
 
 public class AdminControl {
 	Scanner sc = new Scanner(System.in);
 
 	public void MainMenu() throws IllegalStateException, FileNotFoundException {
-		String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\cinema.csv";
-		String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\movie\\movie.csv";
 		MovieControl movieControl = new MovieControl();
-		CinemaControl cinemaControl = new CinemaControl();
-		List<Cinema> cinemaBeans = cinemaControl.getCinemaList(cinemaFileName);
-		List<Movie> movieBeans = movieControl.getMovieList(movieFileName);
+		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
+		List<Movie> movieBeans = ReadCSVFiles.getMovieList();
 		int c;
 		do {
 			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database: ");
@@ -29,7 +26,7 @@ public class AdminControl {
 				MovieDatabaseMenu(movieBeans, movieControl);
 				break;
 			case 2:
-				MovieMenu(cinemaControl, movieControl, cinemaBeans, movieBeans);
+				MovieMenu(movieControl, cinemaBeans, movieBeans);
 				break;
 			default:
 				break;
@@ -42,14 +39,14 @@ public class AdminControl {
 		SortTop st = new SortTop(movieBeans);
 	}
 
-	public void MovieMenu(CinemaControl cinemaControl, MovieControl movieControl, List<Cinema> cinemaBeans,
-			List<Movie> movieBeans) throws IllegalStateException, FileNotFoundException {
+	public void MovieMenu(MovieControl movieControl, List<Cinema> cinemaBeans, List<Movie> movieBeans)
+			throws IllegalStateException, FileNotFoundException {
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
-		cinemaControl.getCinemaInfo(cinemaBeans, locationID);
-		System.out.print("Select cinema hall number (1 ~ 3): ");
-		int hallID = sc.nextInt();
-		Hall hall = cinemaBeans.get(locationID).getHall(hallID);
+		cinemaBeans.get(locationID).setMovieListing(locationID);
+		CinemaPrinter cp = new CinemaPrinter();
+		cp.getCinemaInfo(cinemaBeans, locationID);
+		Cinema currentCinema = cinemaBeans.get(locationID);
 
 		int option;
 		do {
@@ -59,16 +56,16 @@ public class AdminControl {
 			switch (option) {
 			case 1:
 				movieControl.printCurrentMovieList(movieBeans);
-				hall.hallAddMovieListing(movieBeans);
+				currentCinema.addMovieListing(movieBeans);
 				break;
 			case 2:
-				hall.hallDelMovieListing();
+				currentCinema.delMovieListing();
 				break;
 			case 3:
-				hall.hallUpdateMovieListing();
+				currentCinema.updateMovieListing();
 				break;
 			case 4:
-				hall.hallListAllMovieListing();
+				currentCinema.listMovieListing();
 			default:
 			}
 		} while (option < 5 && option > 0);
