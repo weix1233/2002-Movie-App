@@ -1,0 +1,2 @@
+cinemaID,availableShowTimes,showTimes
+1,"0900,1200,1600","1500"
