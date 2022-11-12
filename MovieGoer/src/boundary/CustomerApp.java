@@ -143,7 +143,7 @@ public class CustomerApp {
 		case "Y":
 			int i = 0;
 			while(choice.equals("Y")) {
-			System.out.printf("%s %d\n",mov.getReviews().get(i).getReview(),mov.getReviews().get(i).getRating());
+			System.out.printf("%s Rating: %d\n",mov.getReviews().get(i).getReview(),mov.getReviews().get(i).getRating());
 			i++;
 			if(i == mov.getReviews().size()) {
 				System.out.println("End of reviews");
@@ -158,7 +158,7 @@ public class CustomerApp {
 		}
 		MovieControl mc = new MovieControl();
 		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
-		mc.updateReview(mov, filePath);
+		mc.updateReview(mov, filePath,this.getUniqueMovies());
 	}
 	/**
 	 * Prompts user to input their credentials to check their booking history

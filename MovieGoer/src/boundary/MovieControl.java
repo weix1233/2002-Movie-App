@@ -183,29 +183,40 @@ public class MovieControl {
 		System.out.print("Enter cast number to remove: ");
 		return sc.nextInt();
 	}
-	public void updateReview(Movie mov,String path) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
+	public void updateReview(Movie mov,String path,List<Movie> movieBeans) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		System.out.println("Leave a review for this movie? Y/N");
 		String choice = sc.next();
 		switch(choice) {
 		case "Y":
+			sc.nextLine();
 			System.out.println("Enter your name:");
-			String name = sc.next();
+			String name = sc.nextLine();
 			System.out.println("Type your review:");
-			String essay = sc.next();
+			String essay = sc.nextLine();
 			System.out.println("Give your rating (1 ~ 5):");
 			int rate = sc.nextInt();
 			if (rate > 5) rate = 5;
 			if (rate < 1) rate = 1;
 			Review r = new Review(essay,rate,name);
-			mov.getReviews().add(r);
-			this.reviewWriter(path);
+			List<Review> rList = mov.getReviews();
+			rList.add(r);
+			mov.setReviews(rList);
+			this.reviewWriter(path,movieBeans);
 			break;
 		default:
 			break;
 		}
 	}
-	public void reviewWriter(String path) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		List<Movie> movieBeans = this.getMovieList(path);
+	/**
+	 * Updates the review in the csv
+	 * @param path file path
+	 * @param movieBeans the movie list
+	 * @throws IllegalStateException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
+	public void reviewWriter(String path,List<Movie> movieBeans) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		Writer writer = new FileWriter(path);
     	StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
     	beanToCsv.write(movieBeans);
