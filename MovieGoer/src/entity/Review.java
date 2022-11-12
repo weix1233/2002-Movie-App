@@ -40,6 +40,15 @@ public class Review {
 		this.reviewerName = reviewerName;
 	}
 	/**
+	 * Changed the toString function in order for writer to write properly
+	 */
+	@Override
+	public String toString() {
+		String combi = null;
+		combi = this.review + "|" + Integer.toString(rating) + "|" + this.reviewerName;
+		return combi;
+	}
+	/**
 	 * Gets the qualitative review of the movie as a String
 	 * @return Qualitative review of the movie
 	 */
