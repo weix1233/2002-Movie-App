@@ -31,6 +31,11 @@ public class Hall {
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> showTimes;
 	/**
+	 * Whether cinema hall is platinum
+	 */
+	@CsvBindByName
+	private boolean isPlatinum;
+	/**
 	 * List of MovieListing objects
 	 */
 	private List<MovieListing> movieListing = new ArrayList<MovieListing>();
@@ -42,10 +47,7 @@ public class Hall {
 	/**
 	 * Creates an empty Hall
 	 */
-	public Hall() {
-		// TODO Auto-generated constructor stub
-	}
-
+	public Hall() {}
 	/**
 	 * Gets the ID of the hall
 	 * 
@@ -167,5 +169,19 @@ public class Hall {
 			System.out.println("Seat assigned!");
 		} else
 			System.out.println("Seat already assigned to a customer.");
+	}
+	/**
+	 * Changes platinum status of the cinema hall
+	 * @param plat New platinum status of the cinema hall
+	 */
+	public void setIP(boolean plat) {
+		this.isPlatinum = plat;
+	}
+	/**
+	 * Gets the platinum status of the cinema
+	 * @return Platinum status
+	 */
+	public boolean getIP() {
+		return this.isPlatinum;
 	}
 }

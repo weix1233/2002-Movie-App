@@ -2,10 +2,13 @@ package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.SortTop;
 import entity.Cinema;
@@ -25,13 +28,14 @@ public class CustomerApp {
 	
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
-		String cinemaFileName = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+		String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
 		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
 				.parse();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		if(locationID != 1 || locationID != 2 || locationID != 3) locationID = 1;
 		this.locID = locationID;
+		cinemaBeans.get(locationID).setMovieListing(locationID);
 		return cinemaBeans.get(locationID);
 	}
 	
@@ -42,7 +46,7 @@ public class CustomerApp {
 		System.out.println("==================================================");
 		if(currentCinema.getName().length() % 2 == 0) System.out.print("=");
 		System.out.printf("%s Cathay %s %s\n",buf,currentCinema.getName(),buf);
-		System.out.println("====== 1. List Movie                        ======");
+		System.out.println("====== 1. List Movie Listing                ======");
 		System.out.println("====== 2. View Movie Details                ======");
 		System.out.println("====== 3. Check Seats                       ======");
 		System.out.println("====== 4. View Booking history              ======");
@@ -52,9 +56,8 @@ public class CustomerApp {
 	}
 	
 	public MovieListing displayMovieList() {
-		Hall h = this.currentCinema.getHall(locID);
-		List<MovieListing> ml = h.getMovieListing();
-		for(int i = 0; i < ml.size(); i++) {
+		List<MovieListing> ml = currentCinema.getMovieListing();
+		for(int i = 1; i < ml.size(); i++) {
 			System.out.printf("%d: ",i);
 			ml.get(i).printListing();
 		}
@@ -64,12 +67,14 @@ public class CustomerApp {
 		return ml.get(choice);
 	}
 	
-	public void bookMovie(MovieListing ml){
+	public void bookMovie(MovieListing ml) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
-		Hall h = currentCinema.getHall(locID);
-		Booking b = new Booking(h,currentCinema,ml);
+		Hall h = currentCinema.getHall(ml.getHallID());
+		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+		List<User> u = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
+		Booking b = new Booking(h,ml,u);
 		b.displayBooking();
 	}
 	
@@ -92,7 +97,7 @@ public class CustomerApp {
 		String email = null;
 		int mobileNo = 0;
 		int attempt = 0;
-		String filePath = "C:\\Users\\Valen\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
 		List<User> userBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
 		Scanner sc = new Scanner(System.in);
 		do {
