@@ -38,12 +38,18 @@ public class HallControl {
 		int showTimePos = sc.nextInt();
 		// hall.addMovieListing(selectedMovie, screen, day, showTimePos);
 		String tempShowTime = availableShowTimes.remove(showTimePos);
-		System.out.println("Adding " + tempShowTime + "  to show time");
+		// System.out.println("Adding " + tempShowTime + " to show time");
 		showTimes.add(tempShowTime);
 		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime, hall.getHallID());
 		hall.getMovieListing().add(ml);
 	}
 
+	/**
+	 * Delete a movie listing given it's position in the list and update the
+	 * showtimes
+	 * 
+	 * @param movieListPosition Position of the movie listing in the list
+	 */
 	public void hallDelMovieListing(Hall hall, List<MovieListing> hallML) {
 		if (hallML.size() == 0) {
 			System.out.println("No current movie listings to remove");
@@ -56,7 +62,10 @@ public class HallControl {
 		}
 		System.out.print("Select listing to remove: ");
 		int listPos = sc.nextInt();
-		hall.delMovieListing(listPos);
+		String tempShowTime = hall.getShowTimes().remove(listPos);
+		hall.getAvailableShowTimes().add(tempShowTime);
+		Collections.sort(hall.getAvailableShowTimes());
+		hall.getMovieListing().remove(listPos);
 	}
 
 	public void hallUpdateMovieListing(Hall hall, List<MovieListing> hallML, MovieListingControl mc) {

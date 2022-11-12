@@ -2,13 +2,8 @@ package boundary;
 
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import entity.MovieListing;
 
 public class ControlPanel {
-	private static List<MovieListing> mls;
-
 	private static void WelcomeBanner() {
 		System.out.println("Welcome to the movie admin console. You can edit movie information here");
 	}

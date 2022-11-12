@@ -17,21 +17,21 @@ public class MovieControl {
 		return new CsvToBeanBuilder(new FileReader(path)).withType(Movie.class).build().parse();
 	}
 
-	public void printMovies(List<Movie> beans) {
-		for (int i = 0; i < beans.size(); i++) {
+	public void printMovies(List<Movie> movieBeans) {
+		for (int i = 0; i < movieBeans.size(); i++) {
 			System.out.printf(
 					"%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | ShowingStatus: %s | Age Rating: %s \n",
-					Integer.toString(i), beans.get(i).getMovieTitle(), beans.get(i).getSynopis(),
-					beans.get(i).getDirector(), beans.get(i).getCast(), beans.get(i).getShowingStatus(),
-					beans.get(i).getAgeRating());
+					Integer.toString(i), movieBeans.get(i).getMovieTitle(), movieBeans.get(i).getSynopis(),
+					movieBeans.get(i).getDirector(), movieBeans.get(i).getCast(), movieBeans.get(i).getShowingStatus(),
+					movieBeans.get(i).getAgeRating());
 		}
 	}
 
-	public void printCurrentMovieList(List<Movie> beans) {
-		for (int i = 0; i < beans.size(); i++) {
-			if (beans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
-				System.out.println(i + ". Title: " + beans.get(i).getMovieTitle() + " | Age Rating: "
-						+ beans.get(i).getAgeRating());
+	public void printCurrentMovieList(List<Movie> movieBeans) {
+		for (int i = 0; i < movieBeans.size(); i++) {
+			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+				System.out.println(i + ". Title: " + movieBeans.get(i).getMovieTitle() + " | Age Rating: "
+						+ movieBeans.get(i).getAgeRating());
 			}
 		}
 	}
