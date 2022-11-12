@@ -21,6 +21,11 @@ public class Hall {
 	@CsvBindByName
 	protected int hallID;
 	/**
+	 * Whether cinema hall is platinum
+	 */
+	@CsvBindByName
+	private boolean isPlatinum;
+	/**
 	 * List of available show times
 	 */
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
@@ -30,11 +35,6 @@ public class Hall {
 	 */
 	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
 	private List<String> showTimes;
-	/**
-	 * Whether cinema hall is platinum
-	 */
-	@CsvBindByName
-	private boolean isPlatinum;
 	/**
 	 * List of MovieListing objects
 	 */
