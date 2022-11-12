@@ -212,6 +212,7 @@ public class CustomerApp {
 		if (sys == 0){
 			int choice = 0;
 			System.out.println("Please choose to sort by -- (1) Ratings (2) Ticket Sales");
+			choice = sc.nextInt();
 			switch(choice) {
 			case 1:
 				st.sortByRating();
