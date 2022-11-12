@@ -134,5 +134,5 @@ public class MovieListing {
 	public void setCinemaHall(int hallID) {
 		this.hallID = hallID;
 	}
-
+	
 }

@@ -1,11 +1,13 @@
 package entity;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 
+import boundary.MovieListingControl;
 import control.TextToHall;
 /**
  * Represents a single cinema location
@@ -29,22 +31,17 @@ public class Cinema {
 	@CsvBindByName
 	private String cinemaID;
 	/**
-	 * Whether cinema is platinum
-	 */
-	@CsvBindByName
-	private boolean isPlatinum;
-	/**
 	 * Creates a new Cinema with the following parameters
 	 * @param halls List of the cinema halls
 	 * @param name Name of the cinema
 	 * @param cid ID of the cinema
-	 * @param plat Whether cinema is platinum
 	 */
-	public Cinema(List<Hall> halls, String name, String cid, boolean plat) {
+	private List<MovieListing> fullML;
+	
+	public Cinema(List<Hall> halls, String name, String cid) {
 		this.name = name;
 		this.halls = halls;
 		this.cinemaID = cid;
-		this.isPlatinum = plat;
 	}
 	/**
 	 * Creates an empty Cinema object
@@ -84,13 +81,7 @@ public class Cinema {
 	public Hall getHall(int hallID) {
 		return halls.get(hallID);
 	}
-	/**
-	 * Changes platinum status of the cinema
-	 * @param plat New platinum status of the cinema
-	 */
-	public void setIP(boolean plat) {
-		this.isPlatinum = plat;
-	}
+
 	/**
 	 * Changes ID of the cinema
 	 * @param cid New cinema ID
@@ -105,11 +96,12 @@ public class Cinema {
 	public String getCinemaID() {
 		return this.cinemaID;
 	}
-	/**
-	 * Gets the platinum status of the cinema
-	 * @return Platinum status
-	 */
-	public boolean getIP() {
-		return this.isPlatinum;
+	public void setMovieListing(int locID) throws IllegalStateException, FileNotFoundException {
+		MovieListingControl mc = new MovieListingControl();
+		this.fullML = mc.initialiseML(locID);
+		
+	}
+	public List<MovieListing> getMovieListing(){
+		return this.fullML;
 	}
 }
