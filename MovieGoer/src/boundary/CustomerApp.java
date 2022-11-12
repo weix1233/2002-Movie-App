@@ -16,6 +16,7 @@ import entity.Cinema;
 import entity.Hall;
 import entity.Movie;
 import entity.MovieListing;
+import entity.Review;
 import entity.User;
 /**
  * Contains the functions that interact with the customer
@@ -23,6 +24,10 @@ import entity.User;
  *
  */
 public class CustomerApp {
+	/**
+	 * Scanner object for the class
+	 */
+	Scanner sc = new Scanner(System.in);
 	/**
 	 * Cinema chosen by the customer
 	 */
@@ -46,7 +51,7 @@ public class CustomerApp {
 	 * @throws FileNotFoundException
 	 */
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
-		Scanner sc = new Scanner(System.in);
+		
 		String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
 		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
 				.parse();
@@ -119,12 +124,47 @@ public class CustomerApp {
 			ml = this.displayMovieList();
 		}
 		Movie mov = ml.getMovie();
-		System.out.printf("Title: %s\nDirector: %s\nCast: %s\nRating: %.2f\nSypnosis: %s\n",
+		System.out.printf("Title: %s\nShowing Status: %s\nDirector: %s\nCast: %s\nRating: %.2f\nSypnosis: %s\n",
 				mov.getMovieTitle(),
+				mov.getShowingStatus(),
 				mov.getDirector(),
 				mov.getCast(),
 				mov.getOverallRating(),
 				mov.getSynopis());
+		System.out.println("See past reviews? Y/N");
+		String choice;
+		choice = sc.next();
+		switch(choice) {
+		case "Y":
+			int i = 0;
+			while(choice.equals("Y")) {
+			System.out.printf("%s %d\n",mov.getReviews().get(i).getReview(),mov.getReviews().get(i).getRating());
+			i++;
+			if(i == mov.getReviews().size()) {
+				System.out.println("End of reviews");
+				break;
+			}
+			System.out.println("Another review? Y/N");
+			choice = sc.next();
+			}
+			break;
+		default:
+			break;
+		}
+		System.out.println("Leave a review for this movie? Y/N");
+		choice = sc.next();
+		switch(choice) {
+		case "Y":
+			System.out.println("Enter your name:");
+			String name = sc.next();
+			System.out.println("Type your review:");
+			String essay = sc.next();
+			System.out.println("Give your rating (1 ~ 5):");
+			int rate = sc.nextInt();
+			if (rate > 5) rate = 5;
+			if (rate < 1) rate = 1;
+			Review r = new Review(essay,rate,name);
+		}
 	}
 	/**
 	 * Prompts user to input their credentials to check their booking history
