@@ -117,9 +117,14 @@ public class CustomerApp {
 	/**
 	 * Displays the chosen movie details
 	 * If a movie has not been picked, displayMovieList() will be called
+	 * Allows user to leave their reviews
 	 * @param ml MovieListing chosen by customer
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 * @throws CsvRequiredFieldEmptyException 
+	 * @throws CsvDataTypeMismatchException 
 	 */
-	public void movieDetails(MovieListing ml) {
+	public void movieDetails(MovieListing ml) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
@@ -138,7 +143,7 @@ public class CustomerApp {
 		case "Y":
 			int i = 0;
 			while(choice.equals("Y")) {
-			System.out.printf("%s %d\n",mov.getReviews().get(i).getReview(),mov.getReviews().get(i).getRating());
+			System.out.printf("%s Rating: %d\n",mov.getReviews().get(i).getReview(),mov.getReviews().get(i).getRating());
 			i++;
 			if(i == mov.getReviews().size()) {
 				System.out.println("End of reviews");
@@ -151,20 +156,9 @@ public class CustomerApp {
 		default:
 			break;
 		}
-		System.out.println("Leave a review for this movie? Y/N");
-		choice = sc.next();
-		switch(choice) {
-		case "Y":
-			System.out.println("Enter your name:");
-			String name = sc.next();
-			System.out.println("Type your review:");
-			String essay = sc.next();
-			System.out.println("Give your rating (1 ~ 5):");
-			int rate = sc.nextInt();
-			if (rate > 5) rate = 5;
-			if (rate < 1) rate = 1;
-			Review r = new Review(essay,rate,name);
-		}
+		MovieControl mc = new MovieControl();
+		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+		mc.updateReview(mov, filePath,this.getUniqueMovies());
 	}
 	/**
 	 * Prompts user to input their credentials to check their booking history
@@ -251,4 +245,5 @@ public class CustomerApp {
 		}
 		return m;
 	}
+	
 }
