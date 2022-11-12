@@ -37,7 +37,7 @@ public class SortTop {
 					curTop = movies.get(i);
 				}
 			}
-			System.out.printf("%d. %s", j + 1, curTop.getMovieTitle());
+			System.out.printf("%d. %s\n", j + 1, curTop.getMovieTitle());
 			movies.remove(curTop);
 			curTop = movies.get(0);
 		}
@@ -57,7 +57,7 @@ public class SortTop {
 					curTop = movies.get(i);
 				}
 			}
-			System.out.printf("%d. %s", j + 1, curTop.getMovieTitle());
+			System.out.printf("%d. %s\n", j + 1, curTop.getMovieTitle());
 			movies.remove(curTop);
 			curTop = movies.get(0);
 		}
