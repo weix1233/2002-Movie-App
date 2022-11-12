@@ -57,7 +57,6 @@ public class MovieListingControl {
 		System.out.print(
 				"Choose day of showing\n(1) Monday (2) Tuesday (3) Wednesday (4) Thursday (5) Friday (6) Saturday (7) Sunday: ");
 		int c = sc.nextInt();
-		dayOfWeek day;
 		switch (c) {
 		case 1:
 			return dayOfWeek.MON;

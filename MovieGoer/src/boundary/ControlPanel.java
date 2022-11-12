@@ -2,13 +2,8 @@ package boundary;
 
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-
-import entity.MovieListing;
 
 public class ControlPanel {
-	private static List<MovieListing> mls;
-
 	private static void WelcomeBanner() {
 		System.out.println("Welcome to the movie admin console. You can edit movie information here");
 	}
@@ -37,22 +32,6 @@ public class ControlPanel {
 			// admin
 			AdminControl ac = new AdminControl();
 			ac.MainMenu();
-			/*
-			 * MovieListingControl mc = new MovieListingControl(); List<Movie> beans =
-			 * mc.listMovieTitles(); System.out.println("Adding a movie listing"); mls = new
-			 * ArrayList<MovieListing>(); System.out.println();
-			 * mls.add(mc.createMovieListing(beans, mls.size()));
-			 * mls.add(mc.createMovieListing(beans, mls.size()));
-			 * 
-			 * System.out.println("Available movie listings"); System.out
-			 * .println("Movie Title | Screen Type | Showing Status | Age Rating | Day | Show Time | Cinema Hall"
-			 * ); for (int i = 0; i < mls.size(); i++) { mls.get(i).printListing(); }
-			 * 
-			 * System.out.println("Update movie listings"); mc.updateMovieListing(mls, 0);
-			 * mc.updateMovieListing(mls, 1);
-			 * 
-			 * for (int i = 0; i < mls.size(); i++) { mls.get(i).printListing(); } break;
-			 */
 		}
 	}
 
