@@ -1,5 +1,19 @@
 movieTitle,synopis,director,cast,showingStatus,ageRating,reviews,saleCounter
 placeholder,placeholder,placeholder,placeholder,END_OF_SHOWING,PG13,A|1|A,1
-Man in black 1,Shoot aliens,willy,"guy,old,uncle",NOW_SHOWING,PG13,"Great movie|10|John Doe,Awesome|9|Tony Tan,Good stuff|7|Cino",5
-Man in black 2,farming simulator,wonka,"staff,young,person",NOW_SHOWING,PG13,"Meh|4|Apple,Bad movie|3|John Doe,Boooo|2|Tony Tan,Wasted my money|2|Cino",10
-Man in black 3,rip off,sam,"million,dollar",NOW_SHOWING,PG13,"Why was this even made|1|John Doe,Actually bad|1|Tony Tan,Wasted my money|1|Cino",8
+The Dark Knight,"When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",Christopher Nolan,"Christian Bale,Heath Ledger,Aaron Eckhart",NOW_SHOWING,PG13,"Great movie|10|John Doe,Awesome|9|Tony Tan,Wasted my money|2|Cino",20
+Shazam!,A newly fostered young boy in search of his mother instead finds unexpected super powers and soon gains a powerful enemy.,"
+David F. Sandberg","Zachary Levi,Mark Strong,Asher Angel",NOW_SHOWING,PG13,"Meh|6|Apple,Bad movie|3|John Doe,Shazam|6|Tony Tan,Wasted my money|2|Cino",10
+The Nun,A priest with a haunted past and a novice on the threshold of her final vows are sent by the Vatican to investigate the death of a young nun in Romania and confront a malevolent force in the form of a demonic nun.,Corin Hardy,"Demián Bichir,Taissa Farmiga,Jonas Bloquet",NOW_SHOWING,PG13,"Why was this even made|1|John Doe,Actually bad|1|Tony Tan,Wasted my money|2|Cino",8
+Your Name,"Two strangers find themselves linked in a bizarre way. When a connection forms, will distance be the only thing to keep them apart?","
+Makoto Shinkai","Ryûnosuke Kamiki,Mone Kamishiraishi,Ryô Narita",END_OF_SHOWING,PG13,"Great movie|10|John Doe,Awesome|9|Tony Tan,Wasted my money|2|Cino,Good stuff|10|Ben Tan",30
+Men in Black 3,Agent J travels in time to M.I.B.'s early days in 1969 to stop an alien from assassinating his friend Agent K and changing history.,Barry Sonnenfeld,"Will Smith,Tommy Lee Jones,Josh Brolin",END_OF_SHOWING,PG13,"Meh|6|Apple,Alright movie|3|John Doe,Wow|6|Tony Tan,Wasted my money|2|Cino,Good stuff|6|Ben Tan",15
+Deadpool 2,"Foul-mouthed mutant mercenary Wade Wilson (a.k.a. Deadpool) assembles a team of fellow mutant rogues to protect a young boy with supernatural abilities from the brutal, time-traveling cyborg Cable.","
+David Leitch","Ryan Reynolds,Josh Brolin,Morena Baccarin",NOW_SHOWING,R21,"Great movie|8|John Doe,Awesome|9|Tony Tan,Wasted my money|2|Cino,Good stuff|8|Ben Tan",40
+Black Panther: Wakanda Forever,"The people of Wakanda fight to protect their home from intervening world powers as they mourn the death of King T'Challa.
+Ryan Coogler","
+Ryan Coogler","Letitia Wright,Lupita Nyong'o,Danai Gurira",NOW_SHOWING,PG13,"Great movie|10|John Doe,Awesome|10|Tony Tan,Never waste my money|8|Cino,Good stuff|10|Ben Tan",70
+One Piece Film: Red,"For the first time ever, Uta - the most beloved singer in the world - will reveal herself to the world at a live concert. The voice that the whole world has been waiting for is about to resound.",Gorô Taniguchi,"Mayumi Tanaka,Kaori Nazuka,Kazuya Nakai",NOW_SHOWING,PG13,"Meh|7|Apple,Alright movie|6|John Doe,Wow|8|Tony Tan,Wasted my money|2|Cino,Good stuff|6|Ben Tan",25
+Top Gun: Maverick,"After thirty years, Maverick is still pushing the envelope as a top naval aviator, but must confront ghosts of his past when he leads TOP GUN's elite graduates on a mission that demands the ultimate sacrifice from those chosen to fly it.",Joseph Kosinski,"Tom Cruise,Jennifer Connelly,Miles Teller",NOW_SHOWING,PG13,"Great movie|9|John Doe,Awesome|9|Tony Tan,Never waste my money|7|Cino,Good stuff|10|Ben Tan",45
+Avengers: Endgame,"After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe.",Anthony Russo,"
+Robert Downey Jr.,Chris Evans,Mark Ruffalo,Chris Hemsworth,
+Scarlett Johansson",END_OF_SHOWING,PG13,"Great movie|10|John Doe,Awesome|9|Tony Tan,Nice|10|Cino,Good stuff|10|Ben Tan",80
