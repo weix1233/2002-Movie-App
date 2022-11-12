@@ -2,13 +2,21 @@ package boundary;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import entity.Movie;
+import entity.Review;
 
 public class MovieControl {
 	Scanner sc = new Scanner(System.in);
@@ -175,5 +183,32 @@ public class MovieControl {
 		System.out.print("Enter cast number to remove: ");
 		return sc.nextInt();
 	}
-
+	public void updateReview(Movie mov,String path) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
+		System.out.println("Leave a review for this movie? Y/N");
+		String choice = sc.next();
+		switch(choice) {
+		case "Y":
+			System.out.println("Enter your name:");
+			String name = sc.next();
+			System.out.println("Type your review:");
+			String essay = sc.next();
+			System.out.println("Give your rating (1 ~ 5):");
+			int rate = sc.nextInt();
+			if (rate > 5) rate = 5;
+			if (rate < 1) rate = 1;
+			Review r = new Review(essay,rate,name);
+			mov.getReviews().add(r);
+			this.reviewWriter(path);
+			break;
+		default:
+			break;
+		}
+	}
+	public void reviewWriter(String path) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+		List<Movie> movieBeans = this.getMovieList(path);
+		Writer writer = new FileWriter(path);
+    	StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+    	beanToCsv.write(movieBeans);
+    	writer.close();
+	}
 }
