@@ -8,6 +8,10 @@ import java.util.Scanner;
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 
+import boundary.MovieListingControl;
+import entity.MovieListing.dayOfWeek;
+import entity.MovieListing.screenType;
+
 /**
  * Represents a single cinema hall in a cineplex
  * 
@@ -15,6 +19,7 @@ import com.opencsv.bean.CsvBindByName;
  *
  */
 public class Hall {
+	Scanner sc = new Scanner(System.in);
 	/**
 	 * The ID of the cinema Hall
 	 */
@@ -167,5 +172,96 @@ public class Hall {
 			System.out.println("Seat assigned!");
 		} else
 			System.out.println("Seat already assigned to a customer.");
+	}
+
+	public void hallListAllMovieListing() {
+		for (int i = 0; i < movieListing.size(); i++) {
+			movieListing.get(i).printListing();
+		}
+	}
+
+	public void hallAddMovieListing(List<Movie> beans) {
+		MovieListingControl mc = new MovieListingControl();
+		System.out.println("\nChoose movie to add (Number): ");
+		int moviePos = sc.nextInt();
+		Movie selectedMovie = beans.get(moviePos);
+		screenType screen = mc.chooseScreenType();
+		dayOfWeek day = mc.chooseDay();
+		String strDay = day.name();
+		System.out.println("\nChoose available showing time");
+		for (int i = 0; i < availableShowTimes.size(); i++) {
+			if (availableShowTimes.get(i).split(" ")[0].equals(strDay)) {
+				System.out.println(Integer.toString(i) + ". " + availableShowTimes.get(i));
+			}
+		}
+		int showTimePos = sc.nextInt();
+		// hall.addMovieListing(selectedMovie, screen, day, showTimePos);
+		String tempShowTime = availableShowTimes.remove(showTimePos);
+		// System.out.println("Adding " + tempShowTime + " to show time");
+		showTimes.add(tempShowTime);
+		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime, hallID);
+		movieListing.add(ml);
+	}
+
+	public void hallDelMovieListing() {
+		if (movieListing.size() == 0) {
+			System.out.println("No current movie listings to remove");
+			return;
+		}
+		System.out.println("Current movie listings for hall " + Integer.toString(hallID));
+		for (int i = 0; i < movieListing.size(); i++) {
+			System.out.println(Integer.toString(i) + ". " + movieListing.get(i).getMovie().getMovieTitle() + " "
+					+ movieListing.get(i).getShowtime());
+		}
+		System.out.print("Select listing to remove: ");
+		int listPos = sc.nextInt();
+		String tempShowTime = showTimes.remove(listPos);
+		availableShowTimes.add(tempShowTime);
+		Collections.sort(availableShowTimes);
+		availableShowTimes.add(tempShowTime);
+		Collections.sort(availableShowTimes);
+		movieListing.remove(listPos);
+	}
+
+	public void hallUpdateMovieListing() {
+		MovieListingControl mc = new MovieListingControl();
+		if (movieListing.size() == 0) {
+			System.out.println("No current movie listings to update");
+			return;
+		}
+		System.out.println("Current movie listings for hall " + Integer.toString(hallID));
+		System.out.println("Title \t|  Screen Type  |  Show Time  |  Age Rating");
+		for (int i = 0; i < movieListing.size(); i++) {
+			System.out.print(Integer.toString(i) + ". ");
+			movieListing.get(i).printListing();
+		}
+		System.out.println("Select listing to update");
+		int movieListPosition = sc.nextInt();
+		System.out.print("Select option\n(1) Edit screen type (2) Edit showing time (3) Exit: ");
+		int editChoice = sc.nextInt();
+		switch (editChoice) {
+		case 1:
+			movieListing.get(movieListPosition).setType(mc.chooseScreenType());
+			break;
+		case 2:
+			String showDay = mc.chooseDay().name();
+			System.out.println("\nChoose available showing time");
+			for (int i = 0; i < availableShowTimes.size(); i++) {
+				if (availableShowTimes.get(i).split(" ")[0].equals(showDay)) {
+					System.out.println(Integer.toString(i) + ". " + availableShowTimes.get(i));
+				}
+			}
+			int showTimePos = sc.nextInt();
+			String tempShowTime = availableShowTimes.remove(showTimePos);
+			showTimes.add(tempShowTime);
+			String removeShowTime = movieListing.get(movieListPosition).getShowtime();
+			movieListing.get(movieListPosition).setShowtime(tempShowTime);
+			showTimes.remove(removeShowTime);
+			availableShowTimes.add(removeShowTime);
+			Collections.sort(availableShowTimes);
+			break;
+		default:
+			break;
+		}
 	}
 }
