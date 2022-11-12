@@ -7,9 +7,21 @@ import entity.MLDataObject;
 import entity.MovieListing;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
-
+/**
+ * Utility functions for the MovieListingDataObject (MLDO)
+ * @author SS4 Group 4
+ *
+ */
 public class MLDOControl {
+	/**
+	 * Empty constructor to create the object
+	 */
 	public MLDOControl() {}
+	/**
+	 * Converts the MLDO into a list of movie listings
+	 * @param data The list of MLDO
+	 * @return converted MovieListings
+	 */
 	public List<MovieListing> convertToML(List<MLDataObject> data){
 		List<MovieListing> ml = new ArrayList<MovieListing>();
 		for(int i = 0;i < data.size();i++) {
@@ -35,6 +47,8 @@ public class MLDOControl {
 				ml.get(i).setDay(dayOfWeek.SAT);
 			case "SUN":
 				ml.get(i).setDay(dayOfWeek.SUN);
+			case "PH":
+				ml.get(i).setDay(dayOfWeek.PH);
 			default:
 				ml.get(i).setDay(dayOfWeek.MON);
 			}

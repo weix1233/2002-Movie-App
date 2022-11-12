@@ -3,6 +3,7 @@ package boundary;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,16 +17,34 @@ import entity.Hall;
 import entity.Movie;
 import entity.MovieListing;
 import entity.User;
-
+/**
+ * Contains the functions that interact with the customer
+ * @author SS4 Group 4
+ *
+ */
 public class CustomerApp {
-	
+	/**
+	 * Cinema chosen by the customer
+	 */
 	private Cinema currentCinema;
+	/**
+	 * Location ID of the cinema
+	 */
 	private int locID;
-	
+	/**
+	 * Creates a customerApp and lets the user choose the cinema
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public CustomerApp() throws IllegalStateException, FileNotFoundException {
 		this.currentCinema = chooseCinema();
 	}
-	
+	/**
+	 * Allows the customer to choose the Cinema
+	 * @return Customer's choice of cinema
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
 		Scanner sc = new Scanner(System.in);
 		String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
@@ -38,7 +57,9 @@ public class CustomerApp {
 		cinemaBeans.get(locationID).setMovieListing(locationID);
 		return cinemaBeans.get(locationID);
 	}
-	
+	/**
+	 * Displays UI for customers to choose the desired function
+	 */
 	public void displayMenu() {
 		int count = (50 - currentCinema.getName().length() - 9)/2;
 		String buf = "";
@@ -54,7 +75,9 @@ public class CustomerApp {
 		System.out.println("====== 6. Exit                              ======");
 		System.out.println("==================================================");
 	}
-	
+	/*
+	 * Displays the list of movies and lets the customer choose the movie displayed
+	 */
 	public MovieListing displayMovieList() {
 		List<MovieListing> ml = currentCinema.getMovieListing();
 		for(int i = 1; i < ml.size(); i++) {
@@ -66,7 +89,16 @@ public class CustomerApp {
 		if(choice > ml.size()) return null;
 		return ml.get(choice);
 	}
-	
+	/**
+	 * 	 * Calls displayBooking() to let customer book their movie of choice
+	 * If a movie has not been picked, displayMovieList() will be called
+	 * 
+	 * @param ml MovieListing chosen by customer
+	 * @throws IllegalStateException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
 	public void bookMovie(MovieListing ml) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
 		while(ml == null) {
 			ml = this.displayMovieList();
@@ -77,7 +109,11 @@ public class CustomerApp {
 		Booking b = new Booking(h,ml,u);
 		b.displayBooking();
 	}
-	
+	/**
+	 * Displays the chosen movie details
+	 * If a movie has not been picked, displayMovieList() will be called
+	 * @param ml MovieListing chosen by customer
+	 */
 	public void movieDetails(MovieListing ml) {
 		while(ml == null) {
 			ml = this.displayMovieList();
@@ -90,7 +126,11 @@ public class CustomerApp {
 				mov.getOverallRating(),
 				mov.getSynopis());
 	}
-	
+	/**
+	 * Prompts user to input their credentials to check their booking history
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public void bookingHistory() throws IllegalStateException, FileNotFoundException {
 		boolean check = false;
 		String name = null;
@@ -127,7 +167,12 @@ public class CustomerApp {
 		} while(attempt < 3);
 		System.out.println("Returning to menu...");
 	}
-	
+	/**
+	 * Sorts the movies by either their sales or their rating
+	 * Only displays the unique movies of that cinema
+	 * @param movieBeans List of the unique movies
+	 * @param sys System option chosen by admins
+	 */
 	public void sortPopularMovie(List<Movie> movieBeans,int sys) {
 		SortTop st = new SortTop(movieBeans);
 		if (sys == 0){
@@ -150,7 +195,20 @@ public class CustomerApp {
 		}
 		else {
 			st.sortBySales();
+		}	
+	}
+	/**
+	 * Gets the unique movies within the movieListing
+	 * @return Unique movies within movieListing
+	 */
+	public List<Movie> getUniqueMovies(){
+		List<MovieListing> ml = this.currentCinema.getMovieListing();
+		List<Movie> m = new ArrayList<Movie>();
+		for(int i = 0;i < ml.size();i++) {
+			if(!m.contains(ml.get(i).getMovie())) {
+				m.add(ml.get(i).getMovie());
+			}
 		}
-		
+		return m;
 	}
 }
