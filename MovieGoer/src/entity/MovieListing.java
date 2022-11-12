@@ -56,6 +56,7 @@ public class MovieListing {
 		this.showtime = showtime;
 		this.hallID = hallID;
 	}
+	public MovieListing() {}
 	/**
 	 * Print the details of the movie listing
 	 */
