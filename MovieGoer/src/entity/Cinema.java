@@ -143,20 +143,30 @@ public class Cinema {
 		Movie selectedMovie = beans.get(moviePos);
 		System.out.print("Select cinema hall number (1 ~ 3): ");
 		int hallID = sc.nextInt();
-		screenType screen = mc.chooseScreenType();
-		dayOfWeek day = mc.chooseDay();
-		String strDay = day.name();
-		System.out.println("\nChoose available showing time");
-		List<String> hallAvailableShowTimes = halls.get(hallID).getAvailableShowTimes();
-		for (int i = 0; i < hallAvailableShowTimes.size(); i++) {
-			if (hallAvailableShowTimes.get(i).split(" ")[0].equals(strDay)) {
-				System.out.println(Integer.toString(i) + ". " + hallAvailableShowTimes.get(i));
+		int checkAvailable = 0;
+		dayOfWeek day;
+		List<String> hallAvailableShowTimes;
+		do {
+			day = mc.chooseDay();
+			String strDay = day.name();
+			System.out.println("---- Available time slots ----");
+			hallAvailableShowTimes = halls.get(hallID).getAvailableShowTimes();
+			for (int i = 0; i < hallAvailableShowTimes.size(); i++) {
+				if (hallAvailableShowTimes.get(i).split(" ")[0].equals(strDay)) {
+					checkAvailable++;
+					System.out.println(Integer.toString(i) + ". " + hallAvailableShowTimes.get(i));
+				}
 			}
-		}
+			if (checkAvailable == 0) {
+				System.out.println(strDay + " has no more available time slots. Please pick another day\n");
+			} else {
+				System.out.print("\nChoose available showing time: ");
+			}
+		} while (checkAvailable == 0);
+
 		int showTimePos = sc.nextInt();
-		// hall.addMovieListing(selectedMovie, screen, day, showTimePos);
+		screenType screen = mc.chooseScreenType();
 		String tempShowTime = hallAvailableShowTimes.remove(showTimePos);
-		// System.out.println("Adding " + tempShowTime + " to show time");
 		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime, hallID);
 		fullML.add(ml);
 	}

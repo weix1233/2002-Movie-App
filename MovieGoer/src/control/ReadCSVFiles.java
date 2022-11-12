@@ -12,8 +12,8 @@ import entity.Movie;
 import entity.MovieListing;
 
 public class ReadCSVFiles {
-	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\cinema.csv";
-	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\movie\\movie.csv";
+	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build().parse();
@@ -27,13 +27,13 @@ public class ReadCSVFiles {
 		String filePath = null;
 		switch (choice) {
 		case 1:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 		case 2:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 		case 3:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 		default:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App2424424\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 		}
 		List<MLDataObject> mldoBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(MLDataObject.class)
 				.build().parse();
