@@ -25,29 +25,77 @@ import entity.MovieListing;
 import entity.Ticket;
 import entity.Ticket.ticketType;
 import entity.User;
-
+/**
+ * Allows the user to book their movie of choice based on the movieListing
+ * @author SS4 Group 4
+ *
+ */
 public class Booking {
+	/**
+	 * ID of the transaction
+	 */
 	private String transactionID;
+	/**
+	 * Price of the tickets
+	 */
 	private double totalPrice = 0.0;;
+	/**
+	 * An array of tickets depending on how many seats they chose
+	 */
 	private ArrayList<Ticket> tickets;
+	/**
+	 * The type of ticket
+	 */
 	private ticketType ticType;
+	/**
+	 * List of users to check if users exist
+	 */
 	private List<User> users;
+	/**
+	 * The hall for the chosen movieListing
+	 */
 	private Hall hall;
+	/**
+	 * The chosen movieListing
+	 */
 	private MovieListing movieListing;
-
-
+	
 	//placeholders
+	/**
+	 * The row for the seats chosen
+	 */
 	private ArrayList<Integer> rows;
+	/**
+	 * The columns for seats chosen
+	 */
 	private ArrayList<Integer> cols;
-
+	/**
+	 * Constructs a 
+	 * @param hall the Hall associated with the current movieListing
+	 * @param movieListing customer's choice of movieListing
+	 * @param users list of users in the user database
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public Booking(Hall hall, MovieListing movieListing,List<User> users) throws IllegalStateException, FileNotFoundException {
 		this.hall = hall;
 		this.movieListing = movieListing;
 		this.users = users;
 	}
+	/**
+	 * Mutator to change the list of users
+	 * @param users List of users in the database
+	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	/**
+	 * Shows the UI for booking movies as well as the seats for the respective movie.
+	 * Writes the booking history after transaction is completed as well
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
 	public void displayBooking() throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
 		if (movieListing.getMovie().getShowingStatus().equals("END_OF_SHOWING")) {
@@ -159,20 +207,24 @@ public class Booking {
 		cols.clear();
 		tickets.clear();
 	}
-
+	/**
+	 * Changes the transaction ID
+	 */
 	public void setTransactionID() {
 		LocalDateTime dateTime = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
 		String dateTimeStr = dateTime.format(formatter);
 		this.transactionID = Integer.toString(movieListing.getHallID()) + dateTimeStr;
 	}
-
+	/**
+	 * Gets transaction ID
+	 * @return Transaction ID
+	 */
 	public String getTransactionID() {
 		return transactionID;
 	}
    /**
      * Writes a list of users to the user csv
-     * @param u List of users to write 
      * @throws IOException
      * @throws CsvDataTypeMismatchException
      * @throws CsvRequiredFieldEmptyException
