@@ -11,7 +11,7 @@ public class ControlPanel {
 	public static void main(String[] args)
 			throws IllegalStateException, FileNotFoundException, NoSuchAlgorithmException {
 		WelcomeBanner();
-		StaffLogin sl = new StaffLogin();
+		Login sl = new Login();
 		int userType = 0;
 		// Guest = 1, Members = 2, Admin = 3, Login Error = -1 user is forced to login
 		// again
