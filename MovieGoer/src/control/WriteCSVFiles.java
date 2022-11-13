@@ -16,11 +16,13 @@ import entity.User;
 
 public class WriteCSVFiles {
 
-	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\user\\user.csv";
-	private static String movieFilePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String MLDOFilePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\";
+	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
+	private static String movieFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
+	private static String MLDOFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\";
+
 	/**
 	 * Updates the movie CSV
+	 * 
 	 * @param movieBeans the movie list
 	 * @throws IllegalStateException
 	 * @throws CsvDataTypeMismatchException
@@ -35,8 +37,10 @@ public class WriteCSVFiles {
 		beanToCsv.write(movieBeans);
 		writer.close();
 	}
+
 	/**
 	 * Updates the user CSV
+	 * 
 	 * @param userBeans the user list
 	 * @throws IllegalStateException
 	 * @throws CsvDataTypeMismatchException
@@ -50,9 +54,11 @@ public class WriteCSVFiles {
 		beanToCsv.write(userBeans);
 		writer.close();
 	}
-	public static void MLDOToCSV(List<MLDataObject> MLDOBeans,int locID) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+
+	public static void MLDOToCSV(List<MLDataObject> MLDOBeans, int locID)
+			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
 		String ext = null;
-		switch(locID) {
+		switch (locID) {
 		case 1:
 			ext = "jurong\\jurong.csv";
 			break;
@@ -66,7 +72,7 @@ public class WriteCSVFiles {
 			ext = "jurong\\jurong.csv";
 			break;
 		}
-		Writer writer = new FileWriter(MLDOFilePath+ext);
+		Writer writer = new FileWriter(MLDOFilePath + ext);
 		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
 		beanToCsv.write(MLDOBeans);
 		writer.close();

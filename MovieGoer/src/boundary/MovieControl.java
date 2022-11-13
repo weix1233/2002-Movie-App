@@ -1,6 +1,5 @@
 package boundary;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +41,17 @@ public class MovieControl {
 	 * 
 	 * @param movieBeans
 	 */
-	public void printCurrentMovieList(List<Movie> movieBeans) {
+	public String printCurrentMovieList(List<Movie> movieBeans) {
+		String options = "";
 		for (int i = 0; i < movieBeans.size(); i++) {
 			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+				options += Integer.toString(i) + " ";
 				System.out.printf("%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | Age Rating: %s\n",
 						Integer.toString(i), movieBeans.get(i).getMovieTitle(), movieBeans.get(i).getSynopis(),
 						movieBeans.get(i).getDirector(), movieBeans.get(i).getCast(), movieBeans.get(i).getAgeRating());
 			}
 		}
+		return options;
 	}
 
 	/**

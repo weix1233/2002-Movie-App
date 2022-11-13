@@ -1,7 +1,7 @@
 package boundary;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,17 +32,18 @@ public class AdminControl {
 	 * @throws IOException
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws CsvDataTypeMismatchException
+	 * @throws NoSuchAlgorithmException
 	 * 
 	 *
 	 */
-	public void MainMenu()
-			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+	public void MainMenu() throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException,
+			IOException, NoSuchAlgorithmException {
 		MovieControl movieControl = new MovieControl();
 		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
 		List<Movie> movieBeans = ReadCSVFiles.getMovieList();
 		int c;
 		do {
-			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database: ");
+			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database (3) Exit: ");
 			c = sc.nextInt();
 			switch (c) {
 			case 1:
@@ -55,7 +56,7 @@ public class AdminControl {
 				break;
 			}
 		} while (c > 0 && c < 3);
-
+		ControlPanel.main(null);
 	}
 
 	public void sortPopularMovie(List<Movie> movieBeans) {
@@ -66,10 +67,16 @@ public class AdminControl {
 	 * Console menu for admin users to edit the Cineplex database. Here they
 	 * add/update/delete movie showtimes for each location.
 	 * 
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws CsvDataTypeMismatchException
+	 * 
 	 *
 	 */
 	public void CineplexMenu(MovieControl movieControl, List<Cinema> cinemaBeans, List<Movie> movieBeans)
-			throws IllegalStateException, FileNotFoundException {
+			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException,
+			NoSuchAlgorithmException, IOException {
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		cinemaBeans.get(locationID).setMovieListing(locationID);
@@ -84,8 +91,8 @@ public class AdminControl {
 			option = sc.nextInt();
 			switch (option) {
 			case 1:
-				movieControl.printCurrentMovieList(movieBeans);
-				currentCinema.addMovieListing(movieBeans);
+				String options = movieControl.printCurrentMovieList(movieBeans);
+				currentCinema.addMovieListing(movieBeans, options);
 				break;
 			case 2:
 				currentCinema.delMovieListing();
@@ -98,7 +105,8 @@ public class AdminControl {
 			default:
 			}
 		} while (option < 5 && option > 0);
-		System.out.println("exited");
+		System.out.println("---- Exited ----");
+		MainMenu();
 	}
 
 	/**
@@ -108,11 +116,12 @@ public class AdminControl {
 	 * @throws IOException
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws CsvDataTypeMismatchException
+	 * @throws NoSuchAlgorithmException
 	 * 
 	 *
 	 */
-	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl)
-			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl) throws IllegalStateException,
+			CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException, NoSuchAlgorithmException {
 		int option;
 		do {
 			System.out.print(
@@ -139,5 +148,7 @@ public class AdminControl {
 			}
 		} while (option > 0 && option < 5);
 		WriteCSVFiles.movieToCSV(movieBeans);
+		System.out.println("---- Exited ----");
+		MainMenu();
 	}
 }
