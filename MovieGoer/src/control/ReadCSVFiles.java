@@ -18,9 +18,7 @@ public class ReadCSVFiles {
 	private static String loginFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\login\\";
 
 	public static List<Login> getLoginDetail(String fileName) throws IllegalStateException, FileNotFoundException {
-		loginFilePath += fileName;
-		System.out.println(loginFilePath);
-		return new CsvToBeanBuilder(new FileReader(loginFilePath)).withType(Login.class).build().parse();
+		return new CsvToBeanBuilder(new FileReader(loginFilePath + fileName)).withType(Login.class).build().parse();
 	}
 
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {

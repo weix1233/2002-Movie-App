@@ -1,6 +1,6 @@
 package boundary;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.ReadCSVFiles;
 
@@ -22,6 +24,9 @@ public class Login {
 	private int mobileNo;
 	@CsvBindByName
 	private String email;
+
+	public Login() {
+	}
 
 	public Login(String username, String password, String name, int mobileNo, String email) {
 		this.username = username;
@@ -47,7 +52,8 @@ public class Login {
 	}
 
 	// Login method to the Cinema system
-	public int validate() throws IllegalStateException, FileNotFoundException, NoSuchAlgorithmException {
+	public int validate() throws IllegalStateException, NoSuchAlgorithmException, CsvDataTypeMismatchException,
+			CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Login options\n1. Guest\n2. Member\n3. Admin\n4. Register as member");
 		int choice = sc.nextInt();
@@ -74,6 +80,7 @@ public class Login {
 		// store the files
 		System.out.println(hashPassword("pass"));
 		int loginAttempts = 0;
+		int loginDetailPosition = 0;
 		sc.nextLine();
 		do {
 			System.out.print("Enter username: ");
@@ -81,20 +88,27 @@ public class Login {
 			System.out.print("Enter password: ");
 			String pass = hashPassword(sc.nextLine());
 
-			if (user.equals(beans.get(0).getUsername()) && pass.equals(beans.get(0).getPassword())) {
-				System.out.println("Login success");
-				return choice;
-			} else {
-				System.out.println("Login failed, try again");
-				loginAttempts++;
+			for (int i = 0; i < beans.size(); i++) {
+				if (user.equals(beans.get(i).getUsername())) {
+					if (pass.equals(beans.get(i).getPassword())) {
+						System.out.println("---- Login success! ----");
+						return choice;
+					} else {
+						System.out.println("---- Error! Login failure -----");
+						loginAttempts++;
+						break;
+					}
+				}
 			}
+
 		} while (loginAttempts < 3); // if fail to login 3 times, the validate method will be callled by ControlPanel
 
 		return -1;
 
 	}
 
-	private void registerMember(List<Login> beans) throws NoSuchAlgorithmException {
+	private void registerMember(List<Login> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
+			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Register.createMember(beans);
 	}
 
