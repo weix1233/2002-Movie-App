@@ -67,6 +67,11 @@ public class MLDOControl {
 		}
 		return ml;
 	}
+	/**
+	 * Converts list of movie listings to list of MLDataObject
+	 * @param data List of MovieListing objects
+	 * @return List of MLDataObjects
+	 */
 	public static List<MLDataObject> convertToMLDO(List<MovieListing> data){
 		List<MLDataObject> mldo = new ArrayList<>();
 		for(int i = 0; i <data.size();i++) {

@@ -12,6 +12,11 @@ import control.ReadCSVFiles;
 import control.WriteCSVFiles;
 import entity.Options;
 
+/**
+ * Allows the admin to change the configurations for the app
+ * @author SS4 Group 4
+ *
+ */
 public class AdminOptions {
 	/**
 	 * Scanner object

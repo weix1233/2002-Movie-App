@@ -11,6 +11,9 @@ import entity.Hall;
  *
  */
 public class TextToHall extends AbstractCsvConverter {
+	/**
+	 * Converts the text information in the CSV file into a Hall object
+	 */
 	@Override
 	public Object convertToRead(String value) {
 		Hall h = new Hall();

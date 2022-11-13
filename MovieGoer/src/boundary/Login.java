@@ -63,7 +63,13 @@ public class Login {
 			CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Login options\n1. Guest\n2. Account\n3. Register as member");
-		int choice = sc.nextInt();
+		int choice;
+		do {
+			choice = sc.nextInt();
+			if (choice < 1 || choice > 3) {
+				System.out.println("---- Error! Choose only given options ----");
+			}
+		} while (choice < 1 || choice > 3);
 		List<User> beans = ReadCSVFiles.getLoginDetail();
 		User temp;
 		switch (choice) {
@@ -71,17 +77,11 @@ public class Login {
 			System.out.println("Welcome Guest!");
 			temp = Register.createGuest(beans);
 			return temp;
-		case 2:
-			beans = ReadCSVFiles.getLoginDetail();
-			break;
 		case 3:
-			beans = ReadCSVFiles.getLoginDetail();
 			temp = registerMember(beans);
 			return temp;
 		default:
-			System.out.println("Invalid input, defaulting to Guest!");
-			temp = Register.createGuest(beans);
-			return temp;
+			break;
 		}
 		// System.out.println(hashPassword("p4ssw0rd"));
 		int loginAttempts = 0;

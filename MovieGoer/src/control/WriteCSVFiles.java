@@ -15,12 +15,32 @@ import entity.Movie;
 import entity.Options;
 import entity.User;
 
+/**
+ * Utility class which contains all the functions to write a List of objects
+ * back into the csv file. All file paths are declared here for editing
+ * convenience and must be modified to fit your own file structure.
+ * 
+ * @author SS4 Group 4
+ *
+ */
 public class WriteCSVFiles {
-	
+	/**
+	 * Location of the user CSV
+	 */
 	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	/**
+	 * Location of the movie CSV
+	 */
 	private static String movieFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	/**
+	 * Location of the cinema CSV
+	 */
 	private static String MLDOFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\";
+	/**
+	 * Location of the options CSV
+	 */
 	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
+
 	/**
 	 * Updates the movie CSV
 	 * 
@@ -55,10 +75,12 @@ public class WriteCSVFiles {
 		beanToCsv.write(userBeans);
 		writer.close();
 	}
+
 	/**
 	 * Updates the Movie Listing Data Object
-	 * @param MLDOBeans
-	 * @param locID
+	 * 
+	 * @param MLDOBeans List of MLDataObjects
+	 * @param locID Location ID of the cinema
 	 * @throws IOException
 	 * @throws CsvDataTypeMismatchException
 	 * @throws CsvRequiredFieldEmptyException
@@ -85,8 +107,10 @@ public class WriteCSVFiles {
 		beanToCsv.write(MLDOBeans);
 		writer.close();
 	}
+
 	/**
 	 * Changes the stored memory for options
+	 * 
 	 * @param optionsBeans the beans read by the admin
 	 * @throws IllegalStateException
 	 * @throws CsvDataTypeMismatchException

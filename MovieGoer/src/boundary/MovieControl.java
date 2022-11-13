@@ -269,8 +269,6 @@ public class MovieControl {
 	 * Console interface for a user to leave a review on the selected movie.
 	 * 
 	 * @param mov        the Movie selected to leave a review on
-	 * @param path       filepath to movie database to write changes to the movie
-	 *                   database (csv file)
 	 * @param movieBeans list of Movie objects extracted from the movie database
 	 *                   (csv file)
 	 * @throws CsvDataTypeMismatchException

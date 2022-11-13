@@ -51,7 +51,7 @@ public class Ticket {
 	/**
 	 * Creates a new Ticket with the following parameters
 	 * 
-	 * @param cinema       Cinema where the movie is screening
+	 * @param hall       Hall where the movie is screening
 	 * @param movieListing Movie Listing that the ticket is for
 	 * @param ticType      Type of ticket
 	 * @param row          Row of seat

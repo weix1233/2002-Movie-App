@@ -43,6 +43,7 @@ public class CustomerApp {
 	private User user;
 	/**
 	 * Creates a customerApp and lets the user choose the cinema
+	 * @param user Current user
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
@@ -203,7 +204,6 @@ public class CustomerApp {
 	 * Sorts the movies by either their sales or their rating
 	 * Only displays the unique movies of that cinema
 	 * @param movieBeans List of the unique movies
-	 * @param sys System option chosen by admins
 	 * @throws FileNotFoundException 
 	 * @throws IllegalStateException 
 	 */

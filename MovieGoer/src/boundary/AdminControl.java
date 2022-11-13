@@ -114,6 +114,8 @@ public class AdminControl {
 	 * Console menu for admin users to edit the movie database. Here they can
 	 * add/update/delete movies.
 	 * 
+	 * @param movieBeans List of movies
+	 * @param movieControl movieControl object
 	 * @throws IOException
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws CsvDataTypeMismatchException
