@@ -23,8 +23,10 @@ import entity.Movie;
  *
  */
 public class AdminControl {
+	/**
+	 * Scanner object for the class
+	 */
 	Scanner sc = new Scanner(System.in);
-
 	/**
 	 * Main Menu console user interface for admin users. Admin can edit the movie
 	 * database or cineplex database from here.
@@ -57,10 +59,6 @@ public class AdminControl {
 			}
 		} while (c > 0 && c < 3);
 		ControlPanel.main(null);
-	}
-
-	public void sortPopularMovie(List<Movie> movieBeans) {
-		SortTop st = new SortTop(movieBeans);
 	}
 
 	/**
