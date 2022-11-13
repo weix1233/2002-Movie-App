@@ -38,12 +38,17 @@ public class CustomerApp {
 	 */
 	private int locID;
 	/**
+	 * The guest/member that is currently logged in
+	 */
+	private User user;
+	/**
 	 * Creates a customerApp and lets the user choose the cinema
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
-	public CustomerApp() throws IllegalStateException, FileNotFoundException {
+	public CustomerApp(User user) throws IllegalStateException, FileNotFoundException {
 		this.currentCinema = chooseCinema();
+		this.user = user;
 	}
 	/**
 	 * Allows the customer to choose the Cinema
@@ -95,7 +100,7 @@ public class CustomerApp {
 				this.movieDetails(custChoice);
 				break;
 			case 3:
-				this.bookMovie(custChoice);
+				this.bookMovie(custChoice,user);
 				List<MLDataObject> MLDOBeans = MLDOControl.convertToMLDO(this.currentCinema.getMovieListing());
 				WriteCSVFiles.MLDOToCSV(MLDOBeans,locID);
 				break;
@@ -132,12 +137,11 @@ public class CustomerApp {
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws IOException
 	 */
-	public void bookMovie(MovieListing ml) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
+	public void bookMovie(MovieListing ml,User u) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
 		Hall h = currentCinema.getHalls().get(ml.getHallID());
-		List<User> u =ReadCSVFiles.getLoginDetail();
 		Booking b = new Booking(h,ml,u);
 		b.displayBooking();
 	}
@@ -192,39 +196,7 @@ public class CustomerApp {
 	 * @throws FileNotFoundException
 	 */
 	public void bookingHistory() throws IllegalStateException, FileNotFoundException {
-		boolean check = false;
-		String name = null;
-		String email = null;
-		int mobileNo = 0;
-		int attempt = 0;
-		List<User> userBeans = ReadCSVFiles.getLoginDetail();
-		do {
-			System.out.println("Enter your credentials");
-			System.out.println("Name: ");
-			sc.nextLine();
-			name = sc.nextLine();
-			System.out.println("Email: ");
-			email = sc.nextLine();
-			System.out.println("Mobile No: ");
-			mobileNo = sc.nextInt();
-			System.out.println("Checking ...");
-			for(int i = 0;i < userBeans.size();i++) {
-				if(userBeans.get(i).getName().equals(name)) {
-					if(userBeans.get(i).getEmail().equals(email)) {
-						if(userBeans.get(i).getMobileNo() == mobileNo) {
-							System.out.println(userBeans.get(i).getbookingHistory());
-							check = true;
-							break;
-						}
-					}
-				}
-			}
-			if(check == true) {
-				break;	
-			}
-			System.out.printf("Check failed...\nAttempts left: %d\n",3 - ++attempt);
-		} while(attempt < 3);
-		System.out.println("Returning to menu...");
+		System.out.println(user.getbookingHistory());
 	}
 	/**
 	 * Sorts the movies by either their sales or their rating
