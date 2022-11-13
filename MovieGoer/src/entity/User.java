@@ -46,8 +46,8 @@ public class User {
 	/**
 	 * A list of bookings that the user has made Each entry is a string of
 	 * movieTitle and transactionID
-	 */
-	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";")
+	 */ 
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ";", writeDelimiter = ";")
 	private ArrayList<String> bookingHistory;
 
 	/**
