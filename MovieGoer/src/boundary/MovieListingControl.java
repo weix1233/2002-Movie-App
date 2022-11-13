@@ -8,8 +8,12 @@ import entity.MovieListing.screenType;
 public class MovieListingControl {
 	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);
-	String movieFilePath = "C:\\Users\\tanju\\Desktop\\movie\\movie.csv";
 
+	/**
+	 * Console interface to prompt user to select if Movie will be 2D or 3D
+	 * 
+	 * @return screenType enum value
+	 */
 	public screenType chooseScreenType() {
 		System.out.print("Choose screenType\n(1) Two-D screen (2) Three-D screen: ");
 		int c = sc.nextInt();
@@ -24,16 +28,29 @@ public class MovieListingControl {
 		}
 	}
 
+	/**
+	 * Console interface to prompt user to select the cinema hall of the movie
+	 * listing
+	 * 
+	 * @return the hall number
+	 */
 	public int chooseCinemaHall() {
 		System.out.print("Choose cinema hall: 1 ~ 3: ");
+		int hall;
+		do {
+			hall = sc.nextInt();
+			if (hall < 1 || hall > 3) {
+				System.out.println("---- Error! Choose only given options ----");
+			}
+		} while (hall < 1 || hall > 3);
 		return sc.nextInt();
 	}
 
-	public int chooseShowTime() {
-		System.out.print("Enter showtime in 24 hour format, e.g: 1230: ");
-		return sc.nextInt();
-	}
-
+	/**
+	 * Console interface to prompt user to choose the day of the movie listing
+	 * 
+	 * @return dayOfWeek enum value
+	 */
 	public dayOfWeek chooseDay() {
 		System.out.print(
 				"Choose day of showing\n(1) Monday (2) Tuesday (3) Wednesday (4) Thursday (5) Friday (6) Saturday (7) Sunday: ");

@@ -12,24 +12,67 @@ import entity.Movie;
 import entity.MovieListing;
 import entity.User;
 
+/**
+ * This class cotains all the functions to read and extract information from CSV
+ * files into a List object. All the CSV files paths are declared here for
+ * convenient editing and applies to the entire app.
+ * 
+ * @author tanju
+ *
+ */
 public class ReadCSVFiles {
-
+	/**
+	 * Please ensure your filepath matches where you have placed the database csv
+	 * files.
+	 */
 	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
 	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 
+	/**
+	 * Reads the user.csv file and compiles them into a List object
+	 * 
+	 * @return a list of User objects
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public static List<User> getLoginDetail() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(User.class).build().parse();
 	}
 
+	/**
+	 * Reads the cinema.csv file and compiles the information into a List of Cinema
+	 * objects
+	 * 
+	 * @return a list of Cinema objects
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build().parse();
 	}
 
+	/**
+	 * Reads the movie.csv file and compiles the information into a List of movie
+	 * objects
+	 * 
+	 * @return a list of movie objects
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public static List<Movie> getMovieList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(movieFileName)).withType(Movie.class).build().parse();
 	}
 
+	/**
+	 * Reads the selected cineplex file which user has chosen and returns the list
+	 * of MovieListing for that particular cineplex
+	 * 
+	 * @param choice user input from console interface prompt
+	 * @return a list of MovieListing objects
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public static List<MovieListing> initialiseML(int choice) throws IllegalStateException, FileNotFoundException {
 		String filePath = null;
 		switch (choice) {
