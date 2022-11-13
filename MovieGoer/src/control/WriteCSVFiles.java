@@ -14,11 +14,20 @@ import boundary.Login;
 import entity.Movie;
 
 public class WriteCSVFiles {
-	private static String loginMemberFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\login\\member.csv";
-
-	public static void reviewWriter(String path, List<Movie> movieBeans)
+	private static String loginMemberFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\login\\member.csv";
+	private static String movieFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	
+	/**
+	 * Updates the movie CSV
+	 * @param movieBeans the movie list
+	 * @throws IllegalStateException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
+	public static void movieToCSV(List<Movie> movieBeans)
 			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		Writer writer = new FileWriter(path);
+		Writer writer = new FileWriter(movieFilePath);
 		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
 		beanToCsv.write(movieBeans);
 		writer.close();
