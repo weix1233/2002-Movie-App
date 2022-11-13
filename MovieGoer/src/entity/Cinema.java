@@ -49,7 +49,6 @@ public class Cinema {
 	/**
 	 * Creates a new Cinema with the following parameters
 	 * 
-	 * @param halls List of the cinema halls
 	 * @param name  Name of the cinema
 	 * @param cid   ID of the cinema
 	 */
