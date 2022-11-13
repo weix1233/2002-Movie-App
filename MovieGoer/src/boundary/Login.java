@@ -80,9 +80,7 @@ public class Login {
 			System.out.println("Invalid input, defaulting to Guest!");
 			return 1;
 		}
-		// where the login credentials are stored. May need to modify based on where you
-		// store the files
-		System.out.println(hashPassword("pass"));
+		// System.out.println(hashPassword("p4ssw0rd"));
 		int loginAttempts = 0;
 		int loginDetailPosition = 0;
 		sc.nextLine();
@@ -96,7 +94,11 @@ public class Login {
 				if (user.equals(beans.get(i).getUsername())) {
 					if (pass.equals(beans.get(i).getPassword())) {
 						System.out.println("---- Login success! ----");
-						return choice;
+						if (beans.get(i).getIsAdmin()) {
+							return 3;
+						} else {
+							return 2;
+						}
 					} else {
 						System.out.println("---- Error! Login failure -----");
 						loginAttempts++;

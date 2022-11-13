@@ -55,7 +55,7 @@ public class Register {
 			}
 		} while (check == 1);
 		// Login newMember = new Login(username, hashedPassword, name, mobileNo, email);
-		User newUser = new User(name, email, mobileNo, false, username, password);
+		User newUser = new User(name, email, mobileNo, false, username, hashedPassword);
 		beans.add(newUser);
 		WriteCSVFiles.loginWriter(beans);
 	}

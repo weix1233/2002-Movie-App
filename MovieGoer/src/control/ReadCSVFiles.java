@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import boundary.Login;
 import entity.Cinema;
 import entity.MLDataObject;
 import entity.Movie;
@@ -20,7 +19,7 @@ public class ReadCSVFiles {
 	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 
 	public static List<User> getLoginDetail() throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(Login.class).build().parse();
+		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(User.class).build().parse();
 	}
 
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {

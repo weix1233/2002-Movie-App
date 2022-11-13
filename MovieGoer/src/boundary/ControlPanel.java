@@ -49,6 +49,7 @@ public class ControlPanel {
 			break;
 		case 3:
 			// admin
+			System.out.println("admin logged in");
 			AdminControl ac = new AdminControl();
 			ac.MainMenu();
 		}
