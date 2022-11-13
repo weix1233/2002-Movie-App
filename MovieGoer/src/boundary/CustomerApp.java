@@ -162,13 +162,14 @@ public class CustomerApp {
 			ml = this.displayMovieList();
 		}
 		Movie mov = ml.getMovie();
-		System.out.printf("Title: %s\nShowing Status: %s\nDirector: %s\nCast: %s\nRating: %.2f\nSypnosis: %s\n",
+		System.out.printf("Title: %s\nShowing Status: %s\nDirector: %s\nCast: %s\nRating: %.2f\nSypnosis: %s\nisPlatnium: %s\n",
 				mov.getMovieTitle(),
 				mov.getShowingStatus(),
 				mov.getDirector(),
 				mov.getCast(),
 				mov.getOverallRating(),
-				mov.getSynopis());
+				mov.getSynopis(),
+				currentCinema.getHalls().get(ml.getHallID()).getIP());
 		System.out.println("See past reviews? Y/N");
 		String choice;
 		choice = sc.next();

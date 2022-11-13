@@ -168,10 +168,7 @@ public class Booking {
 			setTransactionID();
 			String newBooking = movieListing.getMovie().getMovieTitle() + getTransactionID();
 			user.addBookingHistory(newBooking);
-			System.out.println(users);
-			System.out.println(user);
 			WriteCSVFiles.userToCSV(users);
-			users = ReadCSVFiles.getLoginDetail();
 			for (int i = 0; i < tickets.size(); i++) {
 				hall.updateSeats(rows.get(i), cols.get(i));
 				movieListing.getMovie().addSales();
