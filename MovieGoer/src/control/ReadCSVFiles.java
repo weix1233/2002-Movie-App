@@ -10,14 +10,16 @@ import entity.Cinema;
 import entity.MLDataObject;
 import entity.Movie;
 import entity.MovieListing;
+import entity.Options;
 import entity.User;
 
 public class ReadCSVFiles {
 
-	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
-	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
-
+	private static String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String movieFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
+	
 	public static List<User> getLoginDetail() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(User.class).build().parse();
 	}
@@ -29,7 +31,16 @@ public class ReadCSVFiles {
 	public static List<Movie> getMovieList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(movieFileName)).withType(Movie.class).build().parse();
 	}
-
+	/**
+	 * Gets the options
+	 * @return options for the App
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
+	public static List<Options> getOptions() throws IllegalStateException, FileNotFoundException{
+		return new CsvToBeanBuilder(new FileReader(optionsFilePath)).withType(Options.class).build().parse();
+	}
+	
 	public static List<MovieListing> initialiseML(int choice) throws IllegalStateException, FileNotFoundException {
 		String filePath = null;
 		switch (choice) {
@@ -52,7 +63,6 @@ public class ReadCSVFiles {
 		List<MovieListing> mlBeans = mlControl.convertToML(mldoBeans);
 		return mlBeans;
 	}
-
 	/**
 	 * Because everytime we read a new userBeans, the memory address changes Hence,
 	 * we need to refind the correct object in order to update the correct object

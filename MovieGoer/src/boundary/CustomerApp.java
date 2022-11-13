@@ -109,7 +109,7 @@ public class CustomerApp {
 				this.bookingHistory();
 				break;
 			case 5:
-				this.sortPopularMovie(getUniqueMovies(), 0);
+				this.sortPopularMovie(getUniqueMovies());
 				break;
 			}
 		} while(choice > 0 && choice < 6);
@@ -204,10 +204,13 @@ public class CustomerApp {
 	 * Only displays the unique movies of that cinema
 	 * @param movieBeans List of the unique movies
 	 * @param sys System option chosen by admins
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public void sortPopularMovie(List<Movie> movieBeans,int sys) {
+	public void sortPopularMovie(List<Movie> movieBeans) throws IllegalStateException, FileNotFoundException {
 		SortTop st = new SortTop(movieBeans);
-		if (sys == 0){
+		int sys = ReadCSVFiles.getOptions().get(0).getOption();
+		if (sys == 3){
 			int choice = 0;
 			System.out.println("Please choose to sort by -- (1) Ratings (2) Ticket Sales");
 			choice = sc.nextInt();
@@ -223,8 +226,8 @@ public class CustomerApp {
 				break;
 			}
 		}
-		else if (sys == 1) {
-			st.sortByRating();
+		else if (sys == 2) {
+			st.sortBySales();
 		}
 		else {
 			st.sortBySales();
