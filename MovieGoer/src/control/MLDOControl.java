@@ -67,13 +67,17 @@ public class MLDOControl {
 		}
 		return ml;
 	}
-	public List<MLDataObject> convertToMLDO(List<MovieListing> data){
+	public static List<MLDataObject> convertToMLDO(List<MovieListing> data){
 		List<MLDataObject> mldo = new ArrayList<>();
 		for(int i = 0; i <data.size();i++) {
 			MLDataObject temp = new MLDataObject();
 			mldo.add(temp);
 			mldo.get(i).setDayOfWeek(data.get(i).getDay().name());
-				
+			mldo.get(i).setMovie(data.get(i).getMovie());
+			mldo.get(i).setHallID(data.get(i).getHallID());
+			mldo.get(i).setSeats(data.get(i).getSeats());
+			mldo.get(i).setShowTime(data.get(i).getShowtime());
+			mldo.get(i).setType(data.get(i).getType().name());
 			}
 		return mldo;
 	}

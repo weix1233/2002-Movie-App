@@ -203,6 +203,7 @@ public class Booking {
 			for (int i = 0; i < tickets.size(); i++) {
 				hall.updateSeats(rows.get(i), cols.get(i));
 				movieListing.getMovie().addSales();
+				movieListing.updateSeat(rows.get(i)-1,cols.get(i)-1);
 			}
 			System.out.println("Your booking is successful!");
 			System.out.println("Your transaction ID is : " + getTransactionID());
@@ -271,6 +272,10 @@ public class Booking {
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
+	/**
+	 * Allow the user to choose each ticket type
+	 * @return ticket type
+	 */
 	public ticketType selectTicketType() {
 		System.out.println("=========================================");
 		System.out.println("Please select your ticket type: ");

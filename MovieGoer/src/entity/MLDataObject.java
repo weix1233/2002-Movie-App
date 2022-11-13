@@ -40,7 +40,7 @@ public class MLDataObject {
 	/**
 	 * Seats that are taken based on seat ID no.
 	 */
-	@CsvBindAndSplitByName(elementType = Integer.class, collectionType = ArrayList.class,splitOn = ";")
+	@CsvBindAndSplitByName(elementType = Integer.class, collectionType = ArrayList.class,splitOn = ";", writeDelimiter = ";")
 	private List<Integer> seats;
 	/**
 	 * Constructor for MLDataObject
