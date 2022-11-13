@@ -52,4 +52,22 @@ public class ReadCSVFiles {
 		List<MovieListing> mlBeans = mlControl.convertToML(mldoBeans);
 		return mlBeans;
 	}
+	/**
+	 * Because everytime we read a new userBeans, the memory address changes
+	 * Hence, we need to refind the correct object in order to update the correct object
+	 */
+	public static User findUser(List<User> userBeans,User user) {
+		User newUser = null;
+		for(int i = 0;i < userBeans.size();i++) {
+			if(userBeans.get(i).getUsername().equals(user.getUsername())) {
+				if(userBeans.get(i).getPassword().equals(user.getPassword())) {
+					newUser = userBeans.get(i);
+				}
+			}
+		}
+		if(user.getUsername() == null && user.getPassword() == null) {
+			newUser = userBeans.get(userBeans.size()-1);
+		}
+		return newUser;
+	}
 }

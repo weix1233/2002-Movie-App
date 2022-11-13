@@ -64,7 +64,6 @@ public class Register {
 	protected static User createGuest(List<User> beans) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Scanner sc = new Scanner(System.in);
 		int check;
-		sc.nextLine();
 		System.out.print("Enter name: ");
 		String name = sc.nextLine();
 		System.out.print("Enter mobileNo: ");

@@ -92,6 +92,7 @@ public class CustomerApp {
 		System.out.println("====== 6. Exit                              ======");
 		System.out.println("==================================================");
 		choice = sc.nextInt();
+		user = ReadCSVFiles.findUser(ReadCSVFiles.getLoginDetail(), user);
 		switch(choice) {
 			case 1:
 				custChoice = this.displayMovieList();
@@ -245,5 +246,4 @@ public class CustomerApp {
 		}
 		return m;
 	}
-	
 }

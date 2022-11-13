@@ -65,19 +65,23 @@ public class Login {
 		System.out.println("Login options\n1. Guest\n2. Account\n3. Register as member");
 		int choice = sc.nextInt();
 		List<User> beans = ReadCSVFiles.getLoginDetail();
+		User temp;
 		switch (choice) {
 		case 1:
 			System.out.println("Welcome Guest!");
-			return Register.createGuest(beans);
+			temp = Register.createGuest(beans);
+			return temp;
 		case 2:
 			beans = ReadCSVFiles.getLoginDetail();
 			break;
 		case 3:
 			beans = ReadCSVFiles.getLoginDetail();
-			return registerMember(beans);
+			temp = registerMember(beans);
+			return temp;
 		default:
 			System.out.println("Invalid input, defaulting to Guest!");
-			return Register.createGuest(beans);
+			temp = Register.createGuest(beans);
+			return temp;
 		}
 		// System.out.println(hashPassword("p4ssw0rd"));
 		int loginAttempts = 0;
