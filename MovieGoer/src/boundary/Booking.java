@@ -12,6 +12,7 @@ import java.util.Scanner;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import control.ReadCSVFiles;
 import control.WriteCSVFiles;
 import entity.Hall;
 import entity.MovieListing;
@@ -47,9 +48,13 @@ public class Booking {
 	 */
 	private ticketType ticType;
 	/**
+	 * The user that is currently logged in
+	 */
+	private User user;
+	/**
 	 * List of users to check if users exist
 	 */
-	private List<User> users;
+	private List<User> users = ReadCSVFiles.getLoginDetail();
 	/**
 	 * The hall for the chosen movieListing
 	 */
@@ -78,11 +83,11 @@ public class Booking {
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
-	public Booking(Hall hall, MovieListing movieListing, List<User> users)
+	public Booking(Hall hall, MovieListing movieListing, User u)
 			throws IllegalStateException, FileNotFoundException {
 		this.hall = hall;
 		this.movieListing = movieListing;
-		this.users = users;
+		this.user = u;
 	}
 
 	/**
@@ -160,45 +165,14 @@ public class Booking {
 		if (choice == 'Y') {
 			setTransactionID();
 			String newBooking = movieListing.getMovie().getMovieTitle() + getTransactionID();
-			// assumes every customer is a new user at first'
-			System.out.println("Are you a new user? Press Y for yes or N for no.");
-			char choice2 = sc.next().charAt(0);
-			sc.nextLine();
-			if (choice2 == 'Y') {
-				System.out.println("Please enter your name: ");
-				String name = sc.nextLine();
-				System.out.println("Please enter your mobile number: ");
-				int mobileNo = sc.nextInt();
-				System.out.println("Please enter your email address: ");
-				sc.nextLine();
-				String email = sc.nextLine();
-				User newUser = new User(name, email, mobileNo, false, null, null);
-				newUser.addBookingHistory(newBooking);
-				users.add(newUser);
+			if(user.getUsername() == null || user.getPassword() == null) {
+				user.addBookingHistory(newBooking);
+				users.add(user);
 				WriteCSVFiles.userToCSV(users);
-			} else {
-				if (users.isEmpty()) {
-					System.out.println("You are not in the customer database.");
-					System.out.println("Booking will be cancelled.");
-					System.out.println("=========================================");
-					return;
-				}
-				System.out.println("Please enter your mobileNo: ");
-				int mobileNo2 = sc.nextInt();
-				int valid = 0;
-				for (int i = 0; i < users.size(); i++) {
-					if (mobileNo2 == users.get(i).getMobileNo()) {
-						users.get(i).addBookingHistory(newBooking);
-						valid = 1;
-						WriteCSVFiles.userToCSV(users);
-					}
-				}
-				if (valid == 0) {
-					System.out.println("You are not in the customer database.");
-					System.out.println("Booking will be cancelled.");
-					System.out.println("=========================================");
-					return;
-				}
+			} 
+			else {
+					user.addBookingHistory(newBooking);
+					WriteCSVFiles.userToCSV(users);
 			}
 			for (int i = 0; i < tickets.size(); i++) {
 				hall.updateSeats(rows.get(i), cols.get(i));
