@@ -93,8 +93,9 @@ public class Hall {
 	/**
 	 * Display all the seats and their availability
 	 */
-	public void showSeats() {
+	public void showSeats(List<Integer> seats) {
 		char base = '@';
+		this.initialiseSeats(seats);
 		System.out.println("===================Screen================");
 		for (int i = 1; i < 10; i++) {
 			char rowLetter = (char) (base + i);
@@ -109,10 +110,11 @@ public class Hall {
 								seat[i - 1][j - 1].seatSlot());
 					}
 					// last two rows for elite seats
-					if (i == 8 || i == 9) {
+					else if (i == 8 || i == 9) {
 						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
 								seat[i - 1][j - 1].seatSlot());
-					} else {
+					} 
+					else {
 						System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
 					}
 				}
@@ -153,5 +155,16 @@ public class Hall {
 	 */
 	public boolean getIP() {
 		return this.isPlatinum;
+	}
+	public void initialiseSeats(List<Integer> seats) {
+		Seat[][] seatList = new Seat[9][13]; 
+		for(int i = 0;i < 9;i++) {
+			for(int j = 0;j < 13;j++) {
+				Seat temp = new Seat(i,j);
+				if(seats.contains(i * 9  + j)) temp.assign();
+				seatList[i][j] = temp;
+			}
+		}
+		this.seat = seatList;
 	}
 }

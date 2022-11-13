@@ -13,6 +13,7 @@ import entity.Movie;
 import entity.MovieListing;
 
 public class ReadCSVFiles {
+
 	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
 	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 	private static String loginFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\login\\";
@@ -20,6 +21,7 @@ public class ReadCSVFiles {
 	public static List<Login> getLoginDetail(String fileName) throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(loginFilePath + fileName)).withType(Login.class).build().parse();
 	}
+
 
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build().parse();
@@ -33,13 +35,17 @@ public class ReadCSVFiles {
 		String filePath = null;
 		switch (choice) {
 		case 1:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			break;
 		case 2:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\orchard\\orchard.csv";
+			break;
 		case 3:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\yishun\\yishun.csv";
+			break;
 		default:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			break;
 		}
 		List<MLDataObject> mldoBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(MLDataObject.class)
 				.build().parse();

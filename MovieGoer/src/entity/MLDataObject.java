@@ -1,5 +1,9 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvRecurse;
 /**
@@ -34,6 +38,11 @@ public class MLDataObject {
 	@CsvBindByName
 	private int hallID;
 	/**
+	 * Seats that are taken based on seat ID no.
+	 */
+	@CsvBindAndSplitByName(elementType = Integer.class, collectionType = ArrayList.class,splitOn = ";")
+	private List<Integer> seats;
+	/**
 	 * Constructor for MLDataObject
 	 * 
 	 * @param type type of screen
@@ -42,12 +51,13 @@ public class MLDataObject {
 	 * @param showTime time of the screening
 	 * @param id ID of the hall where the movie will be screened
 	 */
-	public MLDataObject(String type, String day, Movie movie,String showTime,int id) {
+	public MLDataObject(String type, String day, Movie movie,String showTime,int id,List<Integer> seats) {
 		this.type = type;
 		this.day = day;
 		this.movie = movie;
 		this.showTime = showTime;
 		this.hallID = id;
+		this.seats = seats;
 	}
 	/**
 	 * Empty constructor for openCSV
@@ -122,6 +132,20 @@ public class MLDataObject {
 	 */
 	public void setHallID(int id) {
 		this.hallID = id;
+	}
+	/**
+	 * Changes the occupied seats to a new one
+	 * @param seats The seats that are occupied
+	 */
+	public void setSeats(List<Integer> seats) {
+		this.seats = seats;
+	}
+	/**
+	 * Gets the seats that are occupied based on ID
+	 * @return seats occupied based on ID
+	 */
+	public List<Integer> getSeats(){
+		return this.seats;
 	}
 }
 

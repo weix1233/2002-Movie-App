@@ -1,5 +1,6 @@
 package entity;
 
+import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
 /**
  * Represents a ticket to be issued to the customer
@@ -65,9 +66,8 @@ public class Ticket {
 	 * Calculate the price of the ticket
 	 */
 	public void calculateTicketPrice() {
-		String[] dayTime = movieListing.getShowtime().split(" ");
-		String day = dayTime[0];
-		String time = dayTime[1];
+		dayOfWeek day = movieListing.getDay();
+		String time = movieListing.getShowtime();
 
 		double basePrice = 5.0;
 
@@ -82,14 +82,14 @@ public class Ticket {
 		} else
 			basePrice += 4.0;
 
-		if (day.equals("FRI")) {
+		if (day == dayOfWeek.FRI) {
 			if (Integer.parseInt(time) < 1800)
 				basePrice += 1.0;
 			else
 				basePrice += 2.0;
-		} else if (day.equals("SAT") || day.equals("SUN")) {
+		} else if (day == dayOfWeek.SAT || day == dayOfWeek.SUN) {
 			basePrice += 2.0;
-		} else if (day.equals("PH")) {
+		} else if (day == dayOfWeek.PH) {
 			basePrice += 4.0;
 		} else {
 			if (ticType == ticketType.SENIOR) {
