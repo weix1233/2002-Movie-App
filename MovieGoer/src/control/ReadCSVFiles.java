@@ -26,19 +26,19 @@ public class ReadCSVFiles {
 	/**
 	 * Location of the cinema CSV
 	 */
-	private static String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
 	/**
 	 * Location of the movie CSV
 	 */
-	private static String movieFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 	/**
 	 * Location of the user CSV
 	 */
-	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 	/**
 	 * Location of the options CSV
 	 */
-	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
+	private static String optionsFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\options\\options.csv";
 
 	/**
 	 * Reads the user.csv file and compiles them into a List object
@@ -74,6 +74,7 @@ public class ReadCSVFiles {
 	public static List<Movie> getMovieList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(movieFileName)).withType(Movie.class).build().parse();
 	}
+
 	/**
 	 * Gets the options
 	 * 
@@ -120,8 +121,9 @@ public class ReadCSVFiles {
 	/**
 	 * Because everytime we read a new userBeans, the memory address changes Hence,
 	 * we need to refind the correct object in order to update the correct object
+	 * 
 	 * @param userBeans List of User objects
-	 * @param user the User object to find
+	 * @param user      the User object to find
 	 * @return the found User object
 	 */
 	public static User findUser(List<User> userBeans, User user) {

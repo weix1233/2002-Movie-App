@@ -44,7 +44,8 @@ public class MovieControl {
 	public String printCurrentMovieList(List<Movie> movieBeans) {
 		String options = "";
 		for (int i = 0; i < movieBeans.size(); i++) {
-			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")) {
+			if (movieBeans.get(i).getShowingStatus().equals("NOW_SHOWING")
+					|| movieBeans.get(i).getShowingStatus().equals("PREVIEW")) {
 				options += Integer.toString(i) + " ";
 				System.out.printf("%s. Title: %s | Synopis: %s | Director: %s | Cast: %s | Age Rating: %s\n",
 						Integer.toString(i), movieBeans.get(i).getMovieTitle(), movieBeans.get(i).getSynopis(),

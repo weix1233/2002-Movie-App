@@ -49,8 +49,8 @@ public class Cinema {
 	/**
 	 * Creates a new Cinema with the following parameters
 	 * 
-	 * @param name  Name of the cinema
-	 * @param cid   ID of the cinema
+	 * @param name Name of the cinema
+	 * @param cid  ID of the cinema
 	 */
 	public Cinema(String name, String cid) {
 		this.name = name;
@@ -129,7 +129,7 @@ public class Cinema {
 	/**
 	 * Adds a new movie listing to the cinema's List of MovieListing
 	 * 
-	 * @param beans List of movie listings
+	 * @param beans   List of movie listings
 	 * @param options Options for movie
 	 */
 	public void addMovieListing(List<Movie> beans, String options) {
@@ -193,8 +193,15 @@ public class Cinema {
 			System.out.println(Integer.toString(i) + ". " + fullML.get(i).getMovie().getMovieTitle() + " "
 					+ fullML.get(i).getShowtime());
 		}
-		System.out.print("Select listing to remove: ");
-		int listPos = sc.nextInt();
+		int listPos;
+		do {
+			System.out.print("Select listing to remove: ");
+			listPos = sc.nextInt();
+			if (listPos < 0 || listPos >= fullML.size()) {
+				System.out.println("---- Error! Please select listed option");
+			}
+		} while (listPos < 0 || listPos >= fullML.size());
+
 		String tempShowTime = fullML.get(listPos).getShowtime();
 		int hallID = fullML.get(listPos).getHallID();
 		halls.get(hallID).getAvailableShowTimes().add(tempShowTime);
