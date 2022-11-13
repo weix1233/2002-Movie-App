@@ -11,7 +11,7 @@ import java.util.Scanner;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-public class StaffLogin {
+public class Login {
 	@CsvBindByName
 	private String username;
 	@CsvBindByName
@@ -68,7 +68,7 @@ public class StaffLogin {
 			String user = sc.next();
 			System.out.print("Enter password: ");
 			String pass = hashPassword(sc.next());
-				List<StaffLogin> beans = new CsvToBeanBuilder(new FileReader(loginFilePath)).withType(StaffLogin.class)
+				List<Login> beans = new CsvToBeanBuilder(new FileReader(loginFilePath)).withType(Login.class)
 						.build().parse();
 			if (user.equals(beans.get(0).getUsername()) && pass.equals(beans.get(0).getPassword())) {
 				System.out.println("Login success");
