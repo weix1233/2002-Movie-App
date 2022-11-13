@@ -146,7 +146,9 @@ public class Cinema {
 					break;
 				}
 			}
-			System.out.print("---- Error! Select only shown options ----");
+			if (check == 0) {
+				System.out.print("---- Error! Select only shown options ----");
+			}
 		} while (check == 0);
 
 		Movie selectedMovie = beans.get(moviePos);
