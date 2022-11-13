@@ -42,6 +42,8 @@ public class ControlPanel {
 		case 1:
 			// guest
 			System.out.println("guest logged in");
+			CustomerApp ca = new CustomerApp();
+			ca.displayMenu();
 			break;
 		case 2:
 			// member

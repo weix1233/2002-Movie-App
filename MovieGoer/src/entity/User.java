@@ -178,11 +178,17 @@ public class User {
 	public boolean getIsAdmin() {
 		return isAdmin;
 	}
-
+	/**
+	 * Gets the username of the user
+	 * @return name of user
+	 */
 	public String getUsername() {
 		return username;
 	}
-
+	/**
+	 * Gets the password of user
+	 * @return password of user
+	 */
 	public String getPassword() {
 		return password;
 	}
