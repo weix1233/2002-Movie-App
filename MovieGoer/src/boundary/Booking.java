@@ -42,7 +42,7 @@ public class Booking {
 	/**
 	 * An array of tickets depending on how many seats they chose
 	 */
-	private ArrayList<Ticket> tickets;
+	private ArrayList<Ticket> tickets = new ArrayList<Ticket>();
 	/**
 	 * The type of ticket
 	 */
@@ -64,11 +64,11 @@ public class Booking {
 	/**
 	 * The row for the seats chosen
 	 */
-	private ArrayList<Integer> rows;
+	private ArrayList<Integer> rows = new ArrayList<Integer>();
 	/**
 	 * The columns for seats chosen
 	 */
-	private ArrayList<Integer> cols;
+	private ArrayList<Integer> cols = new ArrayList<Integer>();
 	/**
 	 * Constructs a 
 	 * @param hall the Hall associated with the current movieListing
@@ -128,9 +128,10 @@ public class Booking {
 		}
 		System.out.println("=========================================");
 		System.out.println("Seats selection: ");
-		hall.showSeats();
+		hall.showSeats(this.movieListing.getSeats());
 		System.out.println("Please enter row & column of each seat: ");
 		System.out.println("E.g.: A4 A5 = 14 15");
+		sc.nextLine();
 		String[] selectedSeats = sc.nextLine().split(" ");
 		for (int i = 0; i < selectedSeats.length; i++) {
 			int value = Integer.parseInt(selectedSeats[i]);
@@ -241,14 +242,14 @@ public class Booking {
 	public void showStandardPrices() {
 		System.out.println("Current ticket prices for Standard cinema class: ");
 		System.out.println("=================================================");
-		System.out.println("Ticket type          2D Movies    3D Mvoies");
-		System.out.println("Senior Citizens*     $5.00		  $7.00");
-		System.out.println("Students**           $7.00		  $9.00");
-		System.out.println("Mon - Thu	         $9.00		  $11.00");
-		System.out.println("Fri (before 6pm)     $10.00		  $12.00");
-		System.out.println("Fri (from 6pm)       $11.00		  $13.00");
-		System.out.println("Sat & Sun 	         $11.00		  $13.00");
-		System.out.println("Public Holidays      $13.00		  $15.00");
+		System.out.println("Ticket type          2D Movies      3D Movies");
+		System.out.println("Senior Citizens*     $5.00          $7.00");
+		System.out.println("Students**           $7.00		    $9.00");
+		System.out.println("Mon - Thu            $9.00          $11.00");
+		System.out.println("Fri (before 6pm)     $10.00         $12.00");
+		System.out.println("Fri (from 6pm)       $11.00         $13.00");
+		System.out.println("Sat & Sun            $11.00         $13.00");
+		System.out.println("Public Holidays      $13.00         $15.00");
 		System.out.println("=================================================");
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
@@ -259,14 +260,14 @@ public class Booking {
 	public void showPlatiumPrices() {
 		System.out.println("Current ticket prices for Platium cinema class: ");
 		System.out.println("=================================================");
-		System.out.println("Ticket type          2D Movies    3D Mvoies");
-		System.out.println("Senior Citizens*     $7.00		  $9.00");
-		System.out.println("Students**           $9.00		  $11.00");
-		System.out.println("Mon - Thu	         $11.00		  $13.00");
-		System.out.println("Fri (before 6pm)     $12.00		  $14.00");
-		System.out.println("Fri (from 6pm)       $13.00		  $15.00");
-		System.out.println("Sat & Sun 	         $13.00		  $15.00");
-		System.out.println("Public Holidays      $15.00		  $17.00");
+		System.out.println("Ticket type          2D Movies      3D Movies");
+		System.out.println("Senior Citizens*     $7.00          $9.00");
+		System.out.println("Students**           $9.00          $11.00");
+		System.out.println("Mon - Thu            $11.00         $13.00");
+		System.out.println("Fri (before 6pm)     $12.00         $14.00");
+		System.out.println("Fri (from 6pm)       $13.00         $15.00");
+		System.out.println("Sat & Sun            $13.00         $15.00");
+		System.out.println("Public Holidays      $15.00         $17.00");
 		System.out.println("=================================================");
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");

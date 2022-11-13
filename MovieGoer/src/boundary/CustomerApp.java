@@ -108,7 +108,7 @@ public class CustomerApp {
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
-		Hall h = currentCinema.getHall(ml.getHallID());
+		Hall h = currentCinema.getHalls().get(ml.getHallID());
 		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
 		List<User> u = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
 		Booking b = new Booking(h,ml,u);
@@ -239,9 +239,11 @@ public class CustomerApp {
 	public List<Movie> getUniqueMovies(){
 		List<MovieListing> ml = this.currentCinema.getMovieListing();
 		List<Movie> m = new ArrayList<Movie>();
+		List<String> s = new ArrayList<String>();
 		for(int i = 0;i < ml.size();i++) {
-			if(!m.contains(ml.get(i).getMovie())) {
+			if(!s.contains(ml.get(i).getMovie().getMovieTitle())) {
 				m.add(ml.get(i).getMovie());
+				s.add(ml.get(i).getMovie().getMovieTitle());
 			}
 		}
 		return m;
