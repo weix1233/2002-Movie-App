@@ -192,8 +192,8 @@ public class Cinema {
 		}
 		System.out.println("Current movie listings");
 		for (int i = 0; i < fullML.size(); i++) {
-			System.out.println(Integer.toString(i) + ". " + fullML.get(i).getMovie().getMovieTitle() + " "
-					+ fullML.get(i).getShowtime());
+			System.out.println(Integer.toString(i) + ". " + fullML.get(i).getMovie().getMovieTitle() + " " + " "
+					+ fullML.get(i).getDay().name() + " " + fullML.get(i).getShowtime());
 		}
 		int listPos;
 		do {
