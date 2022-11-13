@@ -5,6 +5,11 @@ import java.util.Scanner;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
 
+/**
+ * Used for letting the user choose the movie listing
+ * @author SS4 Group 4
+ *
+ */
 public class MovieListingControl {
 	// list of movie listing = new sth;
 	Scanner sc = new Scanner(System.in);

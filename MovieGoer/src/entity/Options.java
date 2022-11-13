@@ -1,7 +1,11 @@
 package entity;
 
 import com.opencsv.bean.CsvBindByName;
-
+/**
+ * Represents the current configurations for the app that the admin can change
+ * @author SS4 Group 4
+ *
+ */
 public class Options {
 	/**
 	 * Allows admin to change the sort option. (1) Rating, (2) Sale, (3) Customer choice

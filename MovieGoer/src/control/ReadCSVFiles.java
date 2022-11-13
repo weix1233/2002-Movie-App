@@ -18,18 +18,26 @@ import entity.User;
  * from CSV files into a List object. All the CSV files paths are declared here
  * for convenient editing and applies to the entire app.
  * 
- * @author tanju
+ * @author SS4 Group 4
  *
  */
 public class ReadCSVFiles {
 
 	/**
-	 * Please ensure your filepath matches where you have placed the database csv
-	 * files.
+	 * Location of the cinema CSV
 	 */
 	private static String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+	/**
+	 * Location of the movie CSV
+	 */
 	private static String movieFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	/**
+	 * Location of the user CSV
+	 */
 	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	/**
+	 * Location of the options CSV
+	 */
 	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
 
 	/**
@@ -66,7 +74,13 @@ public class ReadCSVFiles {
 	public static List<Movie> getMovieList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(movieFileName)).withType(Movie.class).build().parse();
 	}
-
+	/**
+	 * Gets the options
+	 * 
+	 * @return options for the App
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
 	public static List<Options> getOptions() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(optionsFilePath)).withType(Options.class).build().parse();
 	}
@@ -75,15 +89,8 @@ public class ReadCSVFiles {
 	 * Reads the selected cineplex file which user has chosen and returns the list
 	 * of MovieListing for that particular cineplex
 	 * 
-	 * @param choice user input from console interface prompt
+	 * @param choice user input from console interface prompt indicating location
 	 * @return a list of MovieListing objects
-	 * @throws IllegalStateException
-	 * @throws FileNotFoundException
-	 */
-	/**
-	 * Gets the options
-	 * 
-	 * @return options for the App
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
@@ -113,6 +120,9 @@ public class ReadCSVFiles {
 	/**
 	 * Because everytime we read a new userBeans, the memory address changes Hence,
 	 * we need to refind the correct object in order to update the correct object
+	 * @param userBeans List of User objects
+	 * @param user the User object to find
+	 * @return the found User object
 	 */
 	public static User findUser(List<User> userBeans, User user) {
 		User newUser = null;

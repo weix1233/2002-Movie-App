@@ -11,6 +11,11 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import control.WriteCSVFiles;
 import entity.User;
 
+/**
+ * Used to create a new member/guest
+ * @author SS4 Group 4
+ *
+ */
 public class Register {
 	/**
 	 * Create a new user object and add to the user database (csv file)
