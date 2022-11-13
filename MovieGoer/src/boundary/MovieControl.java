@@ -276,7 +276,7 @@ public class MovieControl {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public void updateReview(Movie mov, String path, List<Movie> movieBeans)
+	public void updateReview(Movie mov, List<Movie> movieBeans)
 			throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		System.out.println("Leave a review for this movie? Y/N");
 		String choice = sc.next();
