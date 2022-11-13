@@ -67,6 +67,10 @@ public class ReadCSVFiles {
 		return new CsvToBeanBuilder(new FileReader(movieFileName)).withType(Movie.class).build().parse();
 	}
 
+	public static List<Options> getOptions() throws IllegalStateException, FileNotFoundException {
+		return new CsvToBeanBuilder(new FileReader(optionsFilePath)).withType(Options.class).build().parse();
+	}
+
 	/**
 	 * Reads the selected cineplex file which user has chosen and returns the list
 	 * of MovieListing for that particular cineplex
@@ -83,10 +87,6 @@ public class ReadCSVFiles {
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
-	public static List<Options> getOptions() throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(optionsFilePath)).withType(Options.class).build().parse();
-	}
-
 	public static List<MovieListing> initialiseML(int choice) throws IllegalStateException, FileNotFoundException {
 		String filePath = null;
 		switch (choice) {

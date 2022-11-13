@@ -80,18 +80,6 @@ public class Cinema {
 	}
 
 	/**
-	 * Gets a list of hall IDs for the cinema
-	 * 
-	 * @return list of hall IDs
-	 *
-	 * 
-	 *         /** Gets a Hall given the ID of the hall
-	 * 
-	 * @param hallID ID of the hall
-	 * @return Hall object with the specified hall ID
-	 */
-
-	/**
 	 * Changes ID of the cinema
 	 * 
 	 * @param cid New cinema ID
@@ -136,6 +124,12 @@ public class Cinema {
 		return this.fullML;
 	}
 
+	/**
+	 * Adds a new movie listing to the cinema's List of MovieListing
+	 * 
+	 * @param beans
+	 * @param options
+	 */
 	public void addMovieListing(List<Movie> beans, String options) {
 		MovieListingControl mc = new MovieListingControl();
 		String[] parts = options.split(" ");
@@ -184,6 +178,9 @@ public class Cinema {
 		fullML.add(ml);
 	}
 
+	/**
+	 * Delete an existing movie listing from the cinema's List of MovieListing
+	 */
 	public void delMovieListing() {
 		if (fullML.size() == 0) {
 			System.out.println("No current movie listings to remove");
@@ -203,6 +200,9 @@ public class Cinema {
 		fullML.remove(listPos);
 	}
 
+	/**
+	 * Update an existing movie listing details in the cinema's List of MovieListing
+	 */
 	public void updateMovieListing() {
 		MovieListingControl mc = new MovieListingControl();
 		if (fullML.size() == 0) {
@@ -243,6 +243,10 @@ public class Cinema {
 		}
 	}
 
+	/**
+	 * Prints out all the Movie Listing objects in the cinema's List of Movie
+	 * Listing
+	 */
 	public void listMovieListing() {
 		if (fullML.size() == 0) {
 			System.out.println("No current movie listings available");
@@ -255,6 +259,12 @@ public class Cinema {
 			fullML.get(i).printListing();
 		}
 	}
+
+	/**
+	 * Gets a list of hall IDs for the cinema
+	 * 
+	 * @return list of hall IDs
+	 */
 
 	public List<Hall> getHalls() {
 		return halls;
