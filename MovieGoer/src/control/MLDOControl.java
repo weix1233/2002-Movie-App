@@ -67,4 +67,14 @@ public class MLDOControl {
 		}
 		return ml;
 	}
+	public List<MLDataObject> convertToMLDO(List<MovieListing> data){
+		List<MLDataObject> mldo = new ArrayList<>();
+		for(int i = 0; i <data.size();i++) {
+			MLDataObject temp = new MLDataObject();
+			mldo.add(temp);
+			mldo.get(i).setDayOfWeek(data.get(i).getDay().name());
+				
+			}
+		return mldo;
+	}
 }

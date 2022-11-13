@@ -1,17 +1,15 @@
 package boundary;
 
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import control.WriteCSVFiles;
 import entity.Movie;
 import entity.Review;
 
@@ -299,28 +297,11 @@ public class MovieControl {
 			List<Review> rList = mov.getReviews();
 			rList.add(r);
 			mov.setReviews(rList);
-			this.reviewWriter(path, movieBeans);
+			WriteCSVFiles wcf = new WriteCSVFiles();
+			wcf.movieToCSV(movieBeans);
 			break;
 		default:
 			break;
 		}
-	}
-
-	/**
-	 * Updates the review in the csv
-	 * 
-	 * @param path       file path
-	 * @param movieBeans the movie list
-	 * @throws IllegalStateException
-	 * @throws CsvDataTypeMismatchException
-	 * @throws CsvRequiredFieldEmptyException
-	 * @throws IOException
-	 */
-	public void reviewWriter(String path, List<Movie> movieBeans)
-			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		Writer writer = new FileWriter(path);
-		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-		beanToCsv.write(movieBeans);
-		writer.close();
 	}
 }

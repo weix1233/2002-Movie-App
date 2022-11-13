@@ -134,7 +134,7 @@ public class Hall {
 	public void updateSeats(int row, int col) {
 		if (!seat[row - 1][col - 1].isOccupied()) {
 			seat[row - 1][col - 1].assign();
-			System.out.println("Seat assigned!");
+			//System.out.println("Seat assigned!");
 		} else
 			System.out.println("Seat already assigned to a customer.");
 	}
