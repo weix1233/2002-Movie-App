@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 /**
  * Represents a single movie listing
  * 
@@ -47,7 +49,10 @@ public class MovieListing {
 	 * ID of the hall where the movie will be screened
 	 */
 	private int hallID;
-
+	/**
+	 * Seats that are taken based on seat ID no.
+	 */
+	private List<Integer> seats;
 	/**
 	 * Creates a new MovieListing with the following parameters
 	 * 
@@ -165,5 +170,18 @@ public class MovieListing {
 	public void setCinemaHall(int hallID) {
 		this.hallID = hallID;
 	}
-
+	/**
+	 * Changes the occupied seats to a new one
+	 * @param seats The seats that are occupied
+	 */
+	public void setSeats(List<Integer> seats) {
+		this.seats = seats;
+	}
+	/**
+	 * Gets the seats that are occupied based on ID
+	 * @return seats occupied based on ID
+	 */
+	public List<Integer> getSeats(){
+		return this.seats;
+	}
 }

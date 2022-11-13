@@ -10,9 +10,22 @@ import control.SortTop;
 import entity.Cinema;
 import entity.Movie;
 
+/**
+ * Contains the admin user interface to allow them to modify Movie Database and
+ * Cineplex Database
+ * 
+ * @author SS4 Group 4
+ *
+ */
 public class AdminControl {
 	Scanner sc = new Scanner(System.in);
 
+	/**
+	 * Main Menu console user interface for admin users. Admin can edit the movie
+	 * database or cineplex database from here.
+	 * 
+	 *
+	 */
 	public void MainMenu() throws IllegalStateException, FileNotFoundException {
 		MovieControl movieControl = new MovieControl();
 		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
@@ -26,7 +39,7 @@ public class AdminControl {
 				MovieDatabaseMenu(movieBeans, movieControl);
 				break;
 			case 2:
-				MovieMenu(movieControl, cinemaBeans, movieBeans);
+				CineplexMenu(movieControl, cinemaBeans, movieBeans);
 				break;
 			default:
 				break;
@@ -39,7 +52,13 @@ public class AdminControl {
 		SortTop st = new SortTop(movieBeans);
 	}
 
-	public void MovieMenu(MovieControl movieControl, List<Cinema> cinemaBeans, List<Movie> movieBeans)
+	/**
+	 * Console menu for admin users to edit the Cineplex database. Here they
+	 * add/update/delete movie showtimes for each location.
+	 * 
+	 *
+	 */
+	public void CineplexMenu(MovieControl movieControl, List<Cinema> cinemaBeans, List<Movie> movieBeans)
 			throws IllegalStateException, FileNotFoundException {
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
@@ -72,6 +91,12 @@ public class AdminControl {
 		System.out.println("exited");
 	}
 
+	/**
+	 * Console menu for admin users to edit the movie database. Here they
+	 * add/update/delete movies.
+	 * 
+	 *
+	 */
 	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl)
 			throws IllegalStateException, FileNotFoundException {
 		int option;

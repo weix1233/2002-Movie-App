@@ -35,26 +35,46 @@ public class MLDOControl {
 			switch(data.get(i).getDayOfWeek()){
 			case "MON":
 				ml.get(i).setDay(dayOfWeek.MON);
+				break;
 			case "TUES":
 				ml.get(i).setDay(dayOfWeek.TUES);
+				break;
 			case "WED":
 				ml.get(i).setDay(dayOfWeek.WED);
+				break;
 			case "THURS":
 				ml.get(i).setDay(dayOfWeek.THURS);
+				break;
 			case "FRI":
 				ml.get(i).setDay(dayOfWeek.FRI);
+				break;
 			case "SAT":
 				ml.get(i).setDay(dayOfWeek.SAT);
+				break;
 			case "SUN":
 				ml.get(i).setDay(dayOfWeek.SUN);
+				break;
 			case "PH":
 				ml.get(i).setDay(dayOfWeek.PH);
+				break;
 			default:
 				ml.get(i).setDay(dayOfWeek.MON);
+				break;
 			}
 			ml.get(i).setCinemaHall(data.get(i).getHallID());
 			ml.get(i).setMovie(data.get(i).getMovie());
+			ml.get(i).setSeats(data.get(i).getSeats());
 		}
 		return ml;
+	}
+	public List<MLDataObject> convertToMLDO(List<MovieListing> data){
+		List<MLDataObject> mldo = new ArrayList<>();
+		for(int i = 0; i <data.size();i++) {
+			MLDataObject temp = new MLDataObject();
+			mldo.add(temp);
+			mldo.get(i).setDayOfWeek(data.get(i).getDay().name());
+				
+			}
+		return mldo;
 	}
 }
