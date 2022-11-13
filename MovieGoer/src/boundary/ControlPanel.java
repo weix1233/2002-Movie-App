@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import entity.User;
+
 /**
  * The start point of MOBLIMA App. This decides if the user is accessing the
  * customer or admin user interface
@@ -30,30 +32,21 @@ public class ControlPanel {
 			CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		WelcomeBanner();
 		Login login = new Login();
-		int userType = 0;
+		User userType = null;
 		// Guest = 1, Members = 2, Admin = 3, Login Error = -1 user is forced to login
 		// again
 		do {
 			userType = login.validate();
 			// userType = 3;
-		} while (userType == -1);
-
-		switch (userType) {
-		case 1:
-			// guest
-			System.out.println("guest logged in");
-			CustomerApp ca = new CustomerApp();
-			ca.displayMenu();
-			break;
-		case 2:
-			// member
-			System.out.println("member logged in");
-			break;
-		case 3:
-			// admin
+		} while (userType == null);
+		if(userType.getIsAdmin()) {
 			System.out.println("admin logged in");
 			AdminControl ac = new AdminControl();
 			ac.MainMenu();
+		}
+		else {
+			CustomerApp ca = new CustomerApp(userType);
+			ca.displayMenu();
 		}
 	}
 

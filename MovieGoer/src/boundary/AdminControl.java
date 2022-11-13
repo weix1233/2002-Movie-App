@@ -1,12 +1,17 @@
 package boundary;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.CinemaPrinter;
 import control.ReadCSVFiles;
 import control.SortTop;
+import control.WriteCSVFiles;
 import entity.Cinema;
 import entity.Movie;
 
@@ -24,9 +29,14 @@ public class AdminControl {
 	 * Main Menu console user interface for admin users. Admin can edit the movie
 	 * database or cineplex database from here.
 	 * 
+	 * @throws IOException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws CsvDataTypeMismatchException
+	 * 
 	 *
 	 */
-	public void MainMenu() throws IllegalStateException, FileNotFoundException {
+	public void MainMenu()
+			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		MovieControl movieControl = new MovieControl();
 		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
 		List<Movie> movieBeans = ReadCSVFiles.getMovieList();
@@ -92,17 +102,21 @@ public class AdminControl {
 	}
 
 	/**
-	 * Console menu for admin users to edit the movie database. Here they
+	 * Console menu for admin users to edit the movie database. Here they can
 	 * add/update/delete movies.
+	 * 
+	 * @throws IOException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws CsvDataTypeMismatchException
 	 * 
 	 *
 	 */
 	public void MovieDatabaseMenu(List<Movie> movieBeans, MovieControl movieControl)
-			throws IllegalStateException, FileNotFoundException {
+			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		int option;
 		do {
 			System.out.print(
-					"Selection option\n(1) List all movies (2) Add movie (3) Delete movie (4) Update Movie (5) Exit: ");
+					"Selection option\n(1) List all movies (2) Add movie (3) Delete movie (4) Update Movie (5) Save changes and exit: ");
 			option = sc.nextInt();
 			sc.nextLine();
 			switch (option) {
@@ -124,5 +138,6 @@ public class AdminControl {
 				break;
 			}
 		} while (option > 0 && option < 5);
+		WriteCSVFiles.movieToCSV(movieBeans);
 	}
 }

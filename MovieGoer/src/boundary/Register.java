@@ -12,7 +12,7 @@ import control.WriteCSVFiles;
 import entity.User;
 
 public class Register {
-	protected static void createMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
+	protected static User createMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Scanner sc = new Scanner(System.in);
 		String username;
@@ -39,8 +39,34 @@ public class Register {
 			}
 		} while (check == 1);
 		String hashedPassword = Login.hashPassword(password);
+		sc.nextLine();
 		System.out.print("Enter name: ");
-		String name = sc.next();
+		String name = sc.nextLine();
+		System.out.print("Enter mobileNo: ");
+		int mobileNo = sc.nextInt();
+		String email;
+		do {
+			check = 0;
+			System.out.print("Enter email: ");
+			email = sc.next();
+			if (email.indexOf("@") == -1) {
+				check = 1;
+				System.out.println("---- Error! Please use correct email format xxx@xxx.com ----");
+			}
+		} while (check == 1);
+		// Login newMember = new Login(username, hashedPassword, name, mobileNo, email);
+		User newUser = new User(name, email, mobileNo, false, username, hashedPassword);
+		beans.add(newUser);
+		WriteCSVFiles.userToCSV(beans);
+		return newUser;
+	}
+	
+	protected static User createGuest(List<User> beans) throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
+		Scanner sc = new Scanner(System.in);
+		int check;
+		sc.nextLine();
+		System.out.print("Enter name: ");
+		String name = sc.nextLine();
 		System.out.print("Enter mobileNo: ");
 		int mobileNo = sc.nextInt();
 		sc.nextLine();
@@ -55,8 +81,9 @@ public class Register {
 			}
 		} while (check == 1);
 		// Login newMember = new Login(username, hashedPassword, name, mobileNo, email);
-		User newUser = new User(name, email, mobileNo, false, username, hashedPassword);
+		User newUser = new User(name, email, mobileNo, false, null,null);
 		beans.add(newUser);
-		WriteCSVFiles.loginWriter(beans);
+		WriteCSVFiles.userToCSV(beans);
+		return newUser;
 	}
 }

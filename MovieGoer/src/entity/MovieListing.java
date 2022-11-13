@@ -184,4 +184,12 @@ public class MovieListing {
 	public List<Integer> getSeats(){
 		return this.seats;
 	}
+	/**
+	 * Adds the seats taken into the MovieListing
+	 * @param r row
+	 * @param c column
+	 */
+	public void updateSeat(int r,int c) {
+		this.seats.add(r*9 + c);
+	}
 }

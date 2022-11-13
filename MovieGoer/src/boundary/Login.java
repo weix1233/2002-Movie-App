@@ -59,30 +59,28 @@ public class Login {
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws IOException
 	 */
-	public int validate() throws IllegalStateException, NoSuchAlgorithmException, CsvDataTypeMismatchException,
+	public User validate() throws IllegalStateException, NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Login options\n1. Guest\n2. Account\n3. Register as member");
 		int choice = sc.nextInt();
-		List<User> beans;
+		List<User> beans = ReadCSVFiles.getLoginDetail();
 		switch (choice) {
 		case 1:
 			System.out.println("Welcome Guest!");
-			return choice;
+			return Register.createGuest(beans);
 		case 2:
 			beans = ReadCSVFiles.getLoginDetail();
 			break;
 		case 3:
 			beans = ReadCSVFiles.getLoginDetail();
-			registerMember(beans);
-			return -1;
+			return registerMember(beans);
 		default:
 			System.out.println("Invalid input, defaulting to Guest!");
-			return 1;
+			return Register.createGuest(beans);
 		}
 		// System.out.println(hashPassword("p4ssw0rd"));
 		int loginAttempts = 0;
-		int loginDetailPosition = 0;
 		sc.nextLine();
 		do {
 			System.out.print("Enter username: ");
@@ -94,11 +92,7 @@ public class Login {
 				if (user.equals(beans.get(i).getUsername())) {
 					if (pass.equals(beans.get(i).getPassword())) {
 						System.out.println("---- Login success! ----");
-						if (beans.get(i).getIsAdmin()) {
-							return 3;
-						} else {
-							return 2;
-						}
+						return beans.get(i);
 					} else {
 						System.out.println("---- Error! Login failure -----");
 						loginAttempts++;
@@ -109,7 +103,7 @@ public class Login {
 
 		} while (loginAttempts < 3); // if fail to login 3 times, the validate method will be callled by ControlPanel
 
-		return -1;
+		return null;
 
 	}
 
@@ -123,8 +117,8 @@ public class Login {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	private void registerMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
+	private User registerMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
-		Register.createMember(beans);
+		return Register.createMember(beans);
 	}
 }

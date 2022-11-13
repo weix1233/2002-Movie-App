@@ -1,22 +1,23 @@
 package boundary;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import control.MLDOControl;
+import control.ReadCSVFiles;
 import control.SortTop;
+import control.WriteCSVFiles;
 import entity.Cinema;
 import entity.Hall;
+import entity.MLDataObject;
 import entity.Movie;
 import entity.MovieListing;
-import entity.Review;
 import entity.User;
 /**
  * Contains the functions that interact with the customer
@@ -33,16 +34,21 @@ public class CustomerApp {
 	 */
 	private Cinema currentCinema;
 	/**
-	 * Location ID of the cinema
+	 * Location of the cinema based on ID
 	 */
 	private int locID;
+	/**
+	 * The guest/member that is currently logged in
+	 */
+	private User user;
 	/**
 	 * Creates a customerApp and lets the user choose the cinema
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
-	public CustomerApp() throws IllegalStateException, FileNotFoundException {
+	public CustomerApp(User user) throws IllegalStateException, FileNotFoundException {
 		this.currentCinema = chooseCinema();
+		this.user = user;
 	}
 	/**
 	 * Allows the customer to choose the Cinema
@@ -51,15 +57,12 @@ public class CustomerApp {
 	 * @throws FileNotFoundException
 	 */
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
-		
-		String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
-		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
-				.parse();
+		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		if(locationID < 1 && locationID > 3) locationID = 1;
-		this.locID = locationID;
 		cinemaBeans.get(locationID).setMovieListing(locationID);
+		this.locID = locationID;
 		return cinemaBeans.get(locationID);
 	}
 	/**
@@ -97,7 +100,9 @@ public class CustomerApp {
 				this.movieDetails(custChoice);
 				break;
 			case 3:
-				this.bookMovie(custChoice);
+				this.bookMovie(custChoice,user);
+				List<MLDataObject> MLDOBeans = MLDOControl.convertToMLDO(this.currentCinema.getMovieListing());
+				WriteCSVFiles.MLDOToCSV(MLDOBeans,locID);
 				break;
 			case 4:
 				this.bookingHistory();
@@ -132,13 +137,11 @@ public class CustomerApp {
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws IOException
 	 */
-	public void bookMovie(MovieListing ml) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
+	public void bookMovie(MovieListing ml,User u) throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException{
 		while(ml == null) {
 			ml = this.displayMovieList();
 		}
 		Hall h = currentCinema.getHalls().get(ml.getHallID());
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
-		List<User> u = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
 		Booking b = new Booking(h,ml,u);
 		b.displayBooking();
 	}
@@ -185,8 +188,7 @@ public class CustomerApp {
 			break;
 		}
 		MovieControl mc = new MovieControl();
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
-		mc.updateReview(mov, filePath,this.getUniqueMovies());
+		mc.updateReview(mov,this.getUniqueMovies());
 	}
 	/**
 	 * Prompts user to input their credentials to check their booking history
@@ -194,40 +196,7 @@ public class CustomerApp {
 	 * @throws FileNotFoundException
 	 */
 	public void bookingHistory() throws IllegalStateException, FileNotFoundException {
-		boolean check = false;
-		String name = null;
-		String email = null;
-		int mobileNo = 0;
-		int attempt = 0;
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
-		List<User> userBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
-		Scanner sc = new Scanner(System.in);
-		do {
-			System.out.println("Enter your credentials");
-			System.out.println("Name: ");
-			name = sc.next();
-			System.out.println("Email: ");
-			email = sc.next();
-			System.out.println("Mobile No: ");
-			mobileNo = sc.nextInt();
-			System.out.println("Checking ...");
-			for(int i = 0;i < userBeans.size();i++) {
-				if(userBeans.get(i).getName().equals(name)) {
-					if(userBeans.get(i).getEmail().equals(email)) {
-						if(userBeans.get(i).getMobileNo() == mobileNo) {
-							System.out.println(userBeans.get(i).getbookingHistory());
-							check = true;
-							break;
-						}
-					}
-				}
-			}
-			if(check == true) {
-				break;	
-			}
-			System.out.printf("Check failed...\nAttempts left: %d\n",3 - ++attempt);
-		} while(attempt < 3);
-		System.out.println("Returning to menu...");
+		System.out.println(user.getbookingHistory());
 	}
 	/**
 	 * Sorts the movies by either their sales or their rating
