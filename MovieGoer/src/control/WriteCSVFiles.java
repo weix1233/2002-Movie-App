@@ -12,14 +12,15 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import entity.MLDataObject;
 import entity.Movie;
+import entity.Options;
 import entity.User;
 
 public class WriteCSVFiles {
-
-	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
-	private static String movieFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String MLDOFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\";
-
+	
+	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	private static String movieFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	private static String MLDOFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\";
+	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
 	/**
 	 * Updates the movie CSV
 	 * 
@@ -54,7 +55,14 @@ public class WriteCSVFiles {
 		beanToCsv.write(userBeans);
 		writer.close();
 	}
-
+	/**
+	 * Updates the Movie Listing Data Object
+	 * @param MLDOBeans
+	 * @param locID
+	 * @throws IOException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 */
 	public static void MLDOToCSV(List<MLDataObject> MLDOBeans, int locID)
 			throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
 		String ext = null;
@@ -75,6 +83,21 @@ public class WriteCSVFiles {
 		Writer writer = new FileWriter(MLDOFilePath + ext);
 		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
 		beanToCsv.write(MLDOBeans);
+		writer.close();
+	}
+	/**
+	 * Changes the stored memory for options
+	 * @param optionsBeans the beans read by the admin
+	 * @throws IllegalStateException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
+	public static void optionsToCSV(List<Options> optionsBeans)
+			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
+		Writer writer = new FileWriter(optionsFilePath);
+		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+		beanToCsv.write(optionsBeans);
 		writer.close();
 	}
 }

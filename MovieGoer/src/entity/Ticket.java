@@ -1,5 +1,8 @@
 package entity;
 
+import java.io.FileNotFoundException;
+
+import control.ReadCSVFiles;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
 /**
@@ -64,12 +67,14 @@ public class Ticket {
 	}
 	/**
 	 * Calculate the price of the ticket
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public void calculateTicketPrice() {
+	public void calculateTicketPrice() throws IllegalStateException, FileNotFoundException {
 		dayOfWeek day = movieListing.getDay();
 		String time = movieListing.getShowtime();
 
-		double basePrice = 5.0;
+		double basePrice = ReadCSVFiles.getOptions().get(0).getBasePrice();
 
 		// arbitrary price setting
 		if (movieListing.getType() == screenType.TWO_D) {
@@ -108,8 +113,10 @@ public class Ticket {
 	/**
 	 * Gets the price of the ticket
 	 * @return The ticket price
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public double getTicketPrice() {
+	public double getTicketPrice() throws IllegalStateException, FileNotFoundException {
 		if(ticketPrice==0) {
 			calculateTicketPrice();
 		}
