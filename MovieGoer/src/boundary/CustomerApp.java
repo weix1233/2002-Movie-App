@@ -1,23 +1,23 @@
 package boundary;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import control.MLDOControl;
 import control.ReadCSVFiles;
 import control.SortTop;
+import control.WriteCSVFiles;
 import entity.Cinema;
 import entity.Hall;
+import entity.MLDataObject;
 import entity.Movie;
 import entity.MovieListing;
-import entity.Review;
 import entity.User;
 /**
  * Contains the functions that interact with the customer
@@ -33,6 +33,10 @@ public class CustomerApp {
 	 * Cinema chosen by the customer
 	 */
 	private Cinema currentCinema;
+	/**
+	 * Location of the cinema based on ID
+	 */
+	private int locID;
 	/**
 	 * Creates a customerApp and lets the user choose the cinema
 	 * @throws IllegalStateException
@@ -53,6 +57,7 @@ public class CustomerApp {
 		int locationID = sc.nextInt();
 		if(locationID < 1 && locationID > 3) locationID = 1;
 		cinemaBeans.get(locationID).setMovieListing(locationID);
+		this.locID = locationID;
 		return cinemaBeans.get(locationID);
 	}
 	/**
@@ -91,6 +96,8 @@ public class CustomerApp {
 				break;
 			case 3:
 				this.bookMovie(custChoice);
+				List<MLDataObject> MLDOBeans = MLDOControl.convertToMLDO(this.currentCinema.getMovieListing());
+				WriteCSVFiles.MLDOToCSV(MLDOBeans,locID);
 				break;
 			case 4:
 				this.bookingHistory();
@@ -194,9 +201,10 @@ public class CustomerApp {
 		do {
 			System.out.println("Enter your credentials");
 			System.out.println("Name: ");
-			name = sc.next();
+			sc.nextLine();
+			name = sc.nextLine();
 			System.out.println("Email: ");
-			email = sc.next();
+			email = sc.nextLine();
 			System.out.println("Mobile No: ");
 			mobileNo = sc.nextInt();
 			System.out.println("Checking ...");
