@@ -23,8 +23,16 @@ public class Login {
 	@CsvBindByName
 	private String email;
 
+	public Login(String username, String password, String name, int mobileNo, String email) {
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.mobileNo = mobileNo;
+		this.email = email;
+	}
+
 	// hashing algorithm with SHA256. Returns a String (hashed)
-	private static String hashPassword(String password) throws NoSuchAlgorithmException {
+	protected static String hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 		StringBuilder hexString = new StringBuilder(2 * hash.length);
@@ -86,49 +94,8 @@ public class Login {
 
 	}
 
-	private void registerMember(List<Login> beans)
-			throws IllegalStateException, FileNotFoundException, NoSuchAlgorithmException {
-		Scanner sc = new Scanner(System.in);
-		String username;
-		int check;
-		do {
-			check = 0;
-			System.out.print("Enter username: ");
-			username = sc.next();
-			for (int i = 0; i < beans.size(); i++) {
-				if (beans.get(i).getUsername().equals(username)) {
-					check = 1;
-					System.out.println("---- Error! Username in use, please change ----");
-				}
-			}
-		} while (check == 1);
-		String password;
-		do {
-			check = 0;
-			System.out.print("Enter password: ");
-			password = sc.next();
-			if (password.length() < 8) {
-				check = 1;
-				System.out.println("--- Error! Password length < 8, please change ----");
-			}
-		} while (check == 1);
-		String hashedPassword = hashPassword(password);
-		System.out.print("Enter name: ");
-		String name = sc.next();
-		System.out.print("Enter mobileNo: ");
-		int mobileNo = sc.nextInt();
-		sc.nextLine();
-		String email;
-		do {
-			check = 0;
-			System.out.print("Enter email: ");
-			email = sc.next();
-			if (email.indexOf("@") == -1) {
-				check = 1;
-				System.out.println("---- Error! Please use correct email format xxx@xxx.com ----");
-			}
-		} while (check == 1);
-
+	private void registerMember(List<Login> beans) throws NoSuchAlgorithmException {
+		Register.createMember(beans);
 	}
 
 	public String getUsername() {
