@@ -64,13 +64,22 @@ public class CustomerApp {
 	}
 	/**
 	 * Displays UI for customers to choose the desired function
+	 * And navigates the UI for them
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 * @throws CsvRequiredFieldEmptyException 
+	 * @throws CsvDataTypeMismatchException 
 	 */
-	public void displayMenu() {
+	public void displayMenu() throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		int count = (50 - currentCinema.getName().length() - 9)/2;
+		int choice = 0;
 		String buf = "";
+		MovieListing custChoice = null;
+		
 		for(int i = 0;i < count;i++) buf = buf + "=";
+		do {
 		System.out.println("==================================================");
-		if(currentCinema.getName().length() % 2 == 0) System.out.print("=");
+		if(currentCinema.getName().length() % 2 == 0) System.out.print("=");		
 		System.out.printf("%s Cathay %s %s\n",buf,currentCinema.getName(),buf);
 		System.out.println("====== 1. List Movie Listing                ======");
 		System.out.println("====== 2. View Movie Details                ======");
@@ -79,6 +88,25 @@ public class CustomerApp {
 		System.out.println("====== 5. View Top 5 Movies                 ======");
 		System.out.println("====== 6. Exit                              ======");
 		System.out.println("==================================================");
+		choice = sc.nextInt();
+		switch(choice) {
+			case 1:
+				custChoice = this.displayMovieList();
+				break;
+			case 2:
+				this.movieDetails(custChoice);
+				break;
+			case 3:
+				this.bookMovie(custChoice);
+				break;
+			case 4:
+				this.bookingHistory();
+				break;
+			case 5:
+				this.sortPopularMovie(getUniqueMovies(), 0);
+				break;
+			}
+		} while(choice > 0 && choice < 6);
 	}
 	/*
 	 * Displays the list of movies and lets the customer choose the movie displayed
