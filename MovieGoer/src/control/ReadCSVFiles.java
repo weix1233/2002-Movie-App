@@ -13,9 +13,9 @@ import entity.MovieListing;
 import entity.User;
 
 /**
- * This class cotains all the functions to read and extract information from CSV
- * files into a List object. All the CSV files paths are declared here for
- * convenient editing and applies to the entire app.
+ * Utility class containing all the functions to read and extract information
+ * from CSV files into a List object. All the CSV files paths are declared here
+ * for convenient editing and applies to the entire app.
  * 
  * @author tanju
  *

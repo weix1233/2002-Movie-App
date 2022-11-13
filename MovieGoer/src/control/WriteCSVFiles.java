@@ -14,8 +14,18 @@ import entity.MLDataObject;
 import entity.Movie;
 import entity.User;
 
+/**
+ * Utility class which contains all the functions to write a List of objects
+ * back into the csv file. All file paths are declared here for editing
+ * convenience and must be modified to fit your own file structure.
+ * 
+ * @author tanju
+ *
+ */
 public class WriteCSVFiles {
-
+	/**
+	 * Please ensure the file path matches your own file structure
+	 */
 	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 	private static String movieFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 	private static String MLDOFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\";
