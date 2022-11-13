@@ -54,7 +54,7 @@ public class Booking {
 	/**
 	 * List of users to check if users exist
 	 */
-	private List<User> users = ReadCSVFiles.getLoginDetail();
+	private List<User> users;
 	/**
 	 * The hall for the chosen movieListing
 	 */
@@ -114,6 +114,7 @@ public class Booking {
 			System.out.println("Movie is not available for showing.");
 			return;
 		}
+		users = ReadCSVFiles.getLoginDetail();
 		System.out.println("=========================================");
 		System.out.println("Ticket prices: ");
 		if (hall.getIP() == false)
@@ -163,17 +164,14 @@ public class Booking {
 		System.out.println("Confirm to book? Press Y for yes or N for no.");
 		char choice = sc.next().charAt(0);
 		if (choice == 'Y') {
+			user = ReadCSVFiles.findUser(users,user);
 			setTransactionID();
 			String newBooking = movieListing.getMovie().getMovieTitle() + getTransactionID();
-			if(user.getUsername() == null || user.getPassword() == null) {
-				user.addBookingHistory(newBooking);
-				users.add(user);
-				WriteCSVFiles.userToCSV(users);
-			} 
-			else {
-					user.addBookingHistory(newBooking);
-					WriteCSVFiles.userToCSV(users);
-			}
+			user.addBookingHistory(newBooking);
+			System.out.println(users);
+			System.out.println(user);
+			WriteCSVFiles.userToCSV(users);
+			users = ReadCSVFiles.getLoginDetail();
 			for (int i = 0; i < tickets.size(); i++) {
 				hall.updateSeats(rows.get(i), cols.get(i));
 				movieListing.getMovie().addSales();
@@ -266,4 +264,5 @@ public class Booking {
 				return ticketType.ADULT;
 		}
 	}
+
 }

@@ -136,10 +136,23 @@ public class Cinema {
 		return this.fullML;
 	}
 
-	public void addMovieListing(List<Movie> beans) {
+	public void addMovieListing(List<Movie> beans, String options) {
 		MovieListingControl mc = new MovieListingControl();
-		System.out.println("\nChoose movie to add (Number): ");
-		int moviePos = sc.nextInt();
+		String[] parts = options.split(" ");
+		int moviePos;
+		int check = 0;
+		do {
+			System.out.println("\nChoose movie to add (Number): ");
+			moviePos = sc.nextInt();
+			for (int i = 0; i < parts.length; i++) {
+				if (Integer.toString(moviePos).equals(parts[i])) {
+					check++;
+					break;
+				}
+			}
+			System.out.print("---- Error! Select only shown options ----");
+		} while (check == 0);
+
 		Movie selectedMovie = beans.get(moviePos);
 		System.out.print("Select cinema hall number (1 ~ 3): ");
 		int hallID = sc.nextInt();

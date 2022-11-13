@@ -1,25 +1,32 @@
 package entity;
 
+import java.io.FileNotFoundException;
+
+import control.ReadCSVFiles;
 import entity.MovieListing.dayOfWeek;
 import entity.MovieListing.screenType;
+
 /**
  * Represents a ticket to be issued to the customer
+ * 
  * @author SS4 Group 4
  *
  */
 public class Ticket {
 	/**
 	 * Type of ticket (Adult, Senior or Child)
+	 * 
 	 * @author SS4 Group 4
 	 *
 	 */
 	public enum ticketType {
 		ADULT, SENIOR, CHILD
 	}
+
 	/**
 	 * Price of the ticket
 	 */
-	private double ticketPrice=0;
+	private double ticketPrice = 0;
 	/**
 	 * Type of the ticket
 	 */
@@ -40,13 +47,15 @@ public class Ticket {
 	 * Column of the seat
 	 */
 	private int col;
+
 	/**
 	 * Creates a new Ticket with the following parameters
-	 * @param cinema Cinema where the movie is screening
+	 * 
+	 * @param cinema       Cinema where the movie is screening
 	 * @param movieListing Movie Listing that the ticket is for
-	 * @param ticType Type of ticket
-	 * @param row Row of seat
-	 * @param col Column of seat
+	 * @param ticType      Type of ticket
+	 * @param row          Row of seat
+	 * @param col          Column of seat
 	 */
 	public Ticket(Hall hall, MovieListing movieListing, ticketType ticType, int row, int col) {
 		this.hall = hall;
@@ -55,21 +64,26 @@ public class Ticket {
 		this.row = row;
 		this.col = col;
 	}
+
 	/**
 	 * Gets the type of ticket
+	 * 
 	 * @return The ticket type
 	 */
 	public ticketType getTicType() {
 		return ticType;
 	}
+
 	/**
 	 * Calculate the price of the ticket
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public void calculateTicketPrice() {
+	public void calculateTicketPrice() throws IllegalStateException, FileNotFoundException {
 		dayOfWeek day = movieListing.getDay();
 		String time = movieListing.getShowtime();
 
-		double basePrice = 5.0;
+		double basePrice = ReadCSVFiles.getOptions().get(0).getBasePrice();
 
 		// arbitrary price setting
 		if (movieListing.getType() == screenType.TWO_D) {
@@ -105,11 +119,16 @@ public class Ticket {
 		// round to 2dp
 		ticketPrice = Math.round(basePrice * 100.0) / 100.0;
 	}
+
 	/**
 	 * Gets the price of the ticket
+	 * 
 	 * @return The ticket price
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public double getTicketPrice() {
+
+	public double getTicketPrice() throws IllegalStateException, FileNotFoundException {
 		if(ticketPrice==0) {
 			calculateTicketPrice();
 		}
@@ -118,13 +137,16 @@ public class Ticket {
 
 	/**
 	 * Changes the type of the ticket
+	 * 
 	 * @param ticType The new ticket type
 	 */
 	public void setTicketTypes(ticketType ticType) {
 		this.ticType = ticType;
 	}
+
 	/**
 	 * Changes the price of the ticket
+	 * 
 	 * @param ticketPrice The new ticket price
 	 */
 	public void setTicketPrice(double ticketPrice) {
