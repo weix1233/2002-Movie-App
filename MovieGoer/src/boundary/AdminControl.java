@@ -10,7 +10,6 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.CinemaPrinter;
 import control.ReadCSVFiles;
-import control.SortTop;
 import control.WriteCSVFiles;
 import entity.Cinema;
 import entity.Movie;
@@ -57,10 +56,6 @@ public class AdminControl {
 			}
 		} while (c > 0 && c < 3);
 		ControlPanel.main(null);
-	}
-
-	public void sortPopularMovie(List<Movie> movieBeans) {
-		SortTop st = new SortTop(movieBeans);
 	}
 
 	/**
