@@ -203,7 +203,6 @@ public class CustomerApp {
 	 * Sorts the movies by either their sales or their rating
 	 * Only displays the unique movies of that cinema
 	 * @param movieBeans List of the unique movies
-	 * @param sys System option chosen by admins
 	 * @throws FileNotFoundException 
 	 * @throws IllegalStateException 
 	 */

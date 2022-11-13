@@ -79,7 +79,7 @@ public class Booking {
 	 * 
 	 * @param hall         the Hall associated with the current movieListing
 	 * @param movieListing customer's choice of movieListing
-	 * @param users        list of users in the user database
+	 * @param u        list of users in the user database
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */

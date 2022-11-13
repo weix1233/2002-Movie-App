@@ -27,8 +27,13 @@ public class ControlPanel {
 	}
 
 	/**
-	 * main
-	 *
+	 * Main
+	 * @param args
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IllegalStateException, NoSuchAlgorithmException,
 			CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {

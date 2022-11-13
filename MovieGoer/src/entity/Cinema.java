@@ -22,6 +22,9 @@ import entity.MovieListing.screenType;
  *
  */
 public class Cinema {
+	/**
+	 * Scanner object
+	 */
 	Scanner sc = new Scanner(System.in);
 	/**
 	 * Name of the cinema
@@ -127,8 +130,8 @@ public class Cinema {
 	/**
 	 * Adds a new movie listing to the cinema's List of MovieListing
 	 * 
-	 * @param beans
-	 * @param options
+	 * @param beans List of movie listings
+	 * @param options Options for movie
 	 */
 	public void addMovieListing(List<Movie> beans, String options) {
 		MovieListingControl mc = new MovieListingControl();
