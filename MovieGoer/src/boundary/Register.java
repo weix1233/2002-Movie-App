@@ -9,9 +9,10 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.WriteCSVFiles;
+import entity.User;
 
 public class Register {
-	protected static void createMember(List<Login> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
+	protected static void createMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Scanner sc = new Scanner(System.in);
 		String username;
@@ -53,8 +54,9 @@ public class Register {
 				System.out.println("---- Error! Please use correct email format xxx@xxx.com ----");
 			}
 		} while (check == 1);
-		Login newMember = new Login(username, hashedPassword, name, mobileNo, email);
-		beans.add(newMember);
+		// Login newMember = new Login(username, hashedPassword, name, mobileNo, email);
+		User newUser = new User(name, email, mobileNo, false, username, password);
+		beans.add(newUser);
 		WriteCSVFiles.loginWriter(beans);
 	}
 }

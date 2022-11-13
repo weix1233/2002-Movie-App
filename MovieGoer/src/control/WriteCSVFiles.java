@@ -10,11 +10,11 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import boundary.Login;
 import entity.Movie;
+import entity.User;
 
 public class WriteCSVFiles {
-	private static String loginMemberFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\login\\member.csv";
+	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 	private static String movieFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
 
 	/**
@@ -35,11 +35,11 @@ public class WriteCSVFiles {
 		writer.close();
 	}
 
-	public static void loginWriter(List<Login> loginBeans)
+	public static void loginWriter(List<User> userBeans)
 			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		Writer writer = new FileWriter(loginMemberFilePath);
+		Writer writer = new FileWriter(userFilePath);
 		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-		beanToCsv.write(loginBeans);
+		beanToCsv.write(userBeans);
 		writer.close();
 	}
 }

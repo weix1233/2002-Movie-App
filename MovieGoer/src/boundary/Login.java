@@ -7,11 +7,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.ReadCSVFiles;
+import entity.User;
 
 /**
  * Login system to authenticate users. All users except for guest, must
@@ -22,52 +22,9 @@ import control.ReadCSVFiles;
  */
 public class Login {
 	/**
-	 * Username of a user
-	 */
-	@CsvBindByName
-	private String username;
-	/**
-	 * Password of a user
-	 */
-	@CsvBindByName
-	private String password;
-	/**
-	 * Name of a user
-	 */
-	@CsvBindByName
-	private String name;
-	/**
-	 * Mobile number of a user
-	 */
-	@CsvBindByName
-	private int mobileNo;
-	/**
-	 * Email of a user
-	 */
-	@CsvBindByName
-	private String email;
-
-	/**
 	 * Creates a empty Login object
 	 */
 	public Login() {
-	}
-
-	/**
-	 * Creates a Login object with the following parameters
-	 * 
-	 * @param username The user's username
-	 * @param password The user's password
-	 * @param name     The user's name
-	 * @param mobileNo The user's password
-	 * @param email    The user's email
-	 */
-	public Login(String username, String password, String name, int mobileNo, String email) {
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.mobileNo = mobileNo;
-		this.email = email;
 	}
 
 	/**
@@ -78,7 +35,7 @@ public class Login {
 	 * @return SHA-256 hashed password String
 	 * @throws NoSuchAlgorithmException
 	 */
-	protected static String hashPassword(String password) throws NoSuchAlgorithmException {
+	public static String hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 		StringBuilder hexString = new StringBuilder(2 * hash.length);
@@ -105,21 +62,18 @@ public class Login {
 	public int validate() throws IllegalStateException, NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Login options\n1. Guest\n2. Member\n3. Admin\n4. Register as member");
+		System.out.println("Login options\n1. Guest\n2. Account\n3. Register as member");
 		int choice = sc.nextInt();
-		List<Login> beans;
+		List<User> beans;
 		switch (choice) {
 		case 1:
 			System.out.println("Welcome Guest!");
 			return choice;
 		case 2:
-			beans = ReadCSVFiles.getLoginDetail("member.csv");
+			beans = ReadCSVFiles.getLoginDetail();
 			break;
 		case 3:
-			beans = ReadCSVFiles.getLoginDetail("admin.csv");
-			break;
-		case 4:
-			beans = ReadCSVFiles.getLoginDetail("member.csv");
+			beans = ReadCSVFiles.getLoginDetail();
 			registerMember(beans);
 			return -1;
 		default:
@@ -167,27 +121,8 @@ public class Login {
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	private void registerMember(List<Login> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
+	private void registerMember(List<User> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Register.createMember(beans);
 	}
-
-	/**
-	 * Get the username of the user
-	 * 
-	 * @return username String
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * Get the password of the user
-	 * 
-	 * @return password String
-	 */
-	public String getPassword() {
-		return password;
-	}
-
 }
