@@ -239,12 +239,28 @@ public class Cinema {
 			String showDay = mc.chooseDay().name();
 			List<String> hallAvailableShowTime = halls.get(hallID).getAvailableShowTimes();
 			System.out.println("\nChoose available showing time");
+			String check = "";
 			for (int i = 0; i < hallAvailableShowTime.size(); i++) {
 				if (hallAvailableShowTime.get(i).split(" ")[0].equals(showDay)) {
 					System.out.println(Integer.toString(i) + ". " + hallAvailableShowTime.get(i));
+					check += Integer.toString(i) + " ";
 				}
 			}
-			int showTimePos = sc.nextInt();
+			int showTimePos;
+			String split[] = check.split(" ");
+			int pass = 0;
+			do {
+				showTimePos = sc.nextInt();
+				for (int i = 0; i < split.length; i++) {
+					if (split[i].equals(Integer.toString(showTimePos))) {
+						pass++;
+						break;
+					}
+				}
+				if (pass == 0) {
+					System.out.println("---- Error! Select from listed options ----");
+				}
+			} while (pass == 0);
 			String tempShowTime = hallAvailableShowTime.remove(showTimePos);
 			hallAvailableShowTime.add(fullML.get(movieListPosition).getShowtime());
 			fullML.get(movieListPosition).setShowtime(tempShowTime);
