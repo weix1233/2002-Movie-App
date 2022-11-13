@@ -11,13 +11,13 @@ public class ControlPanel {
 	public static void main(String[] args)
 			throws IllegalStateException, FileNotFoundException, NoSuchAlgorithmException {
 		WelcomeBanner();
-		Login sl = new Login();
+		Login login = new Login();
 		int userType = 0;
 		// Guest = 1, Members = 2, Admin = 3, Login Error = -1 user is forced to login
 		// again
 		do {
-			// userType = sl.validate();
-			userType = 3;
+			userType = login.validate();
+			// userType = 3;
 		} while (userType == -1);
 
 		switch (userType) {
