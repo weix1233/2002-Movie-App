@@ -26,19 +26,19 @@ public class ReadCSVFiles {
 	/**
 	 * Location of the cinema CSV
 	 */
-	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
 	/**
 	 * Location of the movie CSV
 	 */
-	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
+	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
 	/**
 	 * Location of the user CSV
 	 */
-	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
+	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
 	/**
 	 * Location of the options CSV
 	 */
-	private static String optionsFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\options\\options.csv";
+	private static String optionsFilePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
 
 	/**
 	 * Reads the user.csv file and compiles them into a List object
@@ -99,16 +99,16 @@ public class ReadCSVFiles {
 		String filePath = null;
 		switch (choice) {
 		case 1:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 			break;
 		case 2:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\orchard\\orchard.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\orchard\\orchard.csv";
 			break;
 		case 3:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\yishun\\yishun.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\yishun\\yishun.csv";
 			break;
 		default:
-			filePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\tanju\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 			break;
 		}
 		List<MLDataObject> mldoBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(MLDataObject.class)

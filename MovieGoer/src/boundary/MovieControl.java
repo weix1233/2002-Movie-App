@@ -81,6 +81,7 @@ public class MovieControl {
 		System.out.print("Enter movie entry to delete: ");
 		int moviePos = sc.nextInt();
 		movieBeans.remove(moviePos);
+		sc.nextLine();
 	}
 
 	/**

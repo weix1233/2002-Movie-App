@@ -177,8 +177,8 @@ public class Cinema {
 
 		int showTimePos = sc.nextInt();
 		screenType screen = mc.chooseScreenType();
-		String tempShowTime = hallAvailableShowTimes.remove(showTimePos);
-		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime, hallID);
+		String[] tempShowTime = hallAvailableShowTimes.remove(showTimePos).split(" ");
+		MovieListing ml = new MovieListing(selectedMovie, screen, day, tempShowTime[1], hallID);
 		fullML.add(ml);
 	}
 
@@ -226,8 +226,15 @@ public class Cinema {
 			System.out.print(Integer.toString(i) + ". ");
 			fullML.get(i).printListing();
 		}
-		System.out.println("Select listing to update");
-		int movieListPosition = sc.nextInt();
+		int movieListPosition;
+		do {
+			System.out.println("Select listing to update");
+			movieListPosition = sc.nextInt();
+			if (movieListPosition < 0 || movieListPosition >= fullML.size()) {
+				System.out.println("---- Error! Select from listed options ----");
+			}
+		} while (movieListPosition < 0 || movieListPosition >= fullML.size());
+
 		int hallID = fullML.get(movieListPosition).getHallID();
 		System.out.print("Select option\n(1) Edit screen type (2) Edit showing time (3) Exit: ");
 		int editChoice = sc.nextInt();
@@ -261,9 +268,13 @@ public class Cinema {
 					System.out.println("---- Error! Select from listed options ----");
 				}
 			} while (pass == 0);
-			String tempShowTime = hallAvailableShowTime.remove(showTimePos);
-			hallAvailableShowTime.add(fullML.get(movieListPosition).getShowtime());
-			fullML.get(movieListPosition).setShowtime(tempShowTime);
+			String[] tempShowTime = hallAvailableShowTime.remove(showTimePos).split(" ");
+			dayOfWeek tempDay = dayOfWeek.valueOf(tempShowTime[0]);
+			String oldShowTime = fullML.get(movieListPosition).getDay().name() + " "
+					+ fullML.get(movieListPosition).getShowtime();
+			hallAvailableShowTime.add(oldShowTime);
+			fullML.get(movieListPosition).setShowtime(tempShowTime[1]);
+			fullML.get(movieListPosition).setDay(tempDay);
 			break;
 		default:
 			break;

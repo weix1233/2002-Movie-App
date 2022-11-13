@@ -26,6 +26,7 @@ public class AdminControl {
 	 * Scanner object for the class
 	 */
 	Scanner sc = new Scanner(System.in);
+
 	/**
 	 * Main Menu console user interface for admin users. Admin can edit the movie
 	 * database or cineplex database from here.
@@ -44,7 +45,8 @@ public class AdminControl {
 		List<Movie> movieBeans = ReadCSVFiles.getMovieList();
 		int c;
 		do {
-			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database (3) Access Options (4) Exit: ");
+			System.out.print(
+					"Select option\n(1) Access movie database (2) Access cineplex database (3) Access Options (4) Exit: ");
 			c = sc.nextInt();
 			switch (c) {
 			case 1:
@@ -114,7 +116,7 @@ public class AdminControl {
 	 * Console menu for admin users to edit the movie database. Here they can
 	 * add/update/delete movies.
 	 * 
-	 * @param movieBeans List of movies
+	 * @param movieBeans   List of movies
 	 * @param movieControl movieControl object
 	 * @throws IOException
 	 * @throws CsvRequiredFieldEmptyException
