@@ -11,12 +11,12 @@ public class Options {
 	 * Allows admin to change the sort option. (1) Rating, (2) Sale, (3) Customer choice
 	 */
 	@CsvBindByName
-	int sortOption;
+	private int sortOption;
 	/**
 	 * Allows admin to change base price.
 	 */
 	@CsvBindByName
-	double basePrice;
+	private double basePrice;
 	/**
 	 * Empty constructor to allow CSVbind to work
 	 */
