@@ -113,8 +113,7 @@ public class Hall {
 					else if (i == 8 || i == 9) {
 						System.out.printf(ConsoleColors.YELLOW_BACKGROUND + "%s" + ConsoleColors.RESET,
 								seat[i - 1][j - 1].seatSlot());
-					} 
-					else {
+					} else {
 						System.out.printf("%s", seat[i - 1][j - 1].seatSlot());
 					}
 				}
@@ -125,8 +124,7 @@ public class Hall {
 	}
 
 	/**
-	 * Assign a seat to a customer or print error message if seat has previously
-	 * been assigned
+	 * Assign a seat to a customer
 	 * 
 	 * @param row Row where the seat is
 	 * @param col Column to a seat
@@ -134,9 +132,21 @@ public class Hall {
 	public void updateSeats(int row, int col) {
 		if (!seat[row - 1][col - 1].isOccupied()) {
 			seat[row - 1][col - 1].assign();
-			//System.out.println("Seat assigned!");
+		}
+	}
+
+	/**
+	 * Check if seat has been assigned
+	 * 
+	 * @param row row where the seat is
+	 * @param col Column to a seat
+	 * @return boolean of seat availability
+	 */
+	public boolean checkSeats(int row, int col) {
+		if (seat[row - 1][col - 1].isOccupied()) {
+			return false;
 		} else
-			System.out.println("Seat already assigned to a customer.");
+			return true;
 	}
 
 	/**
@@ -156,12 +166,14 @@ public class Hall {
 	public boolean getIP() {
 		return this.isPlatinum;
 	}
+
 	public void initialiseSeats(List<Integer> seats) {
-		Seat[][] seatList = new Seat[9][13]; 
-		for(int i = 0;i < 9;i++) {
-			for(int j = 0;j < 13;j++) {
-				Seat temp = new Seat(i,j);
-				if(seats.contains(i * 9  + j)) temp.assign();
+		Seat[][] seatList = new Seat[9][13];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 13; j++) {
+				Seat temp = new Seat(i, j);
+				if (seats.contains(i * 9 + j))
+					temp.assign();
 				seatList[i][j] = temp;
 			}
 		}
