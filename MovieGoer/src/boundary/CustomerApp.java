@@ -57,7 +57,7 @@ public class CustomerApp {
 				.parse();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
-		if(locationID != 1 || locationID != 2 || locationID != 3) locationID = 1;
+		if(locationID < 1 && locationID > 3) locationID = 1;
 		this.locID = locationID;
 		cinemaBeans.get(locationID).setMovieListing(locationID);
 		return cinemaBeans.get(locationID);

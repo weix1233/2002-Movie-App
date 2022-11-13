@@ -14,20 +14,19 @@ import entity.Movie;
 import entity.User;
 
 public class WriteCSVFiles {
+
 	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 	private static String movieFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-
 	/**
-	 * Updates the review in the csv
-	 * 
-	 * @param path       file path
+	 * Updates the movie CSV
 	 * @param movieBeans the movie list
 	 * @throws IllegalStateException
 	 * @throws CsvDataTypeMismatchException
 	 * @throws CsvRequiredFieldEmptyException
 	 * @throws IOException
 	 */
-	public static void reviewWriter(String path, List<Movie> movieBeans)
+
+	public static void movieToCSV(List<Movie> movieBeans)
 			throws IllegalStateException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		Writer writer = new FileWriter(movieFilePath);
 		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();

@@ -158,18 +158,21 @@ public class Booking {
 			//assumes every customer is a new user at first
 			System.out.println("Are you a new user? Press Y for yes or N for no.");
 			char choice2 = sc.next().charAt(0);
+			sc.nextLine();
 			if (choice2 == 'Y') {
 				System.out.println("Please enter your name: ");
-				String name = sc.next();
+				String name = sc.nextLine();
 				System.out.println("Please enter your mobile number: ");
 				int mobileNo = sc.nextInt();
 				System.out.println("Please enter your email address: ");
-				String email = sc.next();
+				sc.nextLine();
+				String email = sc.nextLine();
 				User newUser = new User(name, email, mobileNo);
 				newUser.addBookingHistory(newBooking);
 				users.add(newUser);
 				this.writeBH();
-			} else {
+			} 
+			else {
 				if(users.isEmpty()) {
 					System.out.println("You are not in the customer database.");
 					System.out.println("Booking will be cancelled.");
@@ -244,7 +247,7 @@ public class Booking {
 		System.out.println("=================================================");
 		System.out.println("Ticket type          2D Movies      3D Movies");
 		System.out.println("Senior Citizens*     $5.00          $7.00");
-		System.out.println("Students**           $7.00		    $9.00");
+		System.out.println("Students**           $7.00          $9.00");
 		System.out.println("Mon - Thu            $9.00          $11.00");
 		System.out.println("Fri (before 6pm)     $10.00         $12.00");
 		System.out.println("Fri (from 6pm)       $11.00         $13.00");

@@ -33,7 +33,7 @@ public class Movie {
 	/**
 	 * List of cast members, with each member stored as a String of first and last name
 	 */
-	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",")
+	@CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = ",", writeDelimiter = ",")
 	private List<String> cast;
 	/**
 	 * Showing status of the movie
@@ -48,7 +48,7 @@ public class Movie {
 	/**
 	 * List of all the reviews for the movie
 	 */
-	@CsvBindAndSplitByName(elementType = Review.class, collectionType = ArrayList.class, splitOn = ",", converter = TextToReview.class)
+	@CsvBindAndSplitByName(elementType = Review.class, collectionType = ArrayList.class, splitOn = ",", converter = TextToReview.class, writeDelimiter = ",")
 	private List<Review> reviews;
 	/**
 	 * A counter of how many tickets have been sold for the movie
