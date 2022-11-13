@@ -167,7 +167,7 @@ public class Booking {
 				System.out.println("Please enter your email address: ");
 				sc.nextLine();
 				String email = sc.nextLine();
-				User newUser = new User(name, email, mobileNo);
+				User newUser = new User(name, email, mobileNo, false, null, null );
 				newUser.addBookingHistory(newBooking);
 				users.add(newUser);
 				this.writeBH();
