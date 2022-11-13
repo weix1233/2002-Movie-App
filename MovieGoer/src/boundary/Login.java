@@ -13,21 +13,55 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.ReadCSVFiles;
 
+/**
+ * Login system to authenticate users. All users except for guest, must
+ * authenticate before being able to access the app.
+ * 
+ * @author SS4 Group 4
+ *
+ */
 public class Login {
+	/**
+	 * Username of a user
+	 */
 	@CsvBindByName
 	private String username;
+	/**
+	 * Password of a user
+	 */
 	@CsvBindByName
 	private String password;
+	/**
+	 * Name of a user
+	 */
 	@CsvBindByName
 	private String name;
+	/**
+	 * Mobile number of a user
+	 */
 	@CsvBindByName
 	private int mobileNo;
+	/**
+	 * Email of a user
+	 */
 	@CsvBindByName
 	private String email;
 
+	/**
+	 * Creates a empty Login object
+	 */
 	public Login() {
 	}
 
+	/**
+	 * Creates a Login object with the following parameters
+	 * 
+	 * @param username The user's username
+	 * @param password The user's password
+	 * @param name     The user's name
+	 * @param mobileNo The user's password
+	 * @param email    The user's email
+	 */
 	public Login(String username, String password, String name, int mobileNo, String email) {
 		this.username = username;
 		this.password = password;
@@ -36,7 +70,14 @@ public class Login {
 		this.email = email;
 	}
 
-	// hashing algorithm with SHA256. Returns a String (hashed)
+	/**
+	 * Returns a SHA-256 hash string. Used to hash a user's password to comply with
+	 * security standards
+	 * 
+	 * @param password user's password String to be hashed
+	 * @return SHA-256 hashed password String
+	 * @throws NoSuchAlgorithmException
+	 */
 	protected static String hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
@@ -51,7 +92,16 @@ public class Login {
 		return hexString.toString();
 	}
 
-	// Login method to the Cinema system
+	/**
+	 * Authentication user interface for users to log in to the app.
+	 * 
+	 * @return a integer to indicate the type of user logged in.
+	 * @throws IllegalStateException
+	 * @throws NoSuchAlgorithmException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IOException
+	 */
 	public int validate() throws IllegalStateException, NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IOException {
 		Scanner sc = new Scanner(System.in);
@@ -107,15 +157,35 @@ public class Login {
 
 	}
 
+	/**
+	 * Creates a new member account and saves it to the member database (csv file)
+	 * 
+	 * @param beans List of member details from member database
+	 * @throws NoSuchAlgorithmException
+	 * @throws CsvDataTypeMismatchException
+	 * @throws CsvRequiredFieldEmptyException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	private void registerMember(List<Login> beans) throws NoSuchAlgorithmException, CsvDataTypeMismatchException,
 			CsvRequiredFieldEmptyException, IllegalStateException, IOException {
 		Register.createMember(beans);
 	}
 
+	/**
+	 * Get the username of the user
+	 * 
+	 * @return username String
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * Get the password of the user
+	 * 
+	 * @return password String
+	 */
 	public String getPassword() {
 		return password;
 	}
