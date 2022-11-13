@@ -122,14 +122,12 @@ public class Booking {
 		System.out.println("Please select your ticket type: ");
 		System.out.println("1. Adult, 2. Senior, 3. Child");
 		int selectedTicketType = sc.nextInt();
-		boolean isSenior = false;
 		switch (selectedTicketType) {
 			case 1:
 				ticType = ticketType.ADULT;
 				break;
 			case 2:
 				ticType = ticketType.SENIOR;
-				isSenior = true;
 				break;
 			case 3:
 				ticType = ticketType.CHILD;
@@ -182,63 +180,53 @@ public class Booking {
 		if (choice == 'Y') {
 			setTransactionID();
 			String newBooking = movieListing.getMovie().getMovieTitle() + getTransactionID();
-			if (isSenior) {
-				for (int i = 0; i < tickets.size(); i++) {
-					hall.updateSeats(rows.get(i), cols.get(i));
-					movieListing.getMovie().addSales();
-				}
-				System.out.println("Your booking is successful!");
-				System.out.println("Your transaction ID is : " + getTransactionID());
-				System.out.println("=========================================");
-			} else {
-				// assumes every customer is a new user at first
-				System.out.println("Are you a new user? Press Y for yes or N for no.");
-				char choice2 = sc.next().charAt(0);
+			// assumes every customer is a new user at first
+			System.out.println("Are you a new user? Press Y for yes or N for no.");
+			char choice2 = sc.next().charAt(0);
+			sc.nextLine();
+			if (choice2 == 'Y') {
+				System.out.println("Please enter your name: ");
+				String name = sc.nextLine();
+				System.out.println("Please enter your mobile number: ");
+				int mobileNo = sc.nextInt();
+				System.out.println("Please enter your email address: ");
 				sc.nextLine();
-				if (choice2 == 'Y') {
-					System.out.println("Please enter your name: ");
-					String name = sc.nextLine();
-					System.out.println("Please enter your mobile number: ");
-					int mobileNo = sc.nextInt();
-					System.out.println("Please enter your email address: ");
-					sc.nextLine();
-					String email = sc.nextLine();
-					User newUser = new User(name, email, mobileNo, false, null, null);
-					newUser.addBookingHistory(newBooking);
-					users.add(newUser);
-					this.writeBH();
-				} else {
-					if (users.isEmpty()) {
-						System.out.println("You are not in the customer database.");
-						System.out.println("Booking will be cancelled.");
-						System.out.println("=========================================");
-						return;
-					}
-					System.out.println("Please enter your mobileNo: ");
-					int mobileNo2 = sc.nextInt();
-					int valid = 0;
-					for (int i = 0; i < users.size(); i++) {
-						if (mobileNo2 == users.get(i).getMobileNo()) {
-							users.get(i).addBookingHistory(newBooking);
-							valid = 1;
-							this.writeBH();
-						}
-					}
-					if (valid == 0) {
-						System.out.println("You are not in the customer database.");
-						System.out.println("Booking will be cancelled.");
-						System.out.println("=========================================");
-						return;
+				String email = sc.nextLine();
+				User newUser = new User(name, email, mobileNo, false, null, null);
+				newUser.addBookingHistory(newBooking);
+				users.add(newUser);
+				this.writeBH();
+			} else {
+				if (users.isEmpty()) {
+					System.out.println("You are not in the customer database.");
+					System.out.println("Booking will be cancelled.");
+					System.out.println("=========================================");
+					return;
+				}
+				System.out.println("Please enter your mobileNo: ");
+				int mobileNo2 = sc.nextInt();
+				int valid = 0;
+				for (int i = 0; i < users.size(); i++) {
+					if (mobileNo2 == users.get(i).getMobileNo()) {
+						users.get(i).addBookingHistory(newBooking);
+						valid = 1;
+						this.writeBH();
 					}
 				}
-				for (int i = 0; i < tickets.size(); i++) {
-					hall.updateSeats(rows.get(i), cols.get(i));
-					movieListing.getMovie().addSales();
+				if (valid == 0) {
+					System.out.println("You are not in the customer database.");
+					System.out.println("Booking will be cancelled.");
+					System.out.println("=========================================");
+					return;
 				}
-				System.out.println("Your booking is successful!");
-				System.out.println("Your transaction ID is : " + getTransactionID());
-				System.out.println("=========================================");
 			}
+			for (int i = 0; i < tickets.size(); i++) {
+				hall.updateSeats(rows.get(i), cols.get(i));
+				movieListing.getMovie().addSales();
+			}
+			System.out.println("Your booking is successful!");
+			System.out.println("Your transaction ID is : " + getTransactionID());
+			System.out.println("=========================================");
 		} else {
 			System.out.println("Your booking has been cancelled.");
 			System.out.println("=========================================");
