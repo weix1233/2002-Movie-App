@@ -206,18 +206,23 @@ public class Booking {
 	}
 	/**
 	 * Display the prices for a Standard cinema class
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public void showStandardPrices() {
+	public void showStandardPrices() throws IllegalStateException, FileNotFoundException {
+		double basePrice = ReadCSVFiles.getOptions().get(0).getBasePrice() + 2.0;
+		double twoDBP = basePrice + 2.0;
+		double threeDBP = basePrice + 4.0;
 		System.out.println("Current ticket prices for Standard cinema class: ");
 		System.out.println("=================================================");
 		System.out.println("Ticket type          2D Movies      3D Movies");
-		System.out.println("Senior Citizens*     $5.00          $7.00");
-		System.out.println("Students**           $7.00          $9.00");
-		System.out.println("Mon - Thu            $9.00          $11.00");
-		System.out.println("Fri (before 6pm)     $10.00         $12.00");
-		System.out.println("Fri (from 6pm)       $11.00         $13.00");
-		System.out.println("Sat & Sun            $11.00         $13.00");
-		System.out.println("Public Holidays      $13.00         $15.00");
+		System.out.printf("Senior Citizens*     $%.2f          $%.2f\n",twoDBP - 4.0,threeDBP - 4.0);
+		System.out.printf("Students**           $%.2f          $%.2f\n",twoDBP - 2.0,threeDBP - 2.0);
+		System.out.printf("Mon - Thu            $%.2f         $%.2f\n",twoDBP,threeDBP);
+		System.out.printf("Fri (before 6pm)     $%.2f         $%.2f\n",twoDBP + 1.0,threeDBP + 1.0);
+		System.out.printf("Fri (from 6pm)       $%.2f         $%.2f\n",twoDBP + 2.0,threeDBP + 2.0);
+		System.out.printf("Sat & Sun            $%.2f         $%.2f\n",twoDBP + 2.0,threeDBP + 2.0);
+		System.out.printf("Public Holidays      $%.2f         $%.2f\n",twoDBP + 4.0,threeDBP + 4.0);
 		System.out.println("=================================================");
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
@@ -225,18 +230,23 @@ public class Booking {
 
 	/**
 	 * Display the prices for a Platinum cinema class
+	 * @throws FileNotFoundException 
+	 * @throws IllegalStateException 
 	 */
-	public void showPlatiumPrices() {
+	public void showPlatiumPrices() throws IllegalStateException, FileNotFoundException {
+		double basePrice = ReadCSVFiles.getOptions().get(0).getBasePrice() + 4.0;
+		double twoDBP = basePrice + 2.0;
+		double threeDBP = basePrice + 4.0;
 		System.out.println("Current ticket prices for Platium cinema class: ");
 		System.out.println("=================================================");
 		System.out.println("Ticket type          2D Movies      3D Movies");
-		System.out.println("Senior Citizens*     $7.00          $9.00");
-		System.out.println("Students**           $9.00          $11.00");
-		System.out.println("Mon - Thu            $11.00         $13.00");
-		System.out.println("Fri (before 6pm)     $12.00         $14.00");
-		System.out.println("Fri (from 6pm)       $13.00         $15.00");
-		System.out.println("Sat & Sun            $13.00         $15.00");
-		System.out.println("Public Holidays      $15.00         $17.00");
+		System.out.printf("Senior Citizens*     $%.2f          $%.2f\n",twoDBP - 4.0,threeDBP - 4.0);
+		System.out.printf("Students**           $%.2f          $%.2f\n",twoDBP - 2.0,threeDBP - 2.0);
+		System.out.printf("Mon - Thu            $%.2f         $%.2f\n",twoDBP,threeDBP);
+		System.out.printf("Fri (before 6pm)     $%.2f         $%.2f\n",twoDBP + 1.0,threeDBP + 1.0);
+		System.out.printf("Fri (from 6pm)       $%.2f         $%.2f\n",twoDBP + 2.0,threeDBP + 2.0);
+		System.out.printf("Sat & Sun            $%.2f         $%.2f\n",twoDBP + 2.0,threeDBP + 2.0);
+		System.out.printf("Public Holidays      $%.2f         $%.2f\n",twoDBP + 4.0,threeDBP + 4.0);
 		System.out.println("=================================================");
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
