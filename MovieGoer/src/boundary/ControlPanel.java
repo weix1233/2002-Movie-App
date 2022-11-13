@@ -6,11 +6,26 @@ import java.security.NoSuchAlgorithmException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+/**
+ * The start point of MOBLIMA App. This decides if the user is accessing the
+ * customer or admin user interface
+ * 
+ * @author SS4 Group 4
+ *
+ */
 public class ControlPanel {
+	/**
+	 * A welcome banner displayed to all users who connect to the app.
+	 *
+	 */
 	private static void WelcomeBanner() {
-		System.out.println("Welcome to the movie admin console. You can edit movie information here");
+		System.out.println("---- Welcome to MOBLIMA! ----");
 	}
 
+	/**
+	 * main
+	 *
+	 */
 	public static void main(String[] args) throws IllegalStateException, NoSuchAlgorithmException,
 			CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
 		WelcomeBanner();
@@ -34,6 +49,7 @@ public class ControlPanel {
 			break;
 		case 3:
 			// admin
+			System.out.println("admin logged in");
 			AdminControl ac = new AdminControl();
 			ac.MainMenu();
 		}

@@ -6,22 +6,21 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import boundary.Login;
 import entity.Cinema;
 import entity.MLDataObject;
 import entity.Movie;
 import entity.MovieListing;
+import entity.User;
 
 public class ReadCSVFiles {
 
 	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
 	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String loginFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\login\\";
+	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
 
-	public static List<Login> getLoginDetail(String fileName) throws IllegalStateException, FileNotFoundException {
-		return new CsvToBeanBuilder(new FileReader(loginFilePath + fileName)).withType(Login.class).build().parse();
+	public static List<User> getLoginDetail() throws IllegalStateException, FileNotFoundException {
+		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(User.class).build().parse();
 	}
-
 
 	public static List<Cinema> getCinemaList() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build().parse();
