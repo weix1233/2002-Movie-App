@@ -43,6 +43,7 @@ public class CustomerApp {
 	private User user;
 	/**
 	 * Creates a customerApp and lets the user choose the cinema
+	 * @param user Current user
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
