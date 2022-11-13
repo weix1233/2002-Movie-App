@@ -180,8 +180,8 @@ public class Movie {
 		for (int i = 0; i < reviews.size(); i++) {
 			total = total + reviews.get(i).getRating();
 		}
-		total = Math.round(total / reviews.size() * 10)
-		total = total/10
+		total = Math.round(total / reviews.size() * 10);
+		total = total/10;
 		return total;
 	}
 	/**
