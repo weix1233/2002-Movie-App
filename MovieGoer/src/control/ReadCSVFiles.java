@@ -10,6 +10,7 @@ import entity.Cinema;
 import entity.MLDataObject;
 import entity.Movie;
 import entity.MovieListing;
+import entity.Options;
 import entity.User;
 
 /**
@@ -21,13 +22,15 @@ import entity.User;
  *
  */
 public class ReadCSVFiles {
+
 	/**
 	 * Please ensure your filepath matches where you have placed the database csv
 	 * files.
 	 */
-	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
-	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
+	private static String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String movieFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
+	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
+	private static String optionsFilePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\options\\options.csv";
 
 	/**
 	 * Reads the user.csv file and compiles them into a List object
@@ -73,6 +76,17 @@ public class ReadCSVFiles {
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
 	 */
+	/**
+	 * Gets the options
+	 * 
+	 * @return options for the App
+	 * @throws IllegalStateException
+	 * @throws FileNotFoundException
+	 */
+	public static List<Options> getOptions() throws IllegalStateException, FileNotFoundException {
+		return new CsvToBeanBuilder(new FileReader(optionsFilePath)).withType(Options.class).build().parse();
+	}
+
 	public static List<MovieListing> initialiseML(int choice) throws IllegalStateException, FileNotFoundException {
 		String filePath = null;
 		switch (choice) {

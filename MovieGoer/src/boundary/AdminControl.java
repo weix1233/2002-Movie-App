@@ -44,7 +44,7 @@ public class AdminControl {
 		List<Movie> movieBeans = ReadCSVFiles.getMovieList();
 		int c;
 		do {
-			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database (3) Exit: ");
+			System.out.print("Select option\n(1) Access movie database (2) Access cineplex database (3) Access Options (4) Exit: ");
 			c = sc.nextInt();
 			switch (c) {
 			case 1:
@@ -53,10 +53,14 @@ public class AdminControl {
 			case 2:
 				CineplexMenu(movieControl, cinemaBeans, movieBeans);
 				break;
+			case 3:
+				AdminOptions ao = new AdminOptions();
+				ao.displayOptions();
+				break;
 			default:
 				break;
 			}
-		} while (c > 0 && c < 3);
+		} while (c > 0 && c < 4);
 		ControlPanel.main(null);
 	}
 
