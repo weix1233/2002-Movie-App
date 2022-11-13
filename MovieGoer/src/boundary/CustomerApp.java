@@ -11,6 +11,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import control.ReadCSVFiles;
 import control.SortTop;
 import entity.Cinema;
 import entity.Hall;
@@ -33,10 +34,6 @@ public class CustomerApp {
 	 */
 	private Cinema currentCinema;
 	/**
-	 * Location ID of the cinema
-	 */
-	private int locID;
-	/**
 	 * Creates a customerApp and lets the user choose the cinema
 	 * @throws IllegalStateException
 	 * @throws FileNotFoundException
@@ -51,14 +48,10 @@ public class CustomerApp {
 	 * @throws FileNotFoundException
 	 */
 	public Cinema chooseCinema() throws IllegalStateException, FileNotFoundException {
-		
-		String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\cinema.csv";
-		List<Cinema> cinemaBeans = new CsvToBeanBuilder(new FileReader(cinemaFileName)).withType(Cinema.class).build()
-				.parse();
+		List<Cinema> cinemaBeans = ReadCSVFiles.getCinemaList();
 		System.out.print("Select location\n(1) jurong (2) orchard (3) yishun: ");
 		int locationID = sc.nextInt();
 		if(locationID < 1 && locationID > 3) locationID = 1;
-		this.locID = locationID;
 		cinemaBeans.get(locationID).setMovieListing(locationID);
 		return cinemaBeans.get(locationID);
 	}
@@ -137,8 +130,7 @@ public class CustomerApp {
 			ml = this.displayMovieList();
 		}
 		Hall h = currentCinema.getHalls().get(ml.getHallID());
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
-		List<User> u = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
+		List<User> u =ReadCSVFiles.getLoginDetail();
 		Booking b = new Booking(h,ml,u);
 		b.displayBooking();
 	}
@@ -185,8 +177,7 @@ public class CustomerApp {
 			break;
 		}
 		MovieControl mc = new MovieControl();
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\movie\\movie.csv";
-		mc.updateReview(mov, filePath,this.getUniqueMovies());
+		mc.updateReview(mov,this.getUniqueMovies());
 	}
 	/**
 	 * Prompts user to input their credentials to check their booking history
@@ -199,9 +190,7 @@ public class CustomerApp {
 		String email = null;
 		int mobileNo = 0;
 		int attempt = 0;
-		String filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv";
-		List<User> userBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(User.class).build().parse();
-		Scanner sc = new Scanner(System.in);
+		List<User> userBeans = ReadCSVFiles.getLoginDetail();
 		do {
 			System.out.println("Enter your credentials");
 			System.out.println("Name: ");

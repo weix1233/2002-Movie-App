@@ -1,10 +1,7 @@
 package boundary;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,15 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import entity.Cinema;
+import control.WriteCSVFiles;
 import entity.Hall;
-import entity.MLDataObject;
 import entity.MovieListing;
 import entity.Ticket;
 import entity.Ticket.ticketType;
@@ -33,6 +26,10 @@ import entity.User;
  *
  */
 public class Booking {
+	/**
+	 * Scanner Object
+	 */
+	Scanner sc = new Scanner(System.in);
 	/**
 	 * ID of the transaction
 	 */
@@ -107,8 +104,8 @@ public class Booking {
 	 * @throws IOException
 	 */
 	public void displayBooking() throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException, IOException {
-		Scanner sc = new Scanner(System.in);
-		if (movieListing.getMovie().getShowingStatus().equals("END_OF_SHOWING")) {
+		
+		if (!(movieListing.getMovie().getShowingStatus().equals("NOW_SHOWING") || movieListing.getMovie().getShowingStatus().equals("PREVIEW"))) {
 			System.out.println("Movie is not available for showing.");
 			return;
 		}
@@ -119,24 +116,6 @@ public class Booking {
 		else
 			this.showPlatiumPrices();
 		System.out.println("=========================================");
-		System.out.println("Please select your ticket type: ");
-		System.out.println("1. Adult, 2. Senior, 3. Child");
-		int selectedTicketType = sc.nextInt();
-		switch (selectedTicketType) {
-			case 1:
-				ticType = ticketType.ADULT;
-				break;
-			case 2:
-				ticType = ticketType.SENIOR;
-				break;
-			case 3:
-				ticType = ticketType.CHILD;
-				break;
-			default:
-				ticType = ticketType.ADULT;
-				break;
-		}
-		System.out.println("=========================================");
 		System.out.println("Seats selection: ");
 		hall.showSeats(this.movieListing.getSeats());
 		String[] selectedSeats;
@@ -144,7 +123,6 @@ public class Booking {
 		do {
 			System.out.println("Please enter row & column of each seat: ");
 			System.out.println("E.g.: A4 A5 = 14 15");
-			sc.nextLine();
 			selectedSeats = sc.nextLine().split(" ");
 			for (int i = 0; i < selectedSeats.length; i++) {
 				int value = Integer.parseInt(selectedSeats[i]);
@@ -152,11 +130,12 @@ public class Booking {
 				int col = (value / 1) % 10;
 				rows.add(row);
 				cols.add(col);
+				ticType = this.selectTicketType();
+				sc.nextLine();
 				Ticket newTicket = new Ticket(hall, movieListing, ticType, row, col);
 				totalPrice += newTicket.getTicketPrice();
 				tickets.add(newTicket);
-				boolean check = hall.checkSeats(row, col);
-				if (check == false) {
+				if (!hall.checkSeats(row, col)) {
 					System.out.println("Seat is already taken!");
 					System.out.println("Please select seats again.");
 					rows.clear();
@@ -169,6 +148,7 @@ public class Booking {
 			}
 		} while (check2 == false);
 		System.out.println("=========================================");
+		
 		System.out.println("Confirmation of Booking: ");
 		System.out.println("Movie Details: ");
 		movieListing.printListing();
@@ -180,7 +160,7 @@ public class Booking {
 		if (choice == 'Y') {
 			setTransactionID();
 			String newBooking = movieListing.getMovie().getMovieTitle() + getTransactionID();
-			// assumes every customer is a new user at first
+			// assumes every customer is a new user at first'
 			System.out.println("Are you a new user? Press Y for yes or N for no.");
 			char choice2 = sc.next().charAt(0);
 			sc.nextLine();
@@ -195,7 +175,7 @@ public class Booking {
 				User newUser = new User(name, email, mobileNo, false, null, null);
 				newUser.addBookingHistory(newBooking);
 				users.add(newUser);
-				this.writeBH();
+				WriteCSVFiles.userToCSV(users);
 			} else {
 				if (users.isEmpty()) {
 					System.out.println("You are not in the customer database.");
@@ -210,7 +190,7 @@ public class Booking {
 					if (mobileNo2 == users.get(i).getMobileNo()) {
 						users.get(i).addBookingHistory(newBooking);
 						valid = 1;
-						this.writeBH();
+						WriteCSVFiles.userToCSV(users);
 					}
 				}
 				if (valid == 0) {
@@ -254,21 +234,6 @@ public class Booking {
 	public String getTransactionID() {
 		return transactionID;
 	}
-
-	/**
-	 * Writes a list of users to the user csv
-	 * 
-	 * @throws IOException
-	 * @throws CsvDataTypeMismatchException
-	 * @throws CsvRequiredFieldEmptyException
-	 */
-	public void writeBH() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-		Writer writer = new FileWriter("C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\user\\user.csv");
-		StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
-		beanToCsv.write(this.users);
-		writer.close();
-	}
-
 	/**
 	 * Display the prices for a Standard cinema class
 	 */
@@ -306,5 +271,20 @@ public class Booking {
 		System.out.println("*For patrons 55 years && older, valid from Mon-Thu only.");
 		System.out.println("**valid from Mon-Thu only");
 	}
-
+	public ticketType selectTicketType() {
+		System.out.println("=========================================");
+		System.out.println("Please select your ticket type: ");
+		System.out.println("1. Adult, 2. Senior, 3. Child");
+		int selectedTicketType = sc.nextInt();
+		switch (selectedTicketType) {
+			case 1:
+				return ticketType.ADULT;
+			case 2:
+				return ticketType.SENIOR;
+			case 3:
+				return ticketType.CHILD;
+			default:
+				return ticketType.ADULT;
+		}
+	}
 }

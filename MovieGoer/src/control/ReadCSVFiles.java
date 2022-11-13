@@ -14,9 +14,9 @@ import entity.User;
 
 public class ReadCSVFiles {
 
-	private static String cinemaFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\cinema\\cinema.csv";
-	private static String movieFileName = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\movie\\movie.csv";
-	private static String userFilePath = "C:\\Users\\tanju\\git\\2002-Movie-Apppppp\\MovieGoer\\database\\user\\user.csv";
+	private static String cinemaFileName = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\cinema.csv";
+	private static String movieFileName = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\movie\\movie.csv";
+	private static String userFilePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\user\\user.csv";
 
 	public static List<User> getLoginDetail() throws IllegalStateException, FileNotFoundException {
 		return new CsvToBeanBuilder(new FileReader(userFilePath)).withType(User.class).build().parse();
@@ -34,16 +34,16 @@ public class ReadCSVFiles {
 		String filePath = null;
 		switch (choice) {
 		case 1:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 			break;
 		case 2:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\orchard\\orchard.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\orchard\\orchard.csv";
 			break;
 		case 3:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\yishun\\yishun.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\yishun\\yishun.csv";
 			break;
 		default:
-			filePath = "C:\\Users\\user\\git\\2002-Movie-App\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
+			filePath = "C:\\Users\\user\\git\\2002-Movie-Appp\\MovieGoer\\database\\cinema\\jurong\\jurong.csv";
 			break;
 		}
 		List<MLDataObject> mldoBeans = new CsvToBeanBuilder(new FileReader(filePath)).withType(MLDataObject.class)
