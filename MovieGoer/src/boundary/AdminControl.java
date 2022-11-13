@@ -10,7 +10,6 @@ import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import control.CinemaPrinter;
 import control.ReadCSVFiles;
-import control.SortTop;
 import control.WriteCSVFiles;
 import entity.Cinema;
 import entity.Movie;
