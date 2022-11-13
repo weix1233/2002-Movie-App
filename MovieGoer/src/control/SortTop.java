@@ -26,31 +26,32 @@ public class SortTop {
 	 * Sorts the movies by the overall rating and prints the top 5
 	 */
 	public void sortByRating() {
-		double curMax = 0;
 		Movie curTop = movies.get(0);
+		double curMax = curTop.getOverallRating();
 		double cur;
 		for (int j = 0; j < 5; j++) {
-			for (int i = 1; i < movies.size(); i++) {
+			for (int i = 0; i < movies.size(); i++) {
 				cur = movies.get(i).getOverallRating();
 				if (cur > curMax) {
 					curMax = cur;
 					curTop = movies.get(i);
 				}
 			}
-			System.out.printf("%d. %s\t%f\n", j + 1, curTop.getMovieTitle(),curTop.getOverallRating());
+			System.out.printf("%d. %s\t%.2f\n", j + 1, curTop.getMovieTitle(),curTop.getOverallRating());
 			movies.remove(curTop);
-			curTop = movies.get(0);
+			curMax = 0;
 		}
 	}
 	/**
 	 * Sorts the movies by the total sales and prints the top 5
 	 */
 	public void sortBySales() {
-		int curMax = 0;
+		
 		Movie curTop = movies.get(0);
+		int curMax = curTop.getSales();
 		int cur;
 		for (int j = 0; j < 5; j++) {
-			for (int i = 1; i < movies.size(); i++) {
+			for (int i = 0; i < movies.size(); i++) {
 				cur = movies.get(i).getSales();
 				if (cur > curMax) {
 					curMax = cur;
@@ -59,7 +60,7 @@ public class SortTop {
 			}
 			System.out.printf("%d. %s\t%d\n", j + 1, curTop.getMovieTitle(),curTop.getSales());
 			movies.remove(curTop);
-			curTop = movies.get(0);
+			curMax = 0;
 		}
 	}
 }
