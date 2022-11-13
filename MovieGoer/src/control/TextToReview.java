@@ -17,10 +17,12 @@ public class TextToReview extends AbstractCsvConverter {
 	@Override
 	public Object convertToRead(String value) {
 		Review review = new Review();
-		String[] split = value.split("\\|", 3);
-		review.setReview(split[0]);
-		review.setRating(Integer.parseInt(split[1]));
-		review.setReviewer(split[2]);
+			if(value!= "") {
+			String[] split = value.split("\\|", 3);
+			review.setReview(split[0]);
+			review.setRating(Integer.parseInt(split[1]));
+			review.setReviewer(split[2]);
+		}
 		return review;
 	}
 
